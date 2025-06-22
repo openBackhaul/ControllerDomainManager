@@ -1,0 +1,79 @@
+network-control-domain:
+  type: array
+  x-key: storage
+  items:
+    type: object
+    required:
+      - storage
+      - profile
+      - control-construct
+      - link
+      - forwarding-domain
+    properties:
+      storage:
+        type: string
+        enum:
+          - 'candidate'
+          - 'startup'
+          - 'running'
+          - 'operational'
+        description: 'NMDA like data storages that document the NetworkControlDomain'
+      profile:
+        type: array
+        x-key: template-name
+        items:
+          oneOf:
+            - description: 'Profile - see 10_ApplicationTemplate.yaml'
+              type: object
+            - description: 'Profile - see 20_LoadBalancerTemplate.yaml'
+              type: object
+            - description: 'Profile - see 30_ControllerTemplate.yaml'
+              type: object
+            - description: 'Profile - see 40_LogicalControllerTemplate.yaml'
+              type: object
+      control-construct:
+        type: array
+        x-key: element-name
+        items:
+          oneOf:
+            - description: 'ControlConstruct - see 11_Application.yaml'
+              type: object
+            - description: 'ControlConstruct - see 21_LoadBalancer.yaml'
+              type: object
+            - description: 'ControlConstruct - see 31_Controller.yaml'
+              type: object
+            - description: 'ControlConstruct - see 41_LogicalController.yaml'
+              type: object
+      link:
+        type: array
+        x-key: local-id
+        items:
+          oneOf:
+            - description: 'Link - see 80_TcpConnectionA.yaml'
+              type: object
+            - description: 'Link - see 81_TcpConnectionB.yaml'
+              type: object
+            - description: 'Link - see 82_CopyConnection.yaml'
+              type: object
+      forwarding-domain:
+        type: array
+        x-key: forwarding-domain-name
+        minItems: 1
+        maxItems: 1
+        items:
+          type: object
+          description: 'managementPlaneTransport'
+          required:
+            - forwarding-domain-name
+            - forwarding-construct
+          properties:
+            forwarding-domain-name:
+              type: string
+              enum:
+                - 'management-plane-transport'
+            forwarding-construct:
+              type: array
+              x-key: forwarding-construct-name
+              items:
+                type: object
+                description: 'ForwardingConstruct - see 88_ManagementPlaneTransportConnection.yaml'

@@ -1,0 +1,65 @@
+logical-termination-point:
+  type: array
+  x-key: local-id
+  items:
+    type: object
+    required:
+      - local-id
+      - layer-protocol
+    properties:
+      local-id:
+        type: string
+        description: >
+          'deviceName
+          candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+          running: from candidate
+          operational: from running
+      layer-protocol:
+        type: array
+        x-key: local-id
+        minItems: 2
+        items:
+          oneOf:
+            - description: 'copyServer'
+              type: object
+              required:
+                - local-id
+                - copy-destination
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'copy-server'
+                copy-destination:
+                  type: string
+                  description: >
+                    'controllerName
+                    An instance of LP is to be created for every entry in _controllers[*]
+                    candidate: from [_controllers[*]]
+                    running: from [_controllers[*]]
+                    operational: from [_controllers[*]]
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-client'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the mediatorProcess to which the referenced MountPoints shall be connected to
+                    candidate: from [CDM://v1/update-netconf-client$request.body#remote-ip-address]
+                    running: from candidate
+                    operational: from running
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the mediatorProcess to which the referenced MountPoints shall be connected to
+                    candidate: from [CDM://v1/update-netconf-client$request.body#remote-port]
+                    running: from candidate
+                    operational: from running

@@ -1,0 +1,52 @@
+domain-controller:
+  type: object
+  required:
+    - function
+    - validation-sequence
+    - error-code
+    - alarm-pac
+    - network-control-domain
+  properties:
+    function:
+      type: array
+      x-key: function-name
+      items:
+        type: object
+        description: 'function - see 02_Function.yaml'
+    validation-sequence:
+      type: array
+      x-key: _trigger-function
+      items:
+        type: object
+        description: 'ValidationSequence - see 03_ValidationSequence.yaml'
+    error-code:
+      type: array
+      x-key: error-code
+      items:
+        type: object
+        description: 'ErrorCode - see 05_ErrorCode.yaml'
+    alarm-pac:
+      type: object
+      required:
+        - current-alarms
+      properties:
+        current-alarms:
+          type: object
+          required:
+            - affected-fc
+          properties:
+            affected-fc:
+              type: array
+              x-key: _affected-fc
+              description: 'List of ForwardingConstructs that have problems'
+              items:
+                type: object
+                description: 'AffectedFc - see 06_CurrentAlarm.yaml'
+    network-control-domain:
+      type: array
+      x-key: storage
+      items:
+        type: object
+        description: >
+          'NetworkControlDomain for CandidateDS, RunningDS, OperationalDS or StartupDS - see 09_NetworkControlDomain.yaml
+          Up to four identical information structures describing candidate, running, operational and potentially startup data store according to NMDA concept'

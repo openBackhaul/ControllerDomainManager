@@ -1,0 +1,91 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'controller'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - _logical-controller
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'controllerName
+              candidate: from [CDM://v1/regard-controller$request.body#controller-name]
+              running: from candidate
+              operational: from running; entire CC to be deleted, if addressing the Controller fails'
+          category:
+            type: string
+            enum:
+              - 'controller'
+          _template:
+            type: string
+            description: >
+              'controllerTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/regard-controller$request.body#controller-template-name]
+              running: from candidate
+              operational: from running'
+          _logical-controller:
+            type: string
+            description: >
+              'managementDomain
+              Reference towards an entry in the list of CC with category==logicalController
+              candidate: if controllerName in [CDM://v1/create-logical-controller$request.body#controllers/controller-name] from [CDM://v1/create-logical-controller$request.body#management-domain]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'controllerManager'
+                  type: object
+                  required:
+                    - local-id
+                    - layer-protocol
+                  properties:
+                    local-id:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    layer-protocol:
+                      type: array
+                      x-key: local-id
+                      minItems: 1
+                      maxItems: 1
+                      items:
+                        oneOf:
+                          - description: 'tcpServer'
+                            type: object
+                            required:
+                              - local-id
+                              - local-ip-address
+                              - local-port
+                            properties:
+                              local-id:
+                                type: string
+                                enum:
+                                  - 'tcp-server'
+                              local-ip-address:
+                                type: string
+                                description: >
+                                  'IP address of the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#local-ip-address]
+                                  running: from candidate
+                                  operational: from running'
+                              local-port:
+                                type: integer
+                                description: >
+                                  'TCP port of the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#local-port]
+                                  running: from candidate
+                                  operational: from running'
+                - description: 'LogicalTerminationPoint - see 32_MountPoint.yaml'
+                  type: object

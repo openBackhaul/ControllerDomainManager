@@ -1,0 +1,87 @@
+forwarding-construct:
+  type: array
+  x-key: forwarding-construct-name
+  items:
+    type: object
+    required:
+      - forwarding-construct-name
+      - fctp
+      - route
+    properties:
+      forwarding-construct-name:
+        type: string
+        description: >
+          'deviceName
+          candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+          running: from candidate
+          operational: from running; entire FC to be deleted, if no entry exists in route in operationalDS'
+      fctp:
+        type: array
+        x-key: _cc
+        minItems: 2
+        maxItems: 2
+        items:
+          oneOf:
+            - description: managementPlaneTransportClient
+              type: object
+              required:
+                - _cc
+              properties:
+                _cc:
+                  type: string
+                  description: >
+                    'applicationName
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#application-name]
+                    running: from candidate
+                    operational: from running'
+            - description: managementPlaneTransportServer
+              type: object
+              required:
+                - _cc
+              properties:
+                _cc:
+                  type: string
+                  description: >
+                    'managementDomain, which is same as element-name of LogicalController
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                    running: from candidate
+                    operational: from running'
+      route:
+        type: array
+        x-key: local-id
+        items:
+          type: object
+          required:
+            - local-id
+            - _links
+          properties:
+            local-id:
+              type: string
+              description: >
+                'Identifier that is unique within the list of Routes
+                candidate: An instance of Route is to be created for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*]]
+                running: from candidate
+                operational: from running; entire Route to be deleted, if one of the referenced Links does not exist in operationalDS'
+            _links:
+              type: array
+              minItems: 3
+              maxItems: 3
+              items:
+                type: string
+                description: >
+                  'Three localIds of tcpLinkA, tcpLinkB and copyLink on a path between the two fctp
+                  An instance of Route is to be created for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*]]
+                  managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                  odlName=[/management-domain=running/control-construct=[managementDomain]/_controllers[n]] (pick one to create this instance of Route)
+                  tcpLinkA:
+                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]]
+                    running: from candidate
+                    operational: from running'
+                  tcpLinkB:
+                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-server/_cc]==odlName]
+                    running: from candidate
+                    operational: from running'
+                  copyLink:
+                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=copy-client/_cc]==odlName]
+                    running: from candidate
+                    operational: from running'

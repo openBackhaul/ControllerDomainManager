@@ -1,0 +1,90 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'applicationTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - manager-ip-address
+          - manager-port
+          - list-applications-service
+          - application-is-available-service
+          - list-management-domains-service
+          - inform-about-management-domain-service
+          - update-management-domain-service
+        properties:
+          template-name:
+            type: string
+            description: >
+              'applicationTemplateName
+              candidate: from [CDM://v1/create-application-template$request.body#application-template-name]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'application'
+          manager-ip-address:
+            type: string
+            description: >
+              'IP address of the ApplicationLayerManager (ALM)
+              candidate: from [CDM://v1/create-application-template$request.body#manager-ip-address]
+              running: from candidate
+              operational: from running'
+          manager-port:
+            type: string
+            description: >
+              'TCP port of the ALM
+              candidate: from [CDM://v1/create-application-template$request.body#manager-port]
+              running: from candidate
+              operational: from running'
+          list-applications-service:
+            type: string
+            description: >
+              'Service for providing the list of applications at ALM
+              RequestBody: none
+              ResponseBody: {list-of-application-names:string[*]}
+              candidate: from [CDM://v1/create-application-template$request.body#list-applications-service]
+              running: from candidate
+              operational: from running'
+          application-is-available-service:
+            type: string
+            description: >
+              'Service for providing the status of an application at ALM
+              RequestBody: {application-name:string}
+              ResponseBody: {is-available:boolean}, true = application is available
+              candidate: from [CDM://v1/create-application-template$request.body#application-is-available-service]
+              running: from candidate
+              operational: from running'
+          list-management-domains-service:
+            type: string
+            description: >
+              'Service for providing the list of management domains of an application at ALM
+              RequestBody: {application-name:string}
+              ResponseBody: {list-of-management-domains:string[*]}
+              candidate: from [CDM://v1/create-application-template$request.body#list-management-domains-service]
+              running: from candidate
+              operational: from running'
+          inform-about-management-domain-service:
+            type: string
+            description: >
+              'Service for providing configuration information of a management domain at an application at ALM
+              RequestBody: {application-name:string; management-domain-name:string}
+              ResponseBody: {remote-ip-address:string; remote-port:integer}
+              candidate: from [CDM://v1/create-application-template$request.body#inform-about-management-domain-service]
+              running: from candidate
+              operational: from running'
+          update-management-domain-service:
+            type: string
+            description: >
+              'Service for updating the configuration of a management domain at an application at ALM
+              RequestBody: {application-name:string; management-domain-name:string; remote-ip-address:string; remote-port:integer}
+              ResponseBody: none
+              candidate: from [CDM://v1/create-application-template$request.body#update-management-domain-service]
+              running: from candidate
+              operational: from running'
+
+          # Please add, remove and change the parameters that need to be managed by template here

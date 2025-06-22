@@ -1,0 +1,85 @@
+link:
+  type: array
+  x-key: local-id
+  items:
+    oneOf:
+      - description: 'copyLink'
+        type: object
+        required:
+          - local-id
+          - linktp
+        properties:
+          local-id:
+            type: string
+            description: >
+              'Identifier that is unique within the list of Links
+              operational: from running; entire Link to be deleted, if one of the referenced CC, LTP or LP does not exist in operationalDS'
+          linktp:
+            type: array
+            x-key: interface-type
+            minItems: 2
+            maxItems: 2
+            items:
+              oneOf:
+                - description: 'copyClient'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'copy-client'
+                    _cc:
+                      type: string
+                      description: >
+                        'controllerName
+                        candidate: from [managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]]
+                                    and [/management-domain=running/control-construct=[managementDomain]/_controllers[n]]
+                                    An instance of copyLink is to be created for every entry in _controllers[*]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'deviceName
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'copy-client'
+                - description: 'copyServer'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'copy-server'
+                    _cc:
+                      type: string
+                      description: >
+                        'managementDomain
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'deviceName
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'copy-server'

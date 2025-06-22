@@ -1,0 +1,52 @@
+logical-termination-point:
+  type: array
+  x-key: local-id
+  items:
+    type: object
+    required:
+      - local-id
+      - layer-protocol
+    properties:
+      local-id:
+        type: string
+        description: >
+          'managementDomain
+          candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
+          running: from candidate
+          operational: from running; entire LTP to be deleted, if managementDomain not included in [[/network-control-domain=running/profile=[_template]/list-management-domains-service]$response.body#list-of-management-domains]'
+      layer-protocol:
+        type: array
+        x-key: local-id
+        minItems: 1
+        maxItems: 1
+        items:
+          oneOf:
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-client'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the LogicalController (if applicable: IP address of the Forwarding inside the LoadBalancer)
+                    candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                      and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
+                                and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-ip-address]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-service]$response.body#remote-ip-address]'
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the LogicalController (if applicable: TCP port of the Forwarding inside the LoadBalancer)
+                    candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                      and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
+                                and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-port]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-service]$response.body#remote-ip-address]'

@@ -1,0 +1,60 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'logicalController'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - _controllers
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'managementDomain
+              candidate: from [CDM://v1/create-logical-controller$request.body#management-domain]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'logicalController'
+          _template:
+            type: string
+            description: >
+              'logicalControllerTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/create-logical-controller$request.body#logical-controller-template-name]
+              running: from candidate
+              operational: from running'
+          _controllers:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              description: >
+                'controllerName
+                References towards at least one entry in the list of CC with category==controller
+                candidate: from [CDM://v1/create-logical-controller$request.body#controllers/controller-name]
+                running: from candidate
+                operational: from running'
+          _tcp-server:
+            type: string
+            description: >
+              'Either loadBalancerName or controllerName of the element that holds the TcpServer that has to be addressed by applications
+              Reference towards an entry in the list of CC with category e {loadBalancer, controller}
+              candidate: from [CDM://v1/create-logical-controller$request.body#tcp-server]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'LogicalTerminationPoint - see 42_LogicalMountPoint.yaml'
+                  type: object

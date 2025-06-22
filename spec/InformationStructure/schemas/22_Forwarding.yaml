@@ -1,0 +1,77 @@
+logical-termination-point:
+  type: array
+  x-key: uuid
+  items:
+    type: object
+    required:
+      - uuid
+      - layer-protocol
+    properties:
+      uuid:
+        type: string
+        description: >
+          'managementDomain (Must be unique across all LoadBalancers!)
+          candidate: from [CDM://v1/create-logical-controller$request.body#management-domain]
+          running: from candidate
+          operational: from running; entire LTP to be deleted, if managementDomain not included in [[/network-control-domain=running/profile=[_template]/list-forwardings-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+      layer-protocol:
+        type: array
+        x-key: local-id
+        minItems: 1
+        items:
+          oneOf:
+            - description: 'tcpServer'
+              type: object
+              required:
+                - local-id
+                - local-ip-address
+                - local-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-server'
+                local-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the LogicalController (if applicable: IP address of the Forwarding inside the LoadBalancer)
+                    candidate: from [CDM://v1/create-logical-controller$request.body#local-ip-address-at-logical-controller]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                local-port:
+                  type: integer
+                  description: >
+                    'TCP port of the LogicalController (if applicable: TCP port of the Forwarding inside the LoadBalancer)
+                    candidate: from [CDM://v1/create-logical-controller$request.body#local-port-at-logical-controller]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  description: >
+                    'controllerName
+                    candidate: from [CDM://v1/create-logical-controller$request.body#controllers/controller-name]
+                    running: from candidate
+                    operational: from running'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the Controller that is to be added to this LogicalController
+                    candidate: from [ controllerName=[CDM://v1/create-logical-controller$request.body#controllers/controller-name]
+                                and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the Controller that is to be added to this LogicalController
+                    candidate: from [ controllerName=[CDM://v1/create-logical-controller$request.body#controllers/controller-name]
+                                and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port]
+                    running: from candidate
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'

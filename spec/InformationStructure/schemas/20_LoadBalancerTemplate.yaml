@@ -1,0 +1,48 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'loadBalancerTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - list-forwardings-service
+          - inform-about-forwarding-service
+          - update-forwarding-service
+        properties:
+          template-name:
+            type: string
+            description: >
+              'loadBalancerTemplateName
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#load-balancer-template-name]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'loadBalancer'
+          list-forwardings-service:
+            type: string
+            description: >
+              'Http request for listing the Forwardings that exist inside the LoadBalancer
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#list-forwardings-service]
+              running: from candidate
+              operational: from running'
+          inform-about-forwarding-service:
+            type: string
+            description: >
+              'Http request for getting details about a Forwarding
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#inform-about-forwarding-service]
+              running: from candidate
+              operational: from running'
+          update-forwarding-service:
+            type: string
+            description: >
+              'Http request for updating the configuration of a Forwarding
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#update-forwarding-service]
+              running: from candidate
+              operational: from running'
+
+          # Please add, remove and change the parameters that need to be managed by template here

@@ -1,0 +1,65 @@
+logical-termination-point:
+  type: array
+  x-key: local-id
+  items:
+    type: object
+    required:
+      - local-id
+      - layer-protocol
+    properties:
+      local-id:
+        type: string
+        description: >
+          'deviceName
+          candidate: all LTPs to be copied from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[*]/local-id]
+          running: all LTPs to be copied from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[*]/local-id]
+          operational: from running; entire LTP to be deleted, if deviceName not included in [[/network-control-domain=running/profile=[_template]/list-mount-points-service]$response.body#{attributes according to proprietary Controller API}]'
+      layer-protocol:
+        type: array
+        x-key: local-id
+        minItems: 2
+        maxItems: 2
+        items:
+          oneOf:
+            - description: 'copyClient'
+              type: object
+              required:
+                - local-id
+                - copy-source
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'copy-client'
+                copy-source:
+                  type: string
+                  description: >
+                    'managementDomain
+                    candidate: from [_logical-controller]
+                    running: from [_logical-controller]
+                    operational: from [_logical-controller]'
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-client'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the mediatorProcess to which the mountPoint is connected to
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-ip-address]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-ip-address]
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-mount-point-service]$response.body#{attributes according to proprietary Controller API}]'
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the mediatorProcess to which the mountPoint is connected to
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-mount-point-service]$response.body#{attributes according to proprietary Controller API}]'
