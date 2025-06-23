@@ -22,7 +22,7 @@ profile:
               'applicationTemplateName
               candidate: from [CDM://v1/create-application-template$request.body#application-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be measured'
           category:
             type: string
             enum:
@@ -33,14 +33,14 @@ profile:
               'IP address of the ApplicationLayerManager (ALM)
               candidate: from [CDM://v1/create-application-template$request.body#manager-ip-address]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           manager-port:
             type: string
             description: >
               'TCP port of the ALM
               candidate: from [CDM://v1/create-application-template$request.body#manager-port]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           list-applications-service:
             type: string
             description: >
@@ -49,7 +49,7 @@ profile:
               ResponseBody: {list-of-application-names:string[*]}
               candidate: from [CDM://v1/create-application-template$request.body#list-applications-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           application-is-available-service:
             type: string
             description: >
@@ -58,7 +58,7 @@ profile:
               ResponseBody: {is-available:boolean}, true = application is available
               candidate: from [CDM://v1/create-application-template$request.body#application-is-available-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           list-management-domains-service:
             type: string
             description: >
@@ -67,7 +67,7 @@ profile:
               ResponseBody: {list-of-management-domains:string[*]}
               candidate: from [CDM://v1/create-application-template$request.body#list-management-domains-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           inform-about-management-domain-service:
             type: string
             description: >
@@ -76,7 +76,7 @@ profile:
               ResponseBody: {remote-ip-address:string; remote-port:integer}
               candidate: from [CDM://v1/create-application-template$request.body#inform-about-management-domain-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           update-management-domain-service:
             type: string
             description: >
@@ -85,6 +85,6 @@ profile:
               ResponseBody: none
               candidate: from [CDM://v1/create-application-template$request.body#update-management-domain-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
 
           # Please add, remove and change the parameters that need to be managed by template here

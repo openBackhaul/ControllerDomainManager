@@ -40,14 +40,14 @@ link:
                         candidate: from [element-name of CC that holds LTP with ./logical-termination-point=[CDM://v1/create-logical-controller$request.body#management-domain]]
                                           if not yet existing pick CC with ./category==loadBalancer and create new Forwarding inside
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       description: >
                         'managementDomain
                         candidate: from [CDM://v1/create-logical-controller$request.body#management-domain]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _lp:
                       type: string
                       description: >
@@ -55,7 +55,7 @@ link:
                         candidate: from [CDM://v1/create-logical-controller$request.body#controllers/controller-name]
                                     create such tcpLinkB for every entry in [CDM://v1/create-logical-controller$request.body#controllers]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                 - description: 'tcpServer'
                   type: object
                   required:
@@ -75,7 +75,7 @@ link:
                         candidate: from [CDM://v1/create-logical-controller$request.body#controllers/controller-name]
                                     create such tcpLinkB for every entry in [CDM://v1/create-logical-controller$request.body#controllers]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       enum:

@@ -30,7 +30,7 @@ control-construct:
               Both instances of ControlConstruct and Profile must have an identical value in their category attributes
               candidate: from [CDM://v1/regard-application$request.body#application-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be read from the real element'
           logical-termination-point:
             type: array
             x-key: local-id

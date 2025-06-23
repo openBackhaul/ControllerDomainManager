@@ -13,7 +13,7 @@ logical-termination-point:
           'deviceName
           candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
           running: from candidate
-          operational: from running
+          operational: from running - must exist in OperationalDS to terminate CopyLinks that are needed for expressing operational state of the MountPoints in real Controllers'
       layer-protocol:
         type: array
         x-key: local-id
@@ -36,8 +36,8 @@ logical-termination-point:
                     'controllerName
                     An instance of LP is to be created for every entry in _controllers[*]
                     candidate: from [_controllers[*]]
-                    running: from [_controllers[*]]
-                    operational: from [_controllers[*]]
+                    running: from candidate
+                    operational: from running'
             - description: 'tcpClient'
               type: object
               required:
@@ -55,11 +55,11 @@ logical-termination-point:
                     'IP address of the mediatorProcess to which the referenced MountPoints shall be connected to
                     candidate: from [CDM://v1/update-netconf-client$request.body#remote-ip-address]
                     running: from candidate
-                    operational: from running
+                    operational: from running'
                 remote-port:
                   type: integer
                   description: >
                     'TCP port of the mediatorProcess to which the referenced MountPoints shall be connected to
                     candidate: from [CDM://v1/update-netconf-client$request.body#remote-port]
                     running: from candidate
-                    operational: from running
+                    operational: from running'

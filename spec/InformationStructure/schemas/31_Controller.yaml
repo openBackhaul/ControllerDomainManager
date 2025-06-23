@@ -31,7 +31,7 @@ control-construct:
               Both instances of ControlConstruct and Profile must have an identical value in their category attributes
               candidate: from [CDM://v1/regard-controller$request.body#controller-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be read from the real element'
           _logical-controller:
             type: string
             description: >
@@ -39,7 +39,7 @@ control-construct:
               Reference towards an entry in the list of CC with category==logicalController
               candidate: if controllerName in [CDM://v1/create-logical-controller$request.body#controllers/controller-name] from [CDM://v1/create-logical-controller$request.body#management-domain]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be read from the real element'
           logical-termination-point:
             type: array
             x-key: local-id
@@ -79,13 +79,13 @@ control-construct:
                                   'IP address of the Controller
                                   candidate: from [CDM://v1/regard-controller$request.body#local-ip-address]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: from running; value to be deleted, if addressing the Controller fails'
                               local-port:
                                 type: integer
                                 description: >
                                   'TCP port of the Controller
                                   candidate: from [CDM://v1/regard-controller$request.body#local-port]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: from running; value to be deleted, if addressing the Controller fails'
                 - description: 'LogicalTerminationPoint - see 32_MountPoint.yaml'
                   type: object

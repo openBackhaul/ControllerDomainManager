@@ -41,14 +41,14 @@ link:
                                     and [/management-domain=running/control-construct=[managementDomain]/_controllers[n]]
                                     An instance of copyLink is to be created for every entry in _controllers[*]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       description: >
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _lp:
                       type: string
                       enum:
@@ -71,14 +71,14 @@ link:
                         'managementDomain
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       description: >
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _lp:
                       type: string
                       enum:

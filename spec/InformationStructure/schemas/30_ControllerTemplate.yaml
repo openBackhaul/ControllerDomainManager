@@ -19,7 +19,7 @@ profile:
               'controllerTemplateName
               candidate: from [CDM://v1/create-controller-template$request.body#controller-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be measured'
           category:
             type: string
             enum:
@@ -30,27 +30,27 @@ profile:
               'Http request for listing the MountPoints that exist inside a Controller
               candidate: from [CDM://v1/create-controller-template$request.body#list-mount-points-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           inform-about-mount-point-service:
             type: string
             description: >
               'Http request for getting details about a MountPoint
               candidate: from [CDM://v1/create-controller-template$request.body#inform-about-mount-point-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           update-mount-point-service:
             type: string
             description: >
               'Http request for updating the configuration of a MountPoint
               candidate: from [CDM://v1/create-controller-template$request.body#update-mount-point-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           delete-mount-point-service:
             type: string
             description: >
               'Http request for deleting a MountPoint
               candidate: from [CDM://v1/create-controller-template$request.body#delete-mount-point-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
 
           # Please add, remove and change the parameters that need to be managed by template here

@@ -30,7 +30,7 @@ control-construct:
               Both instances of ControlConstruct and Profile must have an identical value in their category attributes
               candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be read from the real element'
           logical-termination-point:
             type: array
             x-key: local-id
@@ -70,13 +70,13 @@ control-construct:
                                   'IP address of the LoadBalancer
                                   candidate: from [CDM://v1/regard-load-balancer$request.body#local-ip-address]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: from running; value to be deleted, if addressing the LoadBalancer fails'
                               local-port:
                                 type: integer
                                 description: >
                                   'TCP port of the LoadBalancer
                                   candidate: from [CDM://v1/regard-load-balancer$request.body#local-port]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: from running; value to be deleted, if addressing the LoadBalancer fails'
                 - description: 'LogicalTerminationPoint - see 22_Forwarding.yaml'
                   type: object

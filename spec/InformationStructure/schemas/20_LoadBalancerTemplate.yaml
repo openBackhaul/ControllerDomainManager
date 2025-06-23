@@ -18,7 +18,7 @@ profile:
               'loadBalancerTemplateName
               candidate: from [CDM://v1/create-load-balancer-template$request.body#load-balancer-template-name]
               running: from candidate
-              operational: from running'
+              operational: ./. - does not exist in OperationalDS as it cannot be measured'
           category:
             type: string
             enum:
@@ -29,20 +29,20 @@ profile:
               'Http request for listing the Forwardings that exist inside the LoadBalancer
               candidate: from [CDM://v1/create-load-balancer-template$request.body#list-forwardings-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           inform-about-forwarding-service:
             type: string
             description: >
               'Http request for getting details about a Forwarding
               candidate: from [CDM://v1/create-load-balancer-template$request.body#inform-about-forwarding-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
           update-forwarding-service:
             type: string
             description: >
               'Http request for updating the configuration of a Forwarding
               candidate: from [CDM://v1/create-load-balancer-template$request.body#update-forwarding-service]
               running: from candidate
-              operational: from running'
+              operational: ./.'
 
           # Please add, remove and change the parameters that need to be managed by template here

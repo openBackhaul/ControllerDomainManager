@@ -33,7 +33,7 @@ forwarding-construct:
                     'applicationName
                     candidate: from [CDM://v1/establish-management-plane-transport$request.body#application-name]
                     running: from candidate
-                    operational: from running'
+                    operational: from running - must exist in OperationalDS for expressing operational state'
             - description: managementPlaneTransportServer
               type: object
               required:
@@ -45,7 +45,7 @@ forwarding-construct:
                     'managementDomain, which is same as element-name of LogicalController
                     candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
                     running: from candidate
-                    operational: from running'
+                    operational: from running - must exist in OperationalDS for expressing operational state'
       route:
         type: array
         x-key: local-id
@@ -76,12 +76,12 @@ forwarding-construct:
                   tcpLinkA:
                     candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]]
                     running: from candidate
-                    operational: from running'
+                    operational: from running - must exist in OperationalDS for expressing operational state'
                   tcpLinkB:
                     candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-server/_cc]==odlName]
                     running: from candidate
-                    operational: from running'
+                    operational: from running - must exist in OperationalDS for expressing operational state'
                   copyLink:
                     candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=copy-client/_cc]==odlName]
                     running: from candidate
-                    operational: from running'
+                    operational: from running - must exist in OperationalDS for expressing operational state'

@@ -39,14 +39,14 @@ link:
                         'applicationName
                         candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-domain]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       description: >
                         'managementDomain
                         candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _lp:
                       type: string
                       enum:
@@ -70,14 +70,14 @@ link:
                         candidate: from [managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
                                     and [/management-domain=running/control-construct=[managementDomain]/_tcp-server]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
                       type: string
                       description: >
                         'managementDomain
                         candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
                         running: from candidate
-                        operational: from running'
+                        operational: from running - must exist in OperationalDS for expressing operational state'
                     _lp:
                       type: string
                       enum:
