@@ -10,7 +10,7 @@ It encapsulates the management interfaces to both the controller software (OpenD
 
 At the controller software, it is not only creating the MountPoints for the RESTCONF connection to the applications, but also providing an external service through which the DeviceDomainManager can configure the NetconfClients.  
 
-The following use cases are covered (maybe, not all of them from beginning on)  
+The following use cases will be covered (not all of them from beginning on)  
   - establishing the management connection  
   - sharing the load across Controllers  
   - supporting non-traffic affecting Controller release updates  

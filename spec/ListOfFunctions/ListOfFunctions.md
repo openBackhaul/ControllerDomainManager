@@ -1,5 +1,13 @@
 # ControllerDomainManager List of Functions  
 
+**Interpretation Functions:**  
+Shall translate abstract requests from outside into concrete logical objects in the internal data structure.  
+
+**Validation Functions:**
+
+
+
+
 <img src="./diagrams/CategoriesOfFunctions.png" alt="CategoriesOfFunctions" width="700" style="display: block; margin: 0 auto"/>  
 
 ### Interpretation  
