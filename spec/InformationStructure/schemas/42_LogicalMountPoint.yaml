@@ -53,13 +53,13 @@ logical-termination-point:
                   type: string
                   description: >
                     'IP address of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/update-netconf-client$request.body#remote-ip-address]
+                    candidate: from [CDM://v1/update-management-plane-transport$request.body#remote-ip-address]
                     running: from candidate
                     operational: from running'
                 remote-port:
                   type: integer
                   description: >
                     'TCP port of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/update-netconf-client$request.body#remote-port]
+                    candidate: from [CDM://v1/update-management-plane-transport$request.body#remote-port]
                     running: from candidate
                     operational: from running'

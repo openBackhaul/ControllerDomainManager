@@ -108,12 +108,16 @@ servers:
           uuid: 
         - operation-name: /v1/list-applications
           uuid: 
+        - operation-name: /v1/inform-about-application
+          uuid: 
 
         - operation-name: /v1/regard-load-balancer
           uuid: 
         - operation-name: /v1/disregard-load-balancer
           uuid: 
         - operation-name: /v1/list-load-balancers
+          uuid: 
+        - operation-name: /v1/inform-about-load-balancer
           uuid: 
 
         - operation-name: /v1/regard-controller
@@ -122,30 +126,32 @@ servers:
           uuid: 
         - operation-name: /v1/list-controllers
           uuid: 
-
-        - operation-name: /v1/create-logical-controller
-          uuid: 
-        - operation-name: /v1/delete-logical-controller
-          uuid: 
-        - operation-name: /v1/list-logical-controllers
-          uuid: 
-        - operation-name: /v1/inform-about-logical-controller
-          uuid: 
-        - operation-name: /v1/update-logical-controller
+        - operation-name: /v1/inform-about-controller
           uuid: 
 
-        - operation-name: /v1/establish-management-domain-connection # connects application to LB on TCP layer
+        - operation-name: /v1/establish-management-domain
           uuid: 
-        - operation-name: /v1/dismantle-domain-connection
+        - operation-name: /v1/dismantle-management-domain
           uuid: 
-        - operation-name: /v1/list-domain-connections
+        - operation-name: /v1/list-management-domains
           uuid: 
-        - operation-name: /v1/inform-about-domain-connection
+        - operation-name: /v1/inform-about-management-domain
+          uuid: 
+        - operation-name: /v1/update-management-domain
           uuid: 
 
-        - operation-name: /v1/establish-management-plane-transport # from application to logical-controller
+        - operation-name: /v1/establish-management-domain-connection
           uuid: 
-        - operation-name: /v1/update-netconf-client
+        - operation-name: /v1/dismantle-management-domain-connection
+          uuid: 
+        - operation-name: /v1/list-management-domain-connections
+          uuid: 
+        - operation-name: /v1/inform-about-management-domain-connection
+          uuid: 
+        - operation-name: /v1/update-management-domain-connection
+          uuid: 
+
+        - operation-name: /v1/establish-management-plane-transport
           uuid: 
         - operation-name: /v1/dismantle-management-plane-transport
           uuid: 
@@ -153,7 +159,9 @@ servers:
           uuid: 
         - operation-name: /v1/inform-about-management-plane-transport
           uuid: 
-        - operation-name: /v1/provide-alarms-for-management-plane-transport
+        - operation-name: /v1/update-management-plane-transport
+          uuid: 
+        - operation-name: /v1/list-alarms-at-management-plane-transport
           uuid: 
 
   http-server:
@@ -434,7 +442,7 @@ clients:
         individual:
           - operation-name: /v1/update-tcp-client
             uuid: mm-1-0-0-op-c-is-mo-1-0-0-000
-          - operation-name: /v1/update-netconf-client
+          - operation-name: /v1/update-management-plane-transport
             uuid: mm-1-0-0-op-c-is-mo-1-0-0-001
 
         # Thorsten added

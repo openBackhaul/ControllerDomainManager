@@ -3,8 +3,8 @@
 ### InformationStructure  
 - Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  
 
-### ListOfFunctions  
-- High level considerations on the [Functions](./ListOfFunctions/ListOfFunctions.md) of the CDM  
+### Functions  
+- [Public and Private Functions](./Functions/Functions.md)  
 
 ### Diagrams  
 - [Collection of Diagrams](./diagrams)  
