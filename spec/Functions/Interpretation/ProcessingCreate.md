@@ -58,7 +58,7 @@ The following services
 
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  
-- respond values of logical object to requestor  
+- respond values of logical object from RunningDS to requestor  
 
 ### Update  
 

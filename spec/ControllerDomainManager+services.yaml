@@ -137,8 +137,6 @@ servers:
           uuid: 
         - operation-name: /v1/inform-about-management-domain
           uuid: 
-        - operation-name: /v1/update-management-domain
-          uuid: 
 
         - operation-name: /v1/establish-management-domain-connection
           uuid: 
@@ -148,8 +146,6 @@ servers:
           uuid: 
         - operation-name: /v1/inform-about-management-domain-connection
           uuid: 
-        - operation-name: /v1/update-management-domain-connection
-          uuid: 
 
         - operation-name: /v1/establish-management-plane-transport
           uuid: 
@@ -158,8 +154,6 @@ servers:
         - operation-name: /v1/list-management-plane-transports
           uuid: 
         - operation-name: /v1/inform-about-management-plane-transport
-          uuid: 
-        - operation-name: /v1/update-management-plane-transport
           uuid: 
         - operation-name: /v1/list-alarms-at-management-plane-transport
           uuid: 
