@@ -8,6 +8,10 @@
 
 _(See the following entries as examples. List of ValidationTestFunctions is to be defined by ApplicationOwner:)_  
 
+
+  - check all ManagementPlaneTransport (FC) for existing termination points (CC) in CandidateDS  
+  - check all Routes at all FCs for existing Links in CandidateDS  
+
 - p1-ensure-unique-template-names  
   Ensures that all Profile definitions have unique template-names  
 - p1-ensure-all-elements-referencing-an-existing-template  

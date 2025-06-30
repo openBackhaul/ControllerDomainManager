@@ -69,7 +69,6 @@ The following Public InterpretationFunctions are provided for managing them:
 - /v1/dismantle-_instance_of_element-type_  
 - /v1/list-_all_instances-of-element-type_  
 - /v1/inform-about-_instance-of-element-type_  
-- /v1/update-_instance_of_element-type_  
 - /v1/list-alarms-at-_instance_of_element-type_ (not always)  
 
 High level description of the [processing of establish](./ProcessingEstablish.md)  
