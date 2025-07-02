@@ -6,6 +6,9 @@
     ELSE  
     - Responds the first ResponseCode different from 204 and terminates  
 
+
+    _Table with relations between InterpretationFunction and ValidationTests to be added_
+
 _(See the following entries as examples. List of ValidationTestFunctions is to be defined by ApplicationOwner:)_  
 
 

@@ -1,7 +1,22 @@
 # ControllerDomainManager Specification
 
+### Managed Elements  
+- The following kinds of Elements are encapsulated:  
+  - Controller  
+  - LoadBalancer  
+- The following kinds of Connections are managed:  
+  - Application <---> LoadBalancer/Controller  
+  - LoadBalancer <---> Controller  
+- The following kind of Endpoints is managed, despite its holding Elements are encapsulated by a neighboring domain:  
+  - TcpClient at Applications encapsulated by ApplicationLayerManager  
+
 ### InformationStructure  
 - Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  
+
+### Supported UseCases  
+- Connecting Devices to the ApplicationLayer  
+- Representing multi controller configurations as a single LogicalController  
+- Adding, removing (and implicitly: upgrading) Controllers without traffic impact  
 
 ### Functions  
 - [Public and Private Functions](./Functions/Functions.md)  

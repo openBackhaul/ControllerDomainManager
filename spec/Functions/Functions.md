@@ -10,7 +10,7 @@ Further details on [InterpretationFunctions](./Interpretation/InterpretationFunc
 
 ## Validation  
 - ValidationFunctions analyze the data structure inside the CandidateDS for compliance with generic rules. The changes caused by the InterpretationFunctions are implicitly validated in the context of the entire network.  
-- The ValidationOrchestrator gets activated by the InterpretationFunctions. It executes a configurable set of ValidationFunctions specific to the respective InterpretationFunction. After successful validation, the content of the CandidateDS gets copied into the RunningDS.  
+- The ValidationOrchestrator gets activated by the InterpretationFunctions. It executes a configurable set of ValidationFunctions specific to the respective InterpretationFunction. After successful validation, the content of the CandidateDS gets copied into the RunningDS (otherwise the CandidateDS will simply be overwritten by the RunningDS when the next cycle begins).  
 
 Further details on [ValidationFunctions](./Validation/ValidationFunctions.md)  
 

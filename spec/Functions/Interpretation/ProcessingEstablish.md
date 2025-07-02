@@ -5,12 +5,35 @@
 The /v1/establish-management-domain service shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
 - create LogicalController (CC) with values from RequestBody in CandidateDS  
+- create FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS  
 - IF NO LoadBalancer specified in RequestBody  
   - update Controller specified in RequestBody in _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
 - IF LoadBalancer specified in RequestBody  
   - create a Forwarding (LTP) identified by managementDomain specified in RequestBody in CandidateDS  
   - update all n Controllers specified in RequestBody in _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
   - create n Links between the Forwarding and these n Controllers in CandidateDS  
+- invoke validationOrchestrator  
+- IF ResponseCode==204  
+  - copy content of CandidateDS into RunningDS  
+  - respond 204 to requestor  
+  ELSE  
+  - create root point for the new managementDomain in currentAlarms list  
+  - respond ResponseCode to requestor  
+
+The /v1/establish-controller-in-management-domain service shall be processed as follows:  
+- copy content of RunningDS into CandidateDS  
+- visit LoadBalancer referenced in the _tcpServer attribute of the LogicalController (identified by managementDomain specified in RequestBody) in CandidateDS  
+- add additional LP (TcpClient) identified by the new Controller's controllerName to the Forwarding (LTP) (identified by managementDomain specified in RequestBody) in CandidateDS  
+- (will be referenced from below as (a)) create Link between the new LP and the LP (identified by 'tcp-server') at the LTP (identified by 'controller-manager') at the Controller (CC) identified by the controllerName specified in the RequestBody in CandidateDS  
+- update Controller (CC) identified by the controllerName specified in the RequestBody in its _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
+- add controllerName specified in the RequestBody to the _controllers attribute of the LogicalController (identified by managementDomain specified in RequestBody) in CandidateDS  
+- replicate the information of all LogicalMountPoints (LTPs) inside the LogicalController (identified by managementDomain specified in RequestBody) into new MountPoints (LTPs) of the same number inside the new Controller (identified by the controllerName specified in the RequestBody) in CandidateDS  
+- (will be referenced from below as (b)) create Links between the LogicalMountPoints (LTPs) inside the LogicalController (identified by managementDomain specified in RequestBody) and the MountPoints (LTPs) identified by the same deviceName inside the new Controller (identified by the controllerName specified in the RequestBody) in CandidateDS  
+- add an additional Route to every ManagementPlaneTransport (FC) that is terminating at the same LogicalController (identified by managementDomain specified in RequestBody) and identified by the same deviceNames in CandidateDS  
+- add the following references to every newly created Route:
+  - references to Link between Application and LoadBalancer: Link between LP (identified by 'tcp-client') at the LTP (identified by managementDomain specified in RequestBody) at the CC (identified by applicationName according to the value of the _cc attribute of the fctp (identified by 'management-plane-transport-client) at the FC that holds the Route and LP (identified by 'tcp-server') at the LTP (identified by managementDomain specified in RequestBody)) at the CC referenced in the _tcpServer attribute of the LogicalController (identified by managementDomain specified in RequestBody) in CandidateDS.  
+  - references to newly created Link between LoadBalancer and Controller (see above (a))
+  - references to newly created Link between Controller and LogicalController (see above (b))
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
@@ -75,6 +98,25 @@ The /v1/dismantle-management-domain service shall be processed as follows:
 - invoke validationOrchestrator  
   - check all ManagementPlaneTransport (FC) for existing termination points (CC) in CandidateDS  
   - check all Routes at all FCs for existing Links in CandidateDS  
+- IF ResponseCode==204  
+  - copy content of CandidateDS into RunningDS  
+  - respond 204 to requestor  
+  ELSE  
+  - delete FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS, RunningDS and OperationalDS  
+  - delete root point (incl. all attached entries) for the obsolete managementDomain in currentAlarms list  
+  - respond ResponseCode to requestor  
+
+The /v1/dismantle-controller-from-management-domain service shall be processed as follows:  
+- copy content of RunningDS into CandidateDS  
+- search list of Links for those referencing the obsolete Controller (identified by the controllerName specified in the RequestBody) in the _cc attribute at one of their termination points (linktp) and  
+  - delete the LP referenced by the second termination point (linktp) in that list of two  
+  - delete the entire Link in CandidateDS  
+- visit all Routes at all FCs and check whether the Links referenced in the Route's _links attribute still exist; if referenced Link does not exist, delete Route from FC in CandidateDS  
+- visit the Controller (CC) identified by the controllerName specified in the RequestBody  
+  - delete the value from the _logicalController attribute in CandidateDS  
+  - delete all LTPs except the one identified by 'controller-manager' in CandidateDS  
+- visit the LogicalController identified by managementDomain specified in RequestBody and delete the controllerName specified in the RequestBody from its _logicalController attribute in CandidateDS  
+- invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  

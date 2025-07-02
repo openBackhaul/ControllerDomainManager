@@ -36,5 +36,5 @@ control-construct:
             x-key: local-id
             items:
               oneOf:
-                - description: 'LogicalTerminationPoint - see 12_ManagementDomain.yaml'
+                - description: 'LogicalTerminationPoint - see 12_ManagementDomainInterface.yaml'
                   type: object
