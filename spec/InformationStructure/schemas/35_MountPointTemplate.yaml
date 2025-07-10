@@ -1,0 +1,102 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'mountPointTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+        properties:
+          template-name:
+            type: string
+            description: >
+              'mountPointTemplateName
+              candidate: from [CDM://v1/create-mount-point-template$request.body#mount-point-template-name]
+              running: from candidate
+              operational: ./. - does not exist in OperationalDS as it cannot be measured'
+          category:
+            type: string
+            enum:
+              - 'logicalController'
+          notification-subscribe:
+            type: boolean
+            description: >
+              'Configuration
+              if true, the automated subscribing for notifications while mounting is activated
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          notification-stream-name:
+            type: string
+            description: >
+              'Configuration
+              Name of the stream for clients of ODL to identify it while subscribing
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          netconf-user-name:
+            type: string
+            description: >
+              'Configuration
+              Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          netconf-password:
+            type: string
+            description: >
+              'Configuration
+              Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          sleep-factor:
+            type: string
+            description: >
+              'Configuration
+              Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          max-connection-attempts:
+            type: integer
+            description: >
+              'Configuration
+              Maximum number of attempts to connect with the MediatorProcess/device
+              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+          default-request-timeout-millis:
+            type: integer
+            description: >
+              'Configuration
+              Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor
+              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+          tcp-only:
+            type: boolean
+            description: >
+              'Configuration
+              ?
+              CDM is always configuring it to false'
+          concurrent-rpc-limit:
+            type: integer
+            description: >
+              'Configuration
+              ?
+              CDM is always configuring it to 0'
+          schema-cache-directory:
+            type: string
+            description: >
+              'Configuration
+              Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device
+              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint
+              (need to double think for native Netconf implementations)'
+          between-attempts-timeout-millis:
+            type: integer
+            description: >
+              'Configuration
+              ?
+              CDM is always configuring it to 62500'
+          reconnect-on-changed-schema:
+            type: boolean
+            description: >
+              'Configuration
+              ?
+              CDM is always configuring it to false'
+          keepalive-delay:
+            type: integer
+            description: >
+              'Configuration
+              Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device
+              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+

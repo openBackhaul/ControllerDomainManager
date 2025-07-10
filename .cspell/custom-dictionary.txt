@@ -1,0 +1,22 @@
+# Custom Dictionary Words
+
+eatl
+emim
+
+heinze
+hmim
+
+keepalive
+
+ltps
+
+millis
+
+netconf
+
+siae
+smim
+
+thorsten
+
+wred

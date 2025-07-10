@@ -11,10 +11,9 @@ profile:
           - manager-ip-address
           - manager-port
           - list-applications-service
-          - application-is-available-service
-          - list-management-domains-service
-          - inform-about-management-domain-service
-          - update-management-domain-service
+          - list-management-domain-interfaces-service
+          - inform-about-management-domain-interface-service
+          - update-management-domain-interface-service
         properties:
           template-name:
             type: string
@@ -30,60 +29,51 @@ profile:
           manager-ip-address:
             type: string
             description: >
-              'IP address of the ApplicationLayerManager (ALM)
+              'IP address of the ApplicationDomainManager (ADM)
               candidate: from [CDM://v1/create-application-template$request.body#manager-ip-address]
               running: from candidate
               operational: ./.'
           manager-port:
             type: string
             description: >
-              'TCP port of the ALM
+              'TCP port of the ADM
               candidate: from [CDM://v1/create-application-template$request.body#manager-port]
               running: from candidate
               operational: ./.'
           list-applications-service:
             type: string
             description: >
-              'Service for providing the list of applications at ALM
+              'Service for providing the list of applications at ADM
               RequestBody: none
               ResponseBody: {list-of-application-names:string[*]}
               candidate: from [CDM://v1/create-application-template$request.body#list-applications-service]
               running: from candidate
               operational: ./.'
-          application-is-available-service:
+          list-management-domain-interfaces-service:
             type: string
             description: >
-              'Service for providing the status of an application at ALM
-              RequestBody: {application-name:string}
-              ResponseBody: {is-available:boolean}, true = application is available
-              candidate: from [CDM://v1/create-application-template$request.body#application-is-available-service]
-              running: from candidate
-              operational: ./.'
-          list-management-domains-service:
-            type: string
-            description: >
-              'Service for providing the list of management domains of an application at ALM
+              'Service for providing the list of management domains of an application at ADM
               RequestBody: {application-name:string}
               ResponseBody: {list-of-management-domains:string[*]}
-              candidate: from [CDM://v1/create-application-template$request.body#list-management-domains-service]
+              candidate: from [CDM://v1/create-application-template$request.body#list-management-domain-interfaces-service]
               running: from candidate
               operational: ./.'
-          inform-about-management-domain-service:
+          inform-about-management-domain-interface-service:
             type: string
             description: >
-              'Service for providing configuration information of a management domain at an application at ALM
+              'Service for providing configuration information of a management domain at an application at ADM
               RequestBody: {application-name:string; management-domain-name:string}
               ResponseBody: {remote-ip-address:string; remote-port:integer}
-              candidate: from [CDM://v1/create-application-template$request.body#inform-about-management-domain-service]
+              candidate: from [CDM://v1/create-application-template$request.body#inform-about-management-domain-interface-service]
               running: from candidate
               operational: ./.'
-          update-management-domain-service:
+          update-management-domain-interface-service:
             type: string
             description: >
-              'Service for updating the configuration of a management domain at an application at ALM
+              'Service for updating the configuration of a management domain at an application at ADM
               RequestBody: {application-name:string; management-domain-name:string; remote-ip-address:string; remote-port:integer}
               ResponseBody: none
-              candidate: from [CDM://v1/create-application-template$request.body#update-management-domain-service]
+              candidate: from [CDM://v1/create-application-template$request.body#update-management-domain-interface-service]
               running: from candidate
               operational: ./.'
 

@@ -29,7 +29,7 @@ network-control-domain:
               type: object
             - description: 'Profile - see 30_ControllerTemplate.yaml'
               type: object
-            - description: 'Profile - see 40_LogicalControllerTemplate.yaml'
+            - description: 'Profile - see 35_MountPointTemplate.yaml'
               type: object
       control-construct:
         type: array

@@ -58,6 +58,9 @@ servers:
           uuid: mm-1-0-0-op-s-bs-005
           operation-key: n.a.
       individual:
+        #
+        # Interpretation
+        #
         - operation-name: /v1/create-application-template
           uuid: 
         - operation-name: /v1/delete-application-template
@@ -91,15 +94,15 @@ servers:
         - operation-name: /v1/update-controller-template
           uuid: 
 
-        - operation-name: /v1/create-logical-controller-template
+        - operation-name: /v1/create-mount-point-template
           uuid: 
-        - operation-name: /v1/delete-logical-controller-template
+        - operation-name: /v1/delete-mount-point-template
           uuid: 
-        - operation-name: /v1/list-logical-controller-templates
+        - operation-name: /v1/list-mount-point-templates
           uuid: 
-        - operation-name: /v1/inform-about-logical-controller-template
+        - operation-name: /v1/inform-about-mount-point-template
           uuid: 
-        - operation-name: /v1/update-logical-controller-template
+        - operation-name: /v1/update-mount-point-template
           uuid: 
 
         - operation-name: /v1/regard-application
@@ -137,6 +140,7 @@ servers:
           uuid: 
         - operation-name: /v1/inform-about-management-domain
           uuid: 
+          # Thorsten, 8th of July: The service offered to DDM for updating the NetconfClient at the LogicalController is missing
 
         - operation-name: /v1/establish-management-domain-connection
           uuid: 
@@ -157,6 +161,36 @@ servers:
           uuid: 
         - operation-name: /v1/list-alarms-at-management-plane-transport
           uuid: 
+
+        - operation-name: /v1/mediate-netconf-client-update
+          uuid: 
+
+
+        #
+        # Validation
+        #
+
+        #
+        # Measurement
+        #
+        - operation-name: /p1/measure-list-of-mount-points
+          uuid: 
+        - operation-name: /p1/measure-mount-point
+          uuid: 
+
+        #
+        # Implementation
+        #
+        - operation-name: /p1/construct-mount-point
+          uuid: 
+        - operation-name: /p1/destruct-mount-point
+          uuid: 
+        - operation-name: /p1/reconstruct-mount-point
+          uuid: 
+        #
+        # Monitoring
+        #
+
 
   http-server:
     own-application-name: ControllerDomainManager

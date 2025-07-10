@@ -26,10 +26,10 @@ control-construct:
           _template:
             type: string
             description: >
-              'logicalControllerTemplateName
+              'controllerTemplateName
               Reference towards an entry in the list of Profiles
-              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
-              candidate: from [CDM://v1/establish-management-domain$request.body#logical-controller-template-name]
+              The referenced instances of Profile must have category==controller
+              candidate: from [CDM://v1/establish-management-domain$request.body#controller-template-name]
               running: from candidate
               operational: ./.'
           _controllers:
@@ -40,6 +40,7 @@ control-construct:
               description: >
                 'controllerName
                 References towards at least one entry in the list of CC with category==controller
+                The referenced instances of CC must reference the same instance of Profile in their _template
                 candidate: from [CDM://v1/establish-management-domain$request.body#controllers/controller-name]
                 running: from candidate
                 operational: ./.'

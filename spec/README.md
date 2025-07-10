@@ -1,20 +1,23 @@
-# ControllerDomainManager Specification
+# ControllerDomainManager Specification  
 
 ### Managed Elements  
 - The following kinds of Elements are encapsulated:  
   - Controller  
+    - [OpenDaylight](./Elements/OpenDaylight/OpenDaylight.md)  
   - LoadBalancer  
+    - [nginx](./Elements/nginx/nginx.md)  
 - The following kinds of Connections are managed:  
   - Application <---> LoadBalancer/Controller  
   - LoadBalancer <---> Controller  
-- The following kind of Endpoints is managed, despite its holding Elements are encapsulated by a neighboring domain:  
-  - TcpClient at Applications encapsulated by ApplicationLayerManager  
+- The following kind of Endpoint is managed, despite its holding Elements are encapsulated by a neighboring domain:  
+  - TcpClient at Applications encapsulated by ApplicationDomainManager  
 
 ### InformationStructure  
 - Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  
 
 ### Supported UseCases  
 - Connecting Devices to the ApplicationLayer  
+- Managing multi controller configurations
 - Representing multi controller configurations as a single LogicalController  
 - Adding, removing (and implicitly: upgrading) Controllers without traffic impact  
 

@@ -1,4 +1,49 @@
 
+# Implementation  
+
+## Offered Implementations  
+
+The Elements that are managed within this domain are offering proprietary APIs with limited capabilities.  
+The Offered Implementations section describes the implementations that are available at these proprietary APIs.  
+
+### Application  
+
+The Applications of the MW SDN application layer are equipped with an ONF Core IM based OaM REST interface that allows to configure during runtime.  
+
+#### ApplicationDomainManager
+The Application's OaM interface is encapsulated by the [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager) (ADM) application.  
+
+The ADM is offering the following services for implementation:  
+- Updating the client interface towards a ManagementDomain (ADM://v1/update-management-domain-interface)
+
+The openAPI specification of the ApplicationDomainManager can be found [here](https://github.com/openBackhaul/ApplicationDomainManager/blob/develop/spec/ApplicationDomainManager.yaml).
+
+### LoadBalancer  
+
+#### nginx
+The currently used nginx LoadBalancer is offering the following resources:  
+...  
+
+### Controller  
+
+#### OpenDaylight  
+OpenDaylight supports to manage the MountPoints via its REST interface.  
+
+The following implementations are offered:  
+- Create MountPoint
+  CDM://p1/construct-mount-point
+- Delete MountPoint
+  CDM://p1/destruct-mount-point
+- Update MountPoint
+  CDM://p1/reconstruct-mount-point
+
+A detailed description of the implementation services can be found [here](../../Elements/OpenDaylight/OpenDaylight.yaml).  
+
+
+
+=========================
+
+# Artifacts
 
 ### Implementation  
 - p1-implementation-orchestrator (cyclic operation)  

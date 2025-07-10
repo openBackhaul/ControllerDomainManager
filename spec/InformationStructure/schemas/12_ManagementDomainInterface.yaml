@@ -13,7 +13,7 @@ logical-termination-point:
           'managementDomain
           candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
           running: from candidate
-          operational: from running; entire LTP to be deleted, if managementDomain not included in [[/network-control-domain=running/profile=[_template]/list-management-domains-service]$response.body#list-of-management-domains]'
+          operational: from running; entire LTP to be deleted, if managementDomain not included in [[/network-control-domain=running/profile=[_template]/list-management-domain-interfaces-service]$response.body#list-of-management-domains]'
       layer-protocol:
         type: array
         x-key: local-id
@@ -40,7 +40,7 @@ logical-termination-point:
                                       and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
                                 and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-ip-address]
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-service]$response.body#remote-ip-address]'
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-interface-service]$response.body#remote-ip-address]'
                 remote-port:
                   type: integer
                   description: >
@@ -49,4 +49,4 @@ logical-termination-point:
                                       and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
                                 and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-port]
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-service]$response.body#remote-ip-address]'
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-management-domain-interface-service]$response.body#remote-ip-address]'

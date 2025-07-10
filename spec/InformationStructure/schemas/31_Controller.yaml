@@ -87,5 +87,5 @@ control-construct:
                                   candidate: from [CDM://v1/regard-controller$request.body#local-port]
                                   running: from candidate
                                   operational: from running; value to be deleted, if addressing the Controller fails'
-                - description: 'LogicalTerminationPoint - see 32_MountPoint.yaml'
+                - description: 'LogicalTerminationPoint - see 36_MountPoint.yaml'
                   type: object

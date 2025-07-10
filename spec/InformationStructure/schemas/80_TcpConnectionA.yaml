@@ -66,7 +66,7 @@ link:
                     _cc:
                       type: string
                       description: >
-                        'Either loadBalancerName or controllerName of the element that holds the TcpServer of the LogicalController
+                        'Either loadBalancerName or controllerName of the Element that holds the TcpServer of the LogicalController
                         candidate: from [managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
                                     and [/management-domain=running/control-construct=[managementDomain]/_tcp-server]
                         running: from candidate

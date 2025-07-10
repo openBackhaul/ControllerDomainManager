@@ -6,7 +6,7 @@ The following services
 - /v1/create-application-template  
 - /v1/create-load-balancer-template  
 - /v1/create-controller-template  
-- /v1/create-logical-controller-template  
+- /v1/create-mount-point-template  
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
@@ -24,7 +24,7 @@ The following services
 - /v1/delete-application-template  
 - /v1/delete-load-balancer-template  
 - /v1/delete-controller-template  
-- /v1/delete-logical-controller-template  
+- /v1/delete-mount-point-template  
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
@@ -42,7 +42,7 @@ The following services
 - /v1/list-application-templates  
 - /v1/list-load-balancer-templates  
 - /v1/list-controller-templates  
-- /v1/list-logical-controller-templates  
+- /v1/list-mount-point-templates  
 
 shall be processed as follows:  
 - retrieve key attribute values of logical objects of specified type and category from RunningDS  
@@ -54,7 +54,7 @@ The following services
 - /v1/inform-about-application-template  
 - /v1/inform-about-load-balancer-template  
 - /v1/inform-about-controller-template  
-- /v1/inform-about-logical-controller-template  
+- /v1/inform-about-mount-point-template  
 
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  
@@ -66,7 +66,7 @@ The following services
 - /v1/update-application-template  
 - /v1/update-load-balancer-template  
 - /v1/update-controller-template  
-- /v1/update-logical-controller-template  
+- /v1/update-mount-point-template  
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
