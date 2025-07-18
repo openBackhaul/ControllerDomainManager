@@ -65,9 +65,9 @@ servers:
           uuid: 
         - operation-name: /v1/delete-application-template
           uuid: 
-        - operation-name: /v1/list-application-templates
+        - operation-name: /v1/list-configured-application-templates
           uuid: 
-        - operation-name: /v1/inform-about-application-template
+        - operation-name: /v1/provide-config-of-application-template
           uuid: 
         - operation-name: /v1/update-application-template
           uuid: 
@@ -76,9 +76,9 @@ servers:
           uuid: 
         - operation-name: /v1/delete-load-balancer-template
           uuid: 
-        - operation-name: /v1/list-load-balancer-templates
+        - operation-name: /v1/list-configured-load-balancer-templates
           uuid: 
-        - operation-name: /v1/inform-about-load-balancer-template
+        - operation-name: /v1/provide-config-of-load-balancer-template
           uuid: 
         - operation-name: /v1/update-load-balancer-template
           uuid: 
@@ -87,9 +87,9 @@ servers:
           uuid: 
         - operation-name: /v1/delete-controller-template
           uuid: 
-        - operation-name: /v1/list-controller-templates
+        - operation-name: /v1/list-configured-controller-templates
           uuid: 
-        - operation-name: /v1/inform-about-controller-template
+        - operation-name: /v1/provide-config-of-controller-template
           uuid: 
         - operation-name: /v1/update-controller-template
           uuid: 
@@ -98,73 +98,96 @@ servers:
           uuid: 
         - operation-name: /v1/delete-mount-point-template
           uuid: 
-        - operation-name: /v1/list-mount-point-templates
+        - operation-name: /v1/list-configured-mount-point-templates
           uuid: 
-        - operation-name: /v1/inform-about-mount-point-template
+        - operation-name: /v1/provide-config-of-mount-point-template
           uuid: 
         - operation-name: /v1/update-mount-point-template
           uuid: 
 
+# !!! Fehler !!!
+# 
+# Nicht die Applikation, sondern das ManagementDomainInterface ist das managed Object
+#
+# Es sollte /v1/regard-management-domain-interface lauten
+# 
+# welche Auswirkungen hat das auf
+# - MPM
+# - schon beschriebene InterpretationFunctions
+# - ApplicationTemplate
         - operation-name: /v1/regard-application
           uuid: 
         - operation-name: /v1/disregard-application
           uuid: 
-        - operation-name: /v1/list-applications
+        - operation-name: /v1/list-configured-applications
           uuid: 
-        - operation-name: /v1/inform-about-application
+        - operation-name: /v1/provide-config-of-application
           uuid: 
 
         - operation-name: /v1/regard-load-balancer
           uuid: 
         - operation-name: /v1/disregard-load-balancer
           uuid: 
-        - operation-name: /v1/list-load-balancers
+        - operation-name: /v1/list-configured-load-balancers
           uuid: 
-        - operation-name: /v1/inform-about-load-balancer
+        - operation-name: /v1/list-configured-forwardings
+          uuid: 
+        - operation-name: /v1/provide-config-of-forwarding
+          uuid: 
+        - operation-name: /v1/provide-status-of-forwarding
           uuid: 
 
         - operation-name: /v1/regard-controller
           uuid: 
         - operation-name: /v1/disregard-controller
           uuid: 
-        - operation-name: /v1/list-controllers
+        - operation-name: /v1/list-configured-controllers
           uuid: 
-        - operation-name: /v1/inform-about-controller
+        - operation-name: /v1/list-configured-mount-points
+          uuid: 
+        - operation-name: /v1/provide-config-of-mount-point
+          uuid: 
+        - operation-name: /v1/provide-status-of-mount-point
           uuid: 
 
         - operation-name: /v1/establish-management-domain
           uuid: 
         - operation-name: /v1/dismantle-management-domain
           uuid: 
-        - operation-name: /v1/list-management-domains
+        - operation-name: /v1/establish-controller-in-management-domain
           uuid: 
-        - operation-name: /v1/inform-about-management-domain
+        - operation-name: /v1/dismantle-controller-from-management-domain
           uuid: 
-          # Thorsten, 8th of July: The service offered to DDM for updating the NetconfClient at the LogicalController is missing
+        - operation-name: /v1/list-configured-management-domains
+          uuid: 
+        - operation-name: /v1/provide-config-of-management-domain     # Auf sinnvolles gegenseitiges Ergänzen mit den Informationen über die Komponenten achten
+          uuid: 
+        - operation-name: /v1/provide-status-of-management-domain     # Auf sinnvolles gegenseitiges Ergänzen mit den Informationen über die Komponenten achten
+          uuid: 
+        - operation-name: /v1/mediate-netconf-client-update
+          uuid: 
 
         - operation-name: /v1/establish-management-domain-connection
           uuid: 
         - operation-name: /v1/dismantle-management-domain-connection
           uuid: 
-        - operation-name: /v1/list-management-domain-connections
+        - operation-name: /v1/list-configured-management-domain-connections
           uuid: 
-        - operation-name: /v1/inform-about-management-domain-connection
+        - operation-name: /v1/provide-status-of-management-domain-connection
           uuid: 
 
         - operation-name: /v1/establish-management-plane-transport
           uuid: 
         - operation-name: /v1/dismantle-management-plane-transport
           uuid: 
-        - operation-name: /v1/list-management-plane-transports
+        - operation-name: /v1/list-configured-management-plane-transports
           uuid: 
-        - operation-name: /v1/inform-about-management-plane-transport
+        - operation-name: /v1/provide-config-of-management-plane-transport
+          uuid: 
+        - operation-name: /v1/provide-status-of-management-plane-transport
           uuid: 
         - operation-name: /v1/list-alarms-at-management-plane-transport
           uuid: 
-
-        - operation-name: /v1/mediate-netconf-client-update
-          uuid: 
-
 
         #
         # Validation
@@ -173,20 +196,35 @@ servers:
         #
         # Measurement
         #
+        - operation-name: /p1/measure-management-domain-interface
+          uuid: 
+        - operation-name: /p1/measure-list-of-forwardings
+          uuid: 
+        - operation-name: /p1/measure-forwarding
+          uuid: 
         - operation-name: /p1/measure-list-of-mount-points
           uuid: 
         - operation-name: /p1/measure-mount-point
+          uuid: 
+        - operation-name: /p1/measure-link
+          uuid: 
+        - operation-name: /p1/measure-route
+          uuid: 
+        - operation-name: /p1/measure-management-plane-transport
           uuid: 
 
         #
         # Implementation
         #
+        - operation-name: /p1/reconstruct-management-domain-interface
+          uuid: 
         - operation-name: /p1/construct-mount-point
           uuid: 
         - operation-name: /p1/destruct-mount-point
           uuid: 
         - operation-name: /p1/reconstruct-mount-point
           uuid: 
+
         #
         # Monitoring
         #
@@ -364,119 +402,3 @@ clients:
         basic:
         individual:
 
-  - http-client:
-      application-name: EricssonMediatorInstanceManager
-      release-number: 1.0.0
-      uuid: mm-1-0-0-http-c-emim-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 1.1.2.2
-      tcp-port: 2002
-      uuid: mm-1-0-0-tcp-c-emim-1-0-0-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/list-mediator-instances
-            uuid: mm-1-0-0-op-c-is-emim-1-0-0-000
-          - operation-name: /v1/provide-mediator-instance
-            uuid: mm-1-0-0-op-c-im-emim-1-0-0-000
-          - operation-name: /v1/dismantle-mediator-instance
-            uuid: mm-1-0-0-op-c-im-emim-1-0-0-001
-
-  - http-client:
-      application-name: HuaweiMediatorInstanceManager
-      release-number: 1.0.0
-      uuid: mm-1-0-0-http-c-hmim-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 1.1.2.3
-      tcp-port: 2003
-      uuid: mm-1-0-0-tcp-c-hmim-1-0-0-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/list-mediator-instances
-            uuid: mm-1-0-0-op-c-is-hmim-1-0-0-000
-          - operation-name: /v1/provide-mediator-instance
-            uuid: mm-1-0-0-op-c-im-hmim-1-0-0-000
-          - operation-name: /v1/dismantle-mediator-instance
-            uuid: mm-1-0-0-op-c-im-hmim-1-0-0-001
-
-  - http-client:
-      application-name: SiaeMediatorInstanceManager
-      release-number: 1.0.0
-      uuid: mm-1-0-0-http-c-smim-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 1.1.2.4
-      tcp-port: 2004
-      uuid: mm-1-0-0-tcp-c-smim-1-0-0-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/list-mediator-instances
-            uuid: mm-1-0-0-op-c-is-smim-1-0-0-000
-          - operation-name: /v1/provide-mediator-instance
-            uuid: mm-1-0-0-op-c-im-smim-1-0-0-000
-          - operation-name: /v1/dismantle-mediator-instance
-            uuid: mm-1-0-0-op-c-im-smim-1-0-0-001
-
-  - http-client:
-      application-name: ConnectionPreparation
-      release-number: 1.1.0
-      uuid: mm-1-0-0-http-c-cp-1-1-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 4022
-      uuid: mm-1-0-0-tcp-c-cp-1-1-0-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/prepare-connection
-            uuid: mm-1-0-0-op-c-is-cp-1-1-0-000
-
-  - http-client:
-      application-name: MountingOrchestrator
-      release-number: 1.0.0
-      uuid: mm-1-0-0-http-c-mo-1-0-0-000
-    tcp-client:
-      remote-protocol: http
-      ip-address: 127.0.0.1
-      tcp-port: 4010
-      uuid: mm-1-0-0-tcp-c-mo-1-0-0-000
-    operation-clients:
-      own-oam:
-        basic:
-        individual:
-      service:
-        basic:
-        individual:
-          - operation-name: /v1/update-tcp-client
-            uuid: mm-1-0-0-op-c-is-mo-1-0-0-000
-          - operation-name: /v1/update-management-plane-transport
-            uuid: mm-1-0-0-op-c-is-mo-1-0-0-001
-
-        # Thorsten added
-          - operation-name: /v1/list-controllers
-            uuid: 
-          - operation-name: /v1/list-mount-points-at-controller
-            uuid: 
-          - operation-name: /v1/inform-about-mount-point
-            uuid: 

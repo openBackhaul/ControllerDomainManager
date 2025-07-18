@@ -21,8 +21,8 @@ Logical objects need to be created for the following types of Elements:
 The following Public InterpretationFunctions are provided for managing them:  
 - /v1/**create**-_instance_of_element-type_  
 - /v1/delete-_instance_of_element-type_  
-- /v1/list-_all_instances-of-element-type_  
-- /v1/inform-about-_instance-of-element-type_  
+- /v1/list-configured-_all_instances-of-element-type_  
+- /v1/provide-config-of-_instance-of-element-type_  
 - /v1/update-_instance_of_element-type_  
 
 High level description of the [processing of create](./ProcessingCreate.md)  
@@ -37,8 +37,9 @@ The following types of Elements need to be regarded by documenting logical objec
 The following Public InterpretationFunctions are provided for documenting them:  
 - /v1/**regard**-_instance_of_element-type_  
 - /v1/disregard-_instance_of_element-type_  
-- /v1/list-_all_instances-of-element-type_  
-- /v1/inform-about-_instance-of-element-type_  
+- /v1/list-configured-_all_instances-of-element-type_  
+- /v1/provide-config-of-_instance-of-element-type_  
+- /v1/provide-status-of-_instance-of-element-type_  
 
 High level description of the [processing of regard](./ProcessingRegard.md)  
 
@@ -68,8 +69,9 @@ Logical objects need to be established for the following types of Elements:
 The following Public InterpretationFunctions are provided for managing them:  
 - /v1/**establish**-_instance_of_element-type_  
 - /v1/dismantle-_instance_of_element-type_  
-- /v1/list-_all_instances-of-element-type_  
-- /v1/inform-about-_instance-of-element-type_  
+- /v1/list-configured-_all_instances-of-element-type_  
+- /v1/provide-config-of-_instance-of-element-type_  
+- /v1/provide-status-of-_instance-of-element-type_  
 - /v1/list-alarms-at-_instance_of_element-type_ (not always)  
 
 High level description of the [processing of establish](./ProcessingEstablish.md)  

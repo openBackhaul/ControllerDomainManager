@@ -1,5 +1,7 @@
 # Custom Dictionary Words
 
+correlator
+
 eatl
 emim
 

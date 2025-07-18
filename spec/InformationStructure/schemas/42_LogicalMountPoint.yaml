@@ -14,6 +14,15 @@ logical-termination-point:
           candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
           running: from candidate
           operational: from running - must exist in OperationalDS to terminate CopyLinks that are needed for expressing operational state of the MountPoints in real Controllers'
+      _template:
+        type: string
+        description: >
+          'mountPointTemplateName
+          Reference towards an entry in the list of Profiles
+          The referenced instances of Profile must have category==mountPoint
+          candidate: from [CDM://v1/establish-management-plane-transport$request.body#mount-point-template-name]
+          running: from candidate
+          operational: from running'
       layer-protocol:
         type: array
         x-key: local-id
@@ -53,13 +62,27 @@ logical-termination-point:
                   type: string
                   description: >
                     'IP address of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/update-management-plane-transport$request.body#remote-ip-address]
+                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#remote-ip-address]
                     running: from candidate
                     operational: from running'
                 remote-port:
                   type: integer
                   description: >
                     'TCP port of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/update-management-plane-transport$request.body#remote-port]
+                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#remote-port]
+                    running: from candidate
+                    operational: from running'
+                notification-subscribe:
+                  type: boolean
+                  description: >
+                    'If true, the automated subscribing for notifications while mounting is activated
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#notification-subscribe]
+                    running: from candidate
+                    operational: from running'
+                stream-name:
+                  type: string
+                  description: >
+                    'Name of the stream for clients of ODL to identify it while subscribing
+                    from [CDM://v1/establish-management-plane-transport$request.body#notification-stream-name]
                     running: from candidate
                     operational: from running'

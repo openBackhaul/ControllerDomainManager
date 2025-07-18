@@ -50,9 +50,9 @@ paths:
                 example:
                   network-topology:topology:
                     - node:
-                        - node-id: CO02060
-                        - node-id: 513559991A
-                        - node-id: 513559991B
+                        - node-id: 'CO02060'
+                        - node-id: '513559991A'
+                        - node-id: '513559991B'
                         - node-id: '513250010'
                         - node-id: '513250012'
                         - node-id: '513250011'
@@ -62,23 +62,10 @@ paths:
                         - node-id: '513250006'
                         - node-id: '513250009'
                         - node-id: '513250008'
-                        - node-id: CO17691
-                        - node-id: CO12126
-                        - node-id: CO17692
-                        - node-id: CO17693
-                        - node-id: CO15338
-                        - node-id: CO17694
-                        - node-id: CO15337
-                        - node-id: CO17695
-                        - node-id: CO15951
-                        - node-id: CO12124
-                        - node-id: CO15950
-                        - node-id: CO17690
-                        - node-id: test
-                        - node-id: CO02059
-                        - node-id: '513250013'
-                        - node-id: CO13305
-                        - node-id: CO13306
+                        - node-id: 'CO17691'
+                        - node-id: 'CO12126'
+                        - node-id: 'CO17692'
+
 
   /rests/data/network-topology:network-topology/topology=topology-netconf:
     post:
@@ -109,104 +96,9 @@ paths:
                           'deviceName defined by Telefonica planing department
                           Invariant value defined during creation of the MountPoint
                           from [CDM://p1/construct-mount-point$request.body#mount-name]'
-                      netconf-node-optional:notification:
-                        type: object
-                        properties:
-                          subscribe:
-                            type: boolean
-                            description: >
-                              'Configuration
-                              if true, the automated subscribing for notifications while mounting is activated
-                              from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/notification-subscribe]'
-                          stream-name:
-                            type: string
-                            description: >
-                              'Configuration
-                              Name of the stream for clients of ODL to identify it while subscribing
-                              from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/notification-stream-name]'
-                      netconf-node-topology:username:
-                        type: string
-                        description: >
-                          'Configuration
-                          Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/netconf-user-name]'
-                      netconf-node-topology:password:
-                        type: string
-                        description: >
-                          'Configuration
-                          Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/netconf-password]'
-                      netconf-node-topology:sleep-factor:
-                        type: string
-                        description: >
-                          'Configuration
-                          Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/sleep-factor]'
-                      netconf-node-topology:max-connection-attempts:
-                        type: integer
-                        description: >
-                          'Configuration
-                          Maximum number of attempts to connect with the MediatorProcess/device
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/max-connection-attempts]'
-                      netconf-node-topology:default-request-timeout-millis:
-                        type: integer
-                        description: >
-                          'Configuration
-                          Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/default-request-timeout-millis]'
-                      netconf-node-topology:tcp-only:
-                        type: boolean
-                        description: >
-                          'Configuration
-                          ?
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/tcp-only]'
-                      netconf-node-topology:concurrent-rpc-limit:
-                        type: integer
-                        description: >
-                          'Configuration
-                          ?
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/concurrent-rpc-limit]'
-                      netconf-node-topology:schema-cache-directory:
-                        type: string
-                        description: >
-                          'Configuration
-                          Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/schema-cache-directory]'
-                      netconf-node-topology:between-attempts-timeout-millis:
-                        type: integer
-                        description: >
-                          'Configuration
-                          ?
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/between-attempts-timeout-millis]'
-                      netconf-node-topology:reconnect-on-changed-schema:
-                        type: boolean
-                        description: >
-                          'Configuration
-                          ?
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/reconnect-on-changed-schema]'
-                      netconf-node-topology:keepalive-delay:
-                        type: integer
-                        description: >
-                          'Configuration
-                          Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device
-                          from [/network-control-domain=running/profile=[CDM://p1/construct-mount-point$request.body#mount-point-template-name]/keepalive-delay]'
               example:
                 network-topology:node:
                   - node-id: '111251111'
-                    netconf-node-optional:notification:
-                      subscribe: true
-                      stream-name: 'NETCONF'
-                    netconf-node-topology:username: 'admin'
-                    netconf-node-topology:password: 'admin'
-                    netconf-node-topology:sleep-factor: '2.5'
-                    netconf-node-topology:max-connection-attempts: 8
-                    netconf-node-topology:default-request-timeout-millis: 900000
-                    netconf-node-topology:tcp-only: false
-                    netconf-node-topology:concurrent-rpc-limit: 0
-                    netconf-node-topology:schema-cache-directory: 'eric'
-                    netconf-node-topology:between-attempts-timeout-millis: 5000
-                    netconf-node-topology:reconnect-on-changed-schema: false
-                    netconf-node-topology:keepalive-delay: 120
       responses:
         '201':
           description: 'MountPoint established'

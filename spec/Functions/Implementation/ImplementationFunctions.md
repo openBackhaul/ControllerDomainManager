@@ -14,9 +14,10 @@ The Applications of the MW SDN application layer are equipped with an ONF Core I
 The Application's OaM interface is encapsulated by the [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager) (ADM) application.  
 
 The ADM is offering the following services for implementation:  
-- Updating the client interface towards a ManagementDomain (ADM://v1/update-management-domain-interface)
+- Updating the client interface towards a ManagementDomain  
+  ADM://v1/mediate-management-domain-interface-update
 
-The openAPI specification of the ApplicationDomainManager can be found [here](https://github.com/openBackhaul/ApplicationDomainManager/blob/develop/spec/ApplicationDomainManager.yaml).
+A detailed description of the implementation services can be found [here](../../Elements/ADM/adm.yaml). 
 
 ### LoadBalancer  
 

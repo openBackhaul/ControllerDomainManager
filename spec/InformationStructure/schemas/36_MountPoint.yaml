@@ -13,7 +13,14 @@ logical-termination-point:
           'deviceName
           candidate: all LTPs to be copied from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[*]/local-id]
           running: all LTPs to be copied from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[*]/local-id]
-          operational: from running; entire LTP to be deleted, if deviceName not included in [[/network-control-domain=running/profile=[_template]/list-mount-points-service]$response.body#{attributes according to proprietary Controller API}]'
+          operational: from running; entire LTP to be deleted, if deviceName not included in [[/network-control-domain=running/profile=[/management-domain=running/control-construct=[element-name]/_template]/list-mount-points-service]$response.body#{attributes according to proprietary Controller API}]'
+      _template:
+        type: string
+        description: >
+          'mountPointTemplateName
+          candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/_template]
+          running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/_template]
+          operational: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/_template]
       layer-protocol:
         type: array
         x-key: local-id
@@ -62,4 +69,18 @@ logical-termination-point:
                     'TCP port of the mediatorProcess to which the mountPoint is connected to
                     candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
                     running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-mount-point-service]$response.body#{attributes according to proprietary Controller API}]'
+                notification-subscribe:
+                  type: boolean
+                  description: >
+                    'If true, the automated subscribing for notifications while mounting is activated
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/notification-subscribe]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/notification-subscribe]
+                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-mount-point-service]$response.body#{attributes according to proprietary Controller API}]'
+                stream-name:
+                  type: string
+                  description: >
+                    'Name of the stream for clients of ODL to identify it while subscribing
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/stream-name]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/stream-name]
                     operational: from [[/network-control-domain=running/profile=[_template]/inform-about-mount-point-service]$response.body#{attributes according to proprietary Controller API}]'

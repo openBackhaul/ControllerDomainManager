@@ -39,10 +39,10 @@ shall be processed as follows:
 ### List  
 
 The following services  
-- /v1/list-application-templates  
-- /v1/list-load-balancer-templates  
-- /v1/list-controller-templates  
-- /v1/list-mount-point-templates  
+- /v1/list-configured-application-templates
+- /v1/list-configured-load-balancer-templates  
+- /v1/list-configured-controller-templates  
+- /v1/list-configured-mount-point-templates  
 
 shall be processed as follows:  
 - retrieve key attribute values of logical objects of specified type and category from RunningDS  
@@ -51,10 +51,10 @@ shall be processed as follows:
 ### Inform  
 
 The following services  
-- /v1/inform-about-application-template  
-- /v1/inform-about-load-balancer-template  
-- /v1/inform-about-controller-template  
-- /v1/inform-about-mount-point-template  
+- /v1/provide-config-of-application-template  
+- /v1/provide-config-of-load-balancer-template  
+- /v1/provide-config-of-controller-template  
+- /v1/provide-config-of-mount-point-template  
 
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  

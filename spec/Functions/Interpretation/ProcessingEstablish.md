@@ -158,9 +158,9 @@ It shall be processed as follows:
 ### List  
 
 The following services  
-- **/v1/list-management-domains**  
-- **/v1/list-management-domain-connections**  
-- **/v1/list-management-plane-transports**  
+- /v1/list-configured-management-domains  
+- /v1/list-configured-management-domain-connections  
+- /v1/list-configured-management-plane-transports  
 
 shall be processed as follows:  
 - retrieve key attribute values of logical objects of specified type and category from RunningDS  
@@ -169,13 +169,21 @@ shall be processed as follows:
 ### Inform  
 
 The following services  
-- **/v1/inform-about-management-domain**  
-- **/v1/inform-about-management-domain-connection**  
-- **/v1/inform-about-management-plane-transport**  
+- /v1/provide-config-of-management-domain  
+- /v1/provide-config-of-management-plane-transport  
 
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  
-- respond values of logical object from RunningDS to requestor  
+- respond values of logical object from _RunningDS_ to requestor  
+
+The following services  
+- /v1/provide-status-of-management-domain  
+- /v1/provide-status-of-management-domain-connection
+- /v1/provide-status-of-management-plane-transport  
+
+shall be processed as follows:  
+- identify logical object by specified type, category and key attribute value  
+- respond values of logical object from _OperationalDS_ to requestor  
 
 ### Update  
 
@@ -183,10 +191,8 @@ If possible, the update function should be avoided.
 The complex validation is offset by only a small number of incidents during operation.  
 There are alternative procedures to cover these incidents.  
 
-<span style="color:red;"> _**! The service offered to DDM for updating the NetconfClient at the LogicalController is missing !**_ </span>  
-
 ### List Alarms  
 
-The **/v1/list-alarms-at-management-plane-transport** service shall be processed as follows:  
+The /v1/list-alarms-at-management-plane-transport service shall be processed as follows:  
 - search list of currentAlarms for entry identified by the managementDomain and the deviceName specified in RequestBody  
 - respond values of CurrentAlarm object to requestor  

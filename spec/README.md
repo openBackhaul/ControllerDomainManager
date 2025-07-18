@@ -10,7 +10,7 @@
   - Application <---> LoadBalancer/Controller  
   - LoadBalancer <---> Controller  
 - The following kind of Endpoint is managed, despite its holding Elements are encapsulated by a neighboring domain:  
-  - TcpClient at Applications encapsulated by ApplicationDomainManager  
+  - TcpClient at Applications encapsulated by [ApplicationDomainManager](./Elements/ADM/adm.md)
 
 ### InformationStructure  
 - Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  

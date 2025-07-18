@@ -31,6 +31,7 @@ profile:
               candidate: from [CDM://v1/create-controller-template$request.body#list-mount-points-service]
               running: from candidate
               operational: ./.'
+            example: '/p1/measure-list-of-mount-points'
           inform-about-mount-point-service:
             type: string
             description: >

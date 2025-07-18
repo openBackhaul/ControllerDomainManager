@@ -37,24 +37,34 @@ shall be processed as follows:
 ### List  
 
 The following services  
-- /v1/list-applications  
-- /v1/list-load-balancers  
-- /v1/list-controllers  
+- /v1/list-configured-applications  
+- /v1/list-configured-load-balancers  
+- /v1/list-configured-forwardings  
+- /v1/list-configured-controllers  
+- /v1/list-configured-mount-points  
 
 shall be processed as follows:  
-- retrieve key attribute values of logical objects of specified type and category from RunningDS  
+- retrieve key attribute values of logical objects of specified type and category from _RunningDS_  
 - respond list of key attribute values to requestor  
 
 ### Inform  
 
 The following services  
-- /v1/inform-about-application  
-- /v1/inform-about-load-balancer  
-- /v1/inform-about-controller  
+- /v1/provide-config-of-application  
+- /v1/provide-config-of-forwarding  
+- /v1/provide-config-of-mount-point  
 
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  
-- respond values of logical object from RunningDS to requestor  
+- respond values of logical object from _RunningDS_ to requestor  
+
+The following services  
+- /v1/provide-status-of-forwarding  
+- /v1/provide-status-of-mount-point  
+
+shall be processed as follows:  
+- identify logical object by specified type, category and key attribute value  
+- respond values of logical object from _OperationalDS_ to requestor  
 
 ### Update  
 

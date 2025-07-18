@@ -1,104 +1,362 @@
 # Measurement  
 
+
 ## Basic Concept of Measurement  
 
-The MeasurementFunctions are interpreting data for creating the data structure of the OperationalDS.  
-They are addressing Elements to retrieve information about the termination points managed within this domain.  
-The received information is interpreted into availability of the termination points in the OperationalDS.  
-The availability of the connections in the OperationalDS is derived from the availability of the termination points in the OperationalDS.  
+Tasks of the MeasurementFunctions:  
+- Collecting data from the managed Elements  
+- Interpreting that data into the logical objects of the data structure inside the OperationalDS  
+- Encapsulating the proprietary interfaces to the managed Elements  
 
-## Offered Measurements  
+Tasks of the MeasurementOrchestrator:  
+- Invoking the MeasurementFunctions  
+  - cyclically (basic, continuous process)  
+  - event based (optimize speed of propagation of effects of measurement results)  
 
-The Elements that are managed within this domain are offering proprietary APIs with limited capabilities.  
-The Offered Measurements section describes the measurements that are available at these proprietary APIs.  
+Measurement results:  
+- Availability of  
+  - termination point or  
+  - connection  
+- Currently effective configuration and status of the managed Element  
 
-### Application  
+Measured objects:  
+- Physically existing Elements  
+  => availability of termination points + currently effective configuration and status  
+- Objects representing termination points in OperationalDS  
+  => availability of connections  
 
-The Applications of the MW SDN application layer are equipped with an ONF Core IM based OaM REST interface that allows to configure during runtime.  
-
-#### ApplicationDomainManager
-The Application's OaM interface is encapsulated by the [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager) (ADM) application.  
-
-The ADM is offering the following services for measurement:  
-- Retrieving the names of the regarded Applications  
-  ADM://v1/list-applications  
-- Retrieving the names of the created ManagementDomainInterfaces  
-  ADM://v1/list-management-domain-interfaces  
-- Retrieving information about a ManagementDomainInterface  
-  ADM://v1/inform-about-management-domain-interface  
-
-The openAPI specification of the ApplicationDomainManager can be found [here](https://github.com/openBackhaul/ApplicationDomainManager/blob/develop/spec/ApplicationDomainManager.yaml).
-
-### LoadBalancer  
-
-#### nginx
-The currently used nginx LoadBalancer is offering the following resources:  
-...  
-
-### Controller  
-
-#### OpenDaylight  
-OpenDaylight supports to manage the MountPoints via its REST interface.  
-
-The following measurements are offered:  
-- Retrieving the names of the configured MountPoints, equals with mountName, deviceName, Telefonica's NE-Id  
-  ODL://rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id)  
-- Retrieving information about a MountPoint (deviceName), includes  
-  - the NetconfClient's remote address configuration  
-  - the status of the connection towards a device, e.g. 'connected', 'connecting' or 'unable-to-connect'  
-  ODL://rests/data/network-topology:network-topology/topology=topology-netconf/node={deviceName}
+Measurement philosophy:  
+- The logical resources on the managed Elements are completely and exclusively subordinate to the domain manager  
+- The measurement concept must cover all consumers of these resources, also to facilitate removing consumers that are not part of the target state  
 
 
-A detailed description of the measurement services can be found [here](../../Elements/OpenDaylight/OpenDaylight.yaml).  
+## MeasurementFunctions Summary  
 
-## Appliance of Measurements  
+Managed Elements and associated MeasurementFunctions (covering availability of termination point + currently effective configuration and status):  
+- ManagementDomainInterface  
+  - /p1/measure-management-domain-interface  
+- LoadBalancer and Forwarding  
+  - /p1/measure-list-of-forwardings  
+  - /p1/measure-forwarding  
+- Controller and MountPoint  
+  - /p1/measure-list-of-mount-points  
+  - /p1/measure-mount-point  
 
-The MeasurementFunctions translate the measurement results into concrete objects in the OperationalDS.  
-The Appliance of Measurements section describes the concrete effects of the provided measurement results to the objects in the OperationalDS.  
-Due to internal relationships, chains of changes to the availability might unfold from a single measurement result.  
-Such internal relationships (e.g., Link is unavailable, if at least one end point is unavailable) are described in this section, too.  
+Managed Connections and associated MeasurementFunctions (covering availability of connection):  
+- TcpConnectionA, TcpConnectionB and CopyConnection  
+  - /p1/measure-link _(potentially three different MeasurementFunctions required)_  
+- Route  
+  - /p1/measure-route _(potentially consolidated into /p1/measure-management-plane-transport)_  
+- ManagementPlaneTransport  
+  - /p1/measure-management-plane-transport  
 
-<span style="color:red;"> _**! The following definitions are experimental !**_ </span>  
 
-### Direct consequences of external Measurements  
+## ManagementDomainInterface  
 
-| Application    |   |
-| -------------- | - |
-| Object         | ControlConstruct with [/control-construct/category]=='application' |
-| Measurement    | [ADM://v1/list-applications$response.body#list-of-application-names] |
-| Result         | list of names of Applications |
-| Interpretation | entire Object to be deleted from OperationalDS, if applicationName==[/control-construct/element-name] not included in Result |
+The Application itself is managed by another domain.  
+The CDM's management is limited to ensuring that the ManagementDomainInterface's configuration is aligned with address and authentication at LoadBalancer, respectively Controller.  
+So, measurement is limited to availability, configuration and status of a specified Element.  
 
-| Management DomainInterface |   |
-| -------------- | - |
-| Object         | LTP identified by [managementDomain] inside ControlConstruct with [/control-construct/category]=='application' |
-| Measurement    | [ADM://v1/list-management-domain-interfaces$response.body#list-of-management-domain-interfaces] |
-| Result         | list of names of ManagementDomains |
-| Interpretation | entire Object to be deleted from OperationalDS, if managementDomain==[/control-construct/logical-termination-point/local-id] not included in Result |
+### /p1/measure-management-domain-interface  
 
-| LoadBalancer   |   |
-| -------------- | - |
-| Object         | ControlConstruct with [/control-construct/category]=='loadBalancer' |
-| Measurement    | [LB://_service-for-retrieving-list-of-forwardings_$response.code] |
-| Result         | ResponseCode |
-| Interpretation | entire Object to be deleted from OperationalDS, if ResponseCode!=200 |
+Is addressing the ApplicationDomainManager  
+
+#### Input:  
+- application-name  
+  Name of the Application that holds the ManagementDomainInterface  
+- management-domain  
+  Name of the ManagementDomain  
+
+#### Callback:  
+- [ADM://v1/provide-status-of-management-domain-interface](../../Elements/ADM/adm.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => ManagementDomainInterface is unavailable  
+- response.body => Current configuration and status of the ManagementDomainInterface  
+
+#### Interpretations:  
+response.code:  
+- Object - LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
+- Interpretation - entire Object to be deleted from OperationalDS, if [response.code]!=200  
+
+response.body#remote-ip-address:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
+- Interpretation - [Object#remote-ip-address] = [response.body#remote-ip-address]  
+
+response.body#remote-port:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
+- Interpretation - [Object#remote-port] = [response.body#remote-port]  
+
+#### Output: <span style="color:blue ;">_(Preliminary)_ </span>  
+- list-of-changed-ltps  
+  List of references towards LTPs that are affected by change of un-/available or value  
+
+
+## LoadBalancer and Forwarding  
+
+The CDM encapsulates the LoadBalancer.  
+It manages the entire logical resource of the LoadBalancer, which is the Forwardings.  
+
+### /p1/measure-list-of-forwardings  
+
+Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
+
+#### Input:  
+- load-balancer-name  
+  Name of a LoadBalancer  
+
+#### Callback:  
+- [nginx:/???](../../Elements/nginx/nginx.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => LoadBalancer (incl. all Forwardings) is unavailable  
+- response.body => List of currently configured Forwardings; Forwardings that are not included are unavailable  
+
+#### Interpretations:  
+
+response.code:  
+- Object - ControlConstruct identified by [load-balancer-name]  
+- Interpretation - entire Object to be deleted from OperationalDS, if [response.code]!=200  
+
+response.body#_nginx-api-specific-version-of-list-of-forwardings_:  
+- Objects - All LTPs except the one identified by 'load-balancer-manager' inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#uuid] not included in [response.body#_nginx-api-specific-version-of-list-of-forwardings_]  
+
+#### Output: <span style="color:blue ;">_(Preliminary)_ </span>  
+- list-of-changed-ltps  
+  List of references towards LTPs that are affected by change of un-/available or value  
+
+### /p1/measure-forwarding  
+
+Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
+
+#### Input:  
+- load-balancer-name  
+  Name of a LoadBalancer  
+- management-domain  
+  Name of the ManagementDomain  
+
+#### Callback:  
+- [nginx:/???](../../Elements/nginx/nginx.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => Forwarding is unavailable  
+- response.body => Current configuration and status of the Forwarding  
+
+#### Interpretations:  
+
+response.code:  
+- Object - LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - entire Object to be deleted from OperationalDS, if [response.code]!=200  
+
+response.body#_nginx-api-specific-version-of-local-ip-address_:  
+- Object - LP identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#local-ip-address] = [response.body#_nginx-api-specific-version-of-local-ip-address_]  
+
+response.body#_nginx-api-specific-version-of-local-port_:
+- Object - LP identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#local-port] = [response.body#_nginx-api-specific-version-of-local-port_]  
+
+response.body#_nginx-api-specific-version-of-list-of-tcp-clients_:  
+- Objects - All LPs except the one identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#uuid] not included in [response.body#_nginx-api-specific-version-of-list-of-tcp-clients=*/uuid_]  
+
+response.body#_nginx-api-specific-version-of-list-of-tcp-clients{controllerName}/remote-ip-address_:  
+- Object - LP identified by [controllerName] inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#remote-ip-address] = [response.body#_nginx-api-specific-version-of-list-of-tcp-clients={controllerName}/remote-ip-address_]  
+
+response.body#_nginx-api-specific-version-of-list-of-tcp-clients{controllerName}/remote-port_:  
+- Object - LP identified by [controllerName] inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#remote-port] = [response.body#_nginx-api-specific-version-of-list-of-tcp-clients={controllerName}/remote-port_]  
+
+#### Output: <span style="color:blue ;">_(Preliminary)_ </span>  
+- list-of-changed-ltps  
+  List of references towards LTPs that are affected by change of un-/available or value  
+
+
+## Controller and MountPoint  
+
+The CDM encapsulates the Controller.  
+It manages the entire logical resource of the Controller, which is the MountPoints.  
+
+### /p1/measure-list-of-mount-points  
+
+Is addressing the OpenDaylight controller  
+
+#### Input:  
+- controller-name  
+  Name of a Controller  
+
+#### Callback:  
+- [ODL://rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id)](../../Elements/OpenDaylight/OpenDaylight.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => Controller (incl. all MountPoints) is unavailable  
+- response.body => List of currently configured MountPoints; MountPoints that are not included are unavailable  
+
+#### Interpretations:  
+
+response.code:  
+- Object - ControlConstruct identified by [controller-name]  
+- Interpretation - entire Object to be deleted from OperationalDS, if [response.code]!=200  
+
+response.body#network-topology:topology/node/node-id:  
+- Objects - All LTPs except the one identified by 'controller-manager' inside ControlConstruct identified by [controller-name]  
+- Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#local-id] not included in [response.body#network-topology:topology/node/node-id]  
+
+#### Output: <span style="color:blue ;">_(Preliminary)_ </span>  
+- list-of-changed-ltps  
+  List of references towards LTPs that are affected by change of un-/available or value  
+
+### /p1/measure-mount-point  
+
+Is addressing the OpenDaylight controller  
+
+#### Input:  
+- controller-name  
+  Name of a Controller  
+- device-name  
+  Name of the MountPoint  
+
+#### Callback:  
+- [ODL://rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}](../../Elements/OpenDaylight/OpenDaylight.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => MountPoint is unavailable  
+- response.body => Current configuration and status of the MountPoint  
+
+#### Interpretations:  
+
+response.code:  
+- Object - LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - entire Object to be deleted from OperationalDS, if [response.code]!=200  
+
+response.body#network-topology:node/netconf-node-topology:host:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#remote-ip-address] = [response.body#network-topology:node/netconf-node-topology:host]  
+
+response.body#network-topology:node/netconf-node-topology:port:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#remote-port] = [response.body#network-topology:node/netconf-node-topology:port]  
+
+response.body#network-topology:node/netconf-node-optional:notification/subscribe:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#notification-subscribe] = [response.body#network-topology:node/netconf-node-optional:notification/subscribe]  
+
+response.body#network-topology:node/netconf-node-optional:notification/stream-name:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#notification-stream-name] = [response.body#network-topology:node/netconf-node-optional:notification/stream-name]  
+
+
+---- ab hier geht's weiter ----
+
+response.body#network-topology:node/netconf-node-topology:username:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#remote-ip-address] = [response.body#network-topology:node/netconf-node-topology:host]  
+
+response.body#network-topology:node/netconf-node-topology:password:  
+- Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+- Interpretation - [Object#remote-port] = [response.body#network-topology:node/netconf-node-topology:port]  
+
+
+
+
+
+response.body#local-ip-address:  
+- Object - LP identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#local-ip-address] = [response.body#local-ip-address]  
+
+response.body#local-port:
+- Object - LP identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#local-port] = [response.body#local-port]  
+
+response.body#list-of-tcp-clients:  
+- Objects - All LPs except the one identified by 'tcp-server' inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#uuid] not included in [response.body#list-of-tcp-clients=*/uuid]  
+
+response.body#list-of-tcp-clients{controllerName}/remote-ip-address:  
+- Object - LP identified by [controllerName] inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#remote-ip-address] = [response.body#list-of-tcp-clients={controllerName}/remote-ip-address]  
+
+response.body#list-of-tcp-clients{controllerName}/remote-port:  
+- Object - LP identified by [controllerName] inside LTP identified by [management-domain] inside ControlConstruct identified by [load-balancer-name]  
+- Interpretation - [Object#remote-port] = [response.body#list-of-tcp-clients={controllerName}/remote-port]  
+
+#### Output: <span style="color:blue ;">_(Preliminary)_ </span>  
+- list-of-changed-ltps  
+  List of references towards LTPs that are affected by change of un-/available or value  
+
+
+
+
+
+
+
+
+
+=============
+
+Welche verwaltete Ressource ist betroffen?
+
+** MeasurementFunction name
+
+Encapsulated interface
+
+Input 
+
+Callbacks
+Referenz auf details 
+
+Interpretation
+- high level
+- in detail (Effekt auf OperationalDS)
+
+Output (what is indicated to the MeasurementOrchestrator)
+
+==========
+
+
+
+
+
+## Interpreting Data
+
+
+
+<span style="color:blue ;">_The following two definitions are incomplete_ </span>  
 
 | Forwarding     |   |
 | -------------- | - |
+| Function       | /p1/measure |
 | Object         | LTP identified by [managementDomain] inside ControlConstruct with [/control-construct/category]=='loadBalancer' |
-| Measurement    | [LB://_service-for-retrieving-list-of-forwardings$response.body#list-of-forwardings_] |
-| Result         | list of names of Forwardings |
-| Interpretation | entire Object to be deleted from OperationalDS, if managementDomain==[/control-construct/logical-termination-point/local-id] not included in Result |
+| Measurement    |  |
+| Result         |  |
+| Interpretation |  |
 
-| Controller     |   |
+| Forwarding     |   |
 | -------------- | - |
+| Function       | /p1/measure |
+| Object         | LTP identified by [managementDomain] inside ControlConstruct with [/control-construct/category]=='loadBalancer' |
+| Measurement    |  |
+| Result         |  |
+| Interpretation |  |
+
+
+# Hier geht's weiter
+
+
+
+| MountPoint     |   |
+| -------------- | - |
+| Function       | /p1/measure-list-of-mount-points |
 | Object         | ControlConstruct with [/control-construct/category]=='controller' |
-| Measurement    | [C://_service-for-retrieving-list-of-mount-points_$response.code] |
-| Result         | ResponseCode |
+| Measurement    | [ODL://rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id)$response.code] |
+| Result         | Availability of the Controller |
 | Interpretation | entire Object to be deleted from OperationalDS, if ResponseCode!=200 |
 
 | MountPoint     |   |
 | -------------- | - |
+| Function       | /p1/measure |
 | Object         | LTP identified by [deviceName] inside ControlConstruct with [/control-construct/category]=='controller' |
 | Measurement    | [C://_service-for-retrieving-list-of-mount-points$response.body#list-of-mount-points_] |
 | Result         | list of names of MountPoints |
@@ -106,6 +364,7 @@ Such internal relationships (e.g., Link is unavailable, if at least one end poin
 
 | LogicalController |   |
 | -------------- | - |
+| Function       | /p1/measure |
 | Object         | ControlConstruct with [/control-construct/category]=='logicalController' |
 | Measurement    | ./. |
 | Result         | ./. |
@@ -113,6 +372,7 @@ Such internal relationships (e.g., Link is unavailable, if at least one end poin
 
 | LogicalMountPoint |   |
 | -------------- | - |
+| Function       | /p1/measure |
 | Object         | LTP identified by [deviceName] inside ControlConstruct with [/control-construct/category]=='logicalController' |
 | Measurement    | ./. |
 | Result         | ./. |
