@@ -7,10 +7,8 @@ info:
 paths:
 ########################################################################################################################
 #   Measurements
-#     /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id):
+#     /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node:
 #       get         (wrapped into /p1/measure-list-of-mount-points)
-#     /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}:
-#       get         (wrapped into /p1/measure-mount-point)
 #
 #   Implementations
 #     /rests/data/network-topology:network-topology/topology=topology-netconf:
@@ -20,15 +18,15 @@ paths:
 #       put         (wrapped into /p1/reconstruct-mount-point)
 ########################################################################################################################
 
-  /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node(node-id):
+  /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node:
     get:
       operationId: getMeasureListOfMountPoints
-      summary: 'Provides a list of the names of the configured MountPoints'
+      summary: 'Provides a list of the configured MountPoints'
       security:
         - basicAuth: []
       responses:
         '200':
-          description: 'List of names of configured MountPoints provided'
+          description: 'List of configured MountPoints provided'
           content:
             application/json:
               schema:
@@ -47,25 +45,246 @@ paths:
                             properties:
                               node-id:
                                 type: string
+                                description: >
+                                  'deviceName defined by Telefonica planing department
+                                  Invariant value defined during creation of the MountPoint'                          
+                              netconf-node-topology:available-capabilities:
+                                type: object
+                                description: >
+                                  'Capability
+                                  Netconf capabilities as they are advertised by the Netconf server in the mediator/device'
+                                properties:
+                                  available-capability:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        capability:
+                                          type: string
+                                        capability-origin:
+                                          type: string
+                              netconf-node-topology:unavailable-capabilities:
+                                type: object
+                                description: >
+                                  'Capability
+                                  Netconf capabilities as they are advertised by the Netconf server in the mediator/device'
+                                properties:
+                                  unavailable-capability:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        capability:
+                                          type: string
+                                        failure-reason:
+                                          type: string
+                              netconf-node-topology:host:
+                                type: string
+                                description: >
+                                  'Configuration
+                                  Remote IP address, which is to be used by the NetconfClient to address the MediatorProcess'
+                              netconf-node-topology:port:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  Remote TCP port, which is to be used by the NetconfClient to address the MediatorProcess'
+                              netconf-node-optional:notification:
+                                type: object
+                                properties:
+                                  subscribe:
+                                    type: boolean
+                                    description: >
+                                      'Configuration
+                                      if true, the automated subscribing for notifications while mounting is activated'
+                                  stream-name:
+                                    type: string
+                                    description: >
+                                      'Configuration
+                                      Name of the stream for clients of ODL to identify it while subscribing'
+                              netconf-node-topology:username:
+                                type: string
+                                description: >
+                                  'Configuration
+                                  Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection'
+                              netconf-node-topology:password:
+                                type: string
+                                description: >
+                                  'Configuration
+                                  Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection'
+                              netconf-node-topology:sleep-factor:
+                                type: string
+                                description: >
+                                  'Configuration
+                                  Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device'
+                              netconf-node-topology:max-connection-attempts:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  Maximum number of attempts to connect with the MediatorProcess/device'
+                              netconf-node-topology:default-request-timeout-millis:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor'
+                              netconf-node-topology:tcp-only:
+                                type: boolean
+                                description: >
+                                  'Configuration
+                                  ? ; always configured to false'
+                              netconf-node-topology:concurrent-rpc-limit:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  ? ; always configured to 0'
+                              netconf-node-topology:schema-cache-directory:
+                                type: string
+                                description: >
+                                  'Configuration
+                                  Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device'
+                              netconf-node-topology:between-attempts-timeout-millis:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  ? ; always configured to 62500'
+                              netconf-node-topology:reconnect-on-changed-schema:
+                                type: boolean
+                                description: >
+                                  'Configuration
+                                  ? ; always configured to false'
+                              netconf-node-topology:keepalive-delay:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device'
+                              netconf-node-topology:connection-status:
+                                type: string
+                                description: >
+                                  'Status
+                                  Changes from connected to connecting whenever some keep alive packet has not been answered by the MediatorProcess/device 
+                                  Changes from connecting to unable-to-connect whenever the number unanswered keep alive packets is exceeding the max-connection-attempts'
+                              netconf-node-topology:session-id:
+                                type: integer
+                                description: >
+                                  'Configuration
+                                  Whenever a new Netconf session could be established a new session-id is created'
                 example:
                   network-topology:topology:
                     - node:
                         - node-id: 'CO02060'
+                          netconf-node-topology:sleep-factor: '2.5'
+                          netconf-node-topology:default-request-timeout-millis: 1800000
+                          netconf-node-topology:port: 17833
+                          netconf-node-topology:tcp-only: false
+                          netconf-node-topology:concurrent-rpc-limit: 0
+                          netconf-node-topology:host: '172.28.127.9'
+                          netconf-node-topology:connection-status: 'connected'
+                          netconf-node-topology:session-id: 82
+                          netconf-node-topology:max-connection-attempts: 8
+                          netconf-node-topology:username: 'admin'
+                          netconf-node-topology:password: 'admin'
+                          netconf-node-topology:schema-cache-directory: 'hua'
+                          netconf-node-topology:between-attempts-timeout-millis: 5000
+                          netconf-node-topology:reconnect-on-changed-schema: false
+                          netconf-node-topology:keepalive-delay: 120
+                          netconf-node-topology:available-capabilities:
+                            available-capability:
+                              - capability: 'urn:ietf:params:xml:ns:yang:ietf-yang-types'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:base:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:base:1.1'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                capability-origin: 'device-advertised'
+                          netconf-node-optional:notification:
+                            subscribe: true
+                            stream-name: 'NETCONF'
                         - node-id: '513559991A'
+                          netconf-node-topology:sleep-factor: '2.5'
+                          netconf-node-topology:default-request-timeout-millis: 900000
+                          netconf-node-topology:port: 8303
+                          netconf-node-topology:tcp-only: false
+                          netconf-node-topology:concurrent-rpc-limit: 0
+                          netconf-node-topology:host: '172.28.127.7'
+                          netconf-node-topology:connection-status: 'connected'
+                          netconf-node-topology:session-id: 83
+                          netconf-node-topology:max-connection-attempts: 8
+                          netconf-node-topology:username: 'admin'
+                          netconf-node-topology:password: 'admin'
+                          netconf-node-topology:schema-cache-directory: 'eric'
+                          netconf-node-topology:between-attempts-timeout-millis: 5000
+                          netconf-node-topology:reconnect-on-changed-schema: false
+                          netconf-node-topology:keepalive-delay: 120
+                          netconf-node-topology:unavailable-capabilities:
+                            unavailable-capability:
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/aaa/1.1?revision=2015-06-16)tailf-aaa'
+                              - failure-reason: 'unable-to-resolve'
+                                capability: >-
+                                  (http://tail-f.com/yang/netconf-monitoring?revision=2016-11-24)tailf-netconf-monitoring
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/kicker?revision=2017-03-16)tailf-kicker'
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/webui?revision=2013-03-07)tailf-webui'
+                          netconf-node-topology:available-capabilities:
+                            available-capability:
+                              - capability: 'urn:ietf:params:netconf:base:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:base:1.1'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:xpath:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                capability-origin: 'device-advertised'
+                          netconf-node-optional:notification:
+                            subscribe: true
+                            stream-name: 'NETCONF'
                         - node-id: '513559991B'
-                        - node-id: '513250010'
-                        - node-id: '513250012'
-                        - node-id: '513250011'
-                        - node-id: '513250005'
-                        - node-id: '513250004'
-                        - node-id: '513250007'
-                        - node-id: '513250006'
-                        - node-id: '513250009'
-                        - node-id: '513250008'
-                        - node-id: 'CO17691'
-                        - node-id: 'CO12126'
-                        - node-id: 'CO17692'
-
+                          netconf-node-topology:sleep-factor: '2.5'
+                          netconf-node-topology:default-request-timeout-millis: 900000
+                          netconf-node-topology:port: 8304
+                          netconf-node-topology:tcp-only: false
+                          netconf-node-topology:concurrent-rpc-limit: 0
+                          netconf-node-topology:host: '172.28.127.7'
+                          netconf-node-topology:connection-status: 'connected'
+                          netconf-node-topology:session-id: 133
+                          netconf-node-topology:max-connection-attempts: 8
+                          netconf-node-topology:username: 'admin'
+                          netconf-node-topology:password: 'admin'
+                          netconf-node-topology:schema-cache-directory: 'eric'
+                          netconf-node-topology:between-attempts-timeout-millis: 5000
+                          netconf-node-topology:reconnect-on-changed-schema: false
+                          netconf-node-topology:keepalive-delay: 120
+                          netconf-node-topology:unavailable-capabilities:
+                            unavailable-capability:
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/aaa/1.1?revision=2015-06-16)tailf-aaa'
+                              - failure-reason: 'unable-to-resolve'
+                                capability: >-
+                                  (http://tail-f.com/yang/netconf-monitoring?revision=2016-11-24)tailf-netconf-monitoring
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/kicker?revision=2017-03-16)tailf-kicker'
+                              - failure-reason: 'unable-to-resolve'
+                                capability: '(http://tail-f.com/ns/webui?revision=2013-03-07)tailf-webui'
+                          netconf-node-topology:available-capabilities:
+                            available-capability:
+                              - capability: 'urn:ietf:params:netconf:base:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:base:1.1'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:xpath:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                capability-origin: 'device-advertised'
+                              - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                capability-origin: 'device-advertised'
+                          netconf-node-optional:notification:
+                            subscribe: true
+                            stream-name: 'NETCONF'
 
   /rests/data/network-topology:network-topology/topology=topology-netconf:
     post:
@@ -104,215 +323,6 @@ paths:
           description: 'MountPoint established'
 
   /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}:
-    get:
-      operationId: getMeasureMountPoint
-      summary: 'Provides information about specified MountPoint'
-      parameters:
-        - in: path
-          name: 'mount-name'
-          required: true
-          schema:
-            type: string
-            description: >
-              'from [CDM://p1/measure-mount-point$request.body#mount-name]'
-      security:
-        - basicAuth: []
-      responses:
-        '200':
-          description: 'Information about MountPoint provided'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  network-topology:node:
-                    type: array
-                    x-key: node-id
-                    items:
-                      type: object
-                      properties:
-                        node-id:
-                          type: string
-                          description: >
-                            'deviceName defined by Telefonica planing department
-                            Invariant value defined during creation of the MountPoint'                          
-                        netconf-node-topology:available-capabilities:
-                          type: object
-                          description: >
-                            'Capability
-                            Netconf capabilities as they are advertised by the Netconf server in the mediator/device'
-                          properties:
-                            available-capability:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  capability:
-                                    type: string
-                                  capability-origin:
-                                    type: string
-                        netconf-node-topology:unavailable-capabilities:
-                          type: object
-                          description: >
-                            'Capability
-                            Netconf capabilities as they are advertised by the Netconf server in the mediator/device'
-                          properties:
-                            unavailable-capability:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  capability:
-                                    type: string
-                                  failure-reason:
-                                    type: string
-                        netconf-node-topology:host:
-                          type: string
-                          description: >
-                            'Configuration
-                            Remote IP address, which is to be used by the NetconfClient to address the MediatorProcess'
-                        netconf-node-topology:port:
-                          type: integer
-                          description: >
-                            'Configuration
-                            Remote TCP port, which is to be used by the NetconfClient to address the MediatorProcess'
-                        netconf-node-optional:notification:
-                          type: object
-                          properties:
-                            subscribe:
-                              type: boolean
-                              description: >
-                                'Configuration
-                                if true, the automated subscribing for notifications while mounting is activated'
-                            stream-name:
-                              type: string
-                              description: >
-                                'Configuration
-                                Name of the stream for clients of ODL to identify it while subscribing'
-                        netconf-node-topology:username:
-                          type: string
-                          description: >
-                            'Configuration
-                            Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection'
-                        netconf-node-topology:password:
-                          type: string
-                          description: >
-                            'Configuration
-                            Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection'
-                        netconf-node-topology:sleep-factor:
-                          type: string
-                          description: >
-                            'Configuration
-                            Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device'
-                        netconf-node-topology:max-connection-attempts:
-                          type: integer
-                          description: >
-                            'Configuration
-                            Maximum number of attempts to connect with the MediatorProcess/device'
-                        netconf-node-topology:default-request-timeout-millis:
-                          type: integer
-                          description: >
-                            'Configuration
-                            Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor'
-                        netconf-node-topology:tcp-only:
-                          type: boolean
-                          description: >
-                            'Configuration
-                            ? ; always configured to false'
-                        netconf-node-topology:concurrent-rpc-limit:
-                          type: integer
-                          description: >
-                            'Configuration
-                            ? ; always configured to 0'
-                        netconf-node-topology:schema-cache-directory:
-                          type: string
-                          description: >
-                            'Configuration
-                            Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device'
-                        netconf-node-topology:between-attempts-timeout-millis:
-                          type: integer
-                          description: >
-                            'Configuration
-                            ? ; always configured to 62500'
-                        netconf-node-topology:reconnect-on-changed-schema:
-                          type: boolean
-                          description: >
-                            'Configuration
-                            ? ; always configured to false'
-                        netconf-node-topology:keepalive-delay:
-                          type: integer
-                          description: >
-                            'Configuration
-                            Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device'
-                        netconf-node-topology:connection-status:
-                          type: string
-                          description: >
-                            'Status
-                            Changes from connected to connecting whenever some keep alive packet has not been answered by the MediatorProcess/device 
-                            Changes from connecting to unable-to-connect whenever the number unanswered keep alive packets is exceeding the max-connection-attempts'
-                        netconf-node-topology:session-id:
-                          type: integer
-                          description: >
-                            'Configuration
-                            Whenever a new Netconf session could be established a new session-id is created'
-                example:
-                  network-topology:node:
-                  - node-id: '513250011'
-                    netconf-node-topology:available-capabilities:
-                      available-capability:
-                        - capability: 'urn:ietf:params:netconf:base:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:base:1.1'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:xpath:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:validate:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:notification:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:interleave:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: 'urn:ietf:params:netconf:capability:rollback-on-error:1.0'
-                          capability-origin: 'device-advertised'
-                        - capability: '(urn:onf:yang:firmware-1-0?revision=2024-01-03)firmware-1-0'
-                        - capability: '(urn:onf:yang:core-model-1-4?revision=2023-07-26)core-model-1-4'
-                        - capability: '(urn:onf:yang:vlan-fd-1-0?revision=2024-01-04)vlan-fd-1-0'
-                        - capability: '(urn:onf:yang:vlan-fc-1-0?revision=2024-01-04)vlan-fc-1-0'
-                        - capability: '(urn:onf:yang:wred-profile-1-0?revision=2024-01-04)wred-profile-1-0'
-                        - capability: '(urn:onf:yang:ip-interface-1-0?revision=2024-01-05)ip-interface-1-0'
-                        - capability: '(urn:onf:yang:ltp-augment-1-0?revision=2024-01-03)ltp-augment-1-0'
-                        - capability: '(urn:onf:yang:air-interface-2-0?revision=2024-01-02)air-interface-2-0'
-                        - capability: '(urn:onf:yang:alarms-1-0?revision=2024-01-02)alarms-1-0'
-                    netconf-node-topology:unavailable-capabilities:
-                      unavailable-capability:
-                        - failure-reason: 'unable-to-resolve'
-                          capability: '(http://tail-f.com/ns/aaa/1.1?revision=2015-06-16)tailf-aaa'
-                        - failure-reason: 'unable-to-resolve'
-                          capability: '(http://tail-f.com/ns/kicker?revision=2017-03-16)tailf-kicker'
-                        - failure-reason: 'unable-to-resolve'
-                          capability: '(http://tail-f.com/ns/webui?revision=2013-03-07)tailf-webui'
-                    netconf-node-topology:host: '172.28.127.7'
-                    netconf-node-topology:port: 8302
-                    netconf-node-optional:notification:
-                      subscribe: true
-                      stream-name: 'NETCONF'
-                    netconf-node-topology:username: 'admin'
-                    netconf-node-topology:password: 'admin'
-                    netconf-node-topology:sleep-factor: '2.5'
-                    netconf-node-topology:max-connection-attempts: 8
-                    netconf-node-topology:default-request-timeout-millis: 900000
-                    netconf-node-topology:tcp-only: false
-                    netconf-node-topology:concurrent-rpc-limit: 0
-                    netconf-node-topology:schema-cache-directory: 'eric'
-                    netconf-node-topology:between-attempts-timeout-millis: 5000
-                    netconf-node-topology:reconnect-on-changed-schema: false
-                    netconf-node-topology:keepalive-delay: 120
-                    netconf-node-topology:connection-status: 'connected'
-                    netconf-node-topology:session-id: 42
     delete:
       operationId: deleteDestructMountPoint
       summary: 'Deletes specified MountPoint'

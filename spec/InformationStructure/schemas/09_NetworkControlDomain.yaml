@@ -23,7 +23,7 @@ network-control-domain:
         x-key: template-name
         items:
           oneOf:
-            - description: 'Profile - see 10_ApplicationTemplate.yaml'
+            - description: 'Profile - see 10_ManagementDomainInterfaceTemplate.yaml'
               type: object
             - description: 'Profile - see 20_LoadBalancerTemplate.yaml'
               type: object
@@ -36,7 +36,7 @@ network-control-domain:
         x-key: element-name
         items:
           oneOf:
-            - description: 'ControlConstruct - see 11_Application.yaml'
+            - description: 'ControlConstruct - see 11_ManagementDomainInterface.yaml'
               type: object
             - description: 'ControlConstruct - see 21_LoadBalancer.yaml'
               type: object

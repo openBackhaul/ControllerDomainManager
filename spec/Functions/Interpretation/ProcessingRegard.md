@@ -3,7 +3,7 @@
 ### Regard  
 
 The following services  
-- /v1/regard-application  
+- /v1/regard-management-domain-interface  
 - /v1/regard-load-balancer  
 - /v1/regard-controller  
 
@@ -20,7 +20,7 @@ shall be processed as follows:
 ### Delete  
 
 The following services  
-- /v1/disregard-application  
+- /v1/disregard-management-domain-interface  
 - /v1/disregard-load-balancer  
 - /v1/disregard-controller  
 
@@ -37,7 +37,7 @@ shall be processed as follows:
 ### List  
 
 The following services  
-- /v1/list-configured-applications  
+- /v1/list-configured-management-domain-interfaces  
 - /v1/list-configured-load-balancers  
 - /v1/list-configured-forwardings  
 - /v1/list-configured-controllers  
@@ -50,7 +50,7 @@ shall be processed as follows:
 ### Inform  
 
 The following services  
-- /v1/provide-config-of-application  
+- /v1/provide-config-of-management-domain-interface  
 - /v1/provide-config-of-forwarding  
 - /v1/provide-config-of-mount-point  
 

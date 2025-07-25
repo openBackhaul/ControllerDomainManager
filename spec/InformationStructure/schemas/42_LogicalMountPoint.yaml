@@ -86,3 +86,21 @@ logical-termination-point:
                     from [CDM://v1/establish-management-plane-transport$request.body#notification-stream-name]
                     running: from candidate
                     operational: from running'
+                available-capability:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      capability:
+                        type: string
+                      capability-origin:
+                        type: string
+                unavailable-capability:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      capability:
+                        type: string
+                      failure-reason:
+                        type: string

@@ -1,0 +1,85 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'application'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'applicationName
+              candidate: from [CDM://v1/regard-management-domain-interface$request.body#application-name]
+              running: from candidate
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-service]$response.code]!=200'
+          category:
+            type: string
+            enum:
+              - 'application'
+          _template:
+            type: string
+            description: >
+              'managementDomainInterfaceTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/regard-management-domain-interface$request.body#management-domain-interface-template-name]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              type: object
+              required:
+                - local-id
+                - layer-protocol
+              properties:
+                local-id:
+                  type: string
+                  description: >
+                    'managementDomain
+                    candidate: from [CDM://v1/regard-management-domain-interface$request.body#management-domain-name]
+                    running: from candidate
+                    operational: from running'
+                layer-protocol:
+                  type: array
+                  x-key: local-id
+                  minItems: 1
+                  maxItems: 1
+                  items:
+                    oneOf:
+                      - description: 'tcpClient'
+                        type: object
+                        required:
+                          - local-id
+                          - remote-ip-address
+                          - remote-port
+                        properties:
+                          local-id:
+                            type: string
+                            enum:
+                              - 'tcp-client'
+                          remote-ip-address:
+                            type: string
+                            description: >
+                              'IP address of either LoadBalancer or single Controller
+                              candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                                and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
+                                          and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-ip-address]
+                              running: from candidate
+                              operational: from [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-service]$response.body#remote-ip-address]'
+                          remote-port:
+                            type: integer
+                            description: >
+                              'TCP port of either LoadBalancer or single Controller
+                              candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                                and loadBalancerName=[element-name of LoadBalancer with LTP that has local-id==managementDomain]
+                                          and [/management-domain=running/control-construct=[loadBalancerName]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-port]
+                              running: from candidate
+                              operational: from [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-service]$response.body#remote-port]'

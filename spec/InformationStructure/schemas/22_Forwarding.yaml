@@ -13,7 +13,7 @@ logical-termination-point:
           'managementDomain (Must be unique across all LoadBalancers!)
           candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
           running: from candidate
-          operational: from running; entire LTP to be deleted, if managementDomain not included in [[/network-control-domain=running/profile=[_template]/list-forwardings-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+          operational: from running; entire LTP to be deleted by [/network-control-domain=running/profile=[_template]/list-forwardings-service], if managementDomain not included in proprietary response of the Element'
       layer-protocol:
         type: array
         x-key: local-id
@@ -38,7 +38,7 @@ logical-termination-point:
                     candidate: from [CDM://v1/establish-management-domain$request.body# ... ]
                     [Thorsten] Based on input of CDM://v1/establish-management-domain, either the IP address of a single ODL or the IP address of a to be created Forwarding inside a LoadBalancer is to be used here 
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'
                 local-port:
                   type: integer
                   description: >
@@ -46,7 +46,7 @@ logical-termination-point:
                     candidate: from [CDM://v1/establish-management-domain$request.body#local-port-at-logical-controller]
                     [Thorsten] Based on input of CDM://v1/establish-management-domain, either the TCP Port of a single ODL or the TCP Port of a to be created Forwarding inside a LoadBalancer is to be used here 
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'
             - description: 'tcpClient'
               type: object
               required:
@@ -60,7 +60,7 @@ logical-termination-point:
                     'controllerName
                     candidate: from [CDM://v1/establish-management-domain$request.body#controllers/controller-name]
                     running: from candidate
-                    operational: from running'
+                    operational: from running; entire LP to be deleted by [/network-control-domain=running/profile=[_template]/list-forwardings-service], if controllerName not included in proprietary response of the Element'
                 remote-ip-address:
                   type: string
                   description: >
@@ -68,7 +68,7 @@ logical-termination-point:
                     candidate: from [ controllerName=[CDM://v1/establish-management-domain$request.body#controllers/controller-name]
                                 and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address]
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                    operational: operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'
                 remote-port:
                   type: integer
                   description: >
@@ -76,4 +76,4 @@ logical-termination-point:
                     candidate: from [ controllerName=[CDM://v1/establish-management-domain$request.body#controllers/controller-name]
                                 and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port]
                     running: from candidate
-                    operational: from [[/network-control-domain=running/profile=[_template]/inform-about-forwarding-service]$response.body#{attributes according to proprietary LoadBalancer API}]'
+                    operational: operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'

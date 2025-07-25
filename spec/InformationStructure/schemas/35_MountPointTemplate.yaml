@@ -20,18 +20,6 @@ profile:
             type: string
             enum:
               - 'logicalController'
-          notification-subscribe:
-            type: boolean
-            description: >
-              'Configuration
-              if true, the automated subscribing for notifications while mounting is activated
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
-          notification-stream-name:
-            type: string
-            description: >
-              'Configuration
-              Name of the stream for clients of ODL to identify it while subscribing
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
           netconf-user-name:
             type: string
             description: >

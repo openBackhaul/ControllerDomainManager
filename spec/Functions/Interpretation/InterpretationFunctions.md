@@ -13,7 +13,7 @@ The logical objects of the internal data structure can be grouped as follows:
 ### Created logical objects  
 
 Logical objects need to be created for the following types of Elements:  
-- **ApplicationTemplate**  
+- **ManagementDomainInterfaceTemplate**  
 - **LoadBalancerTemplate**  
 - **ControllerTemplate**  
 - **MountPointTemplate**  

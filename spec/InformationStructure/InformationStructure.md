@@ -17,13 +17,13 @@ The [DomainController (DC)](./schemas/00_DomainController.yaml) holds
 Up to four semantically different documentations of the same [Network (NCD)](./schemas/09_NetworkControlDomain.yaml) are composed from instances of,   
 
 - pre-defined templates (Profiles)  
-  - [ApplicationTemplate (P)](./schemas/10_ApplicationTemplate.yaml)  
+  - [ManagementDomainInterfaceTemplate (P)](./schemas/10_ManagementDomainInterfaceTemplate.yaml)  
   - [LoadBalancerTemplate (P)](./schemas/20_LoadBalancerTemplate.yaml)  
   - [ControllerTemplate (P)](./schemas/30_ControllerTemplate.yaml)  
   - [MountPointTemplate (P)](./schemas/35_MountPointTemplate.yaml)  
 
 - network elements (ControlConstructs) with interfaces (LogicalTerminationPoints)  
-  - [Application (CC)](./schemas/11_Application.yaml) incl. [ManagementDomainInterface (LTP)](./schemas/12_ManagementDomainInterface.yaml)  
+  - Application (CC) incl. [ManagementDomainInterface (LTP)](./schemas/11_ManagementDomainInterface.yaml)  
   - [LoadBalancer (CC)](./schemas/21_LoadBalancer.yaml) incl. [Forwarding (LTP)](./schemas/22_Forwarding.yaml)  
   - [Controller (CC)](./schemas/31_Controller.yaml) incl. [MountPoint (LTP)](./schemas/36_MountPoint.yaml)  
   - [LogicalController (CC)](./schemas/41_LogicalController.yaml) incl. [LogicalMountPoint (LTP)](./schemas/42_LogicalMountPoint.yaml)  

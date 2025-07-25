@@ -17,17 +17,18 @@ Further details on [InterpretationFunctions](./Interpretation/InterpretationFunc
 Further details on [ValidationFunctions](./Validation/ValidationFunctions.md)  
 
 ## Measurement  
-- MeasurementFunctions cyclically retrieve data from the Elements that are managed within the domain. Collected data is translated into concrete logical objects that build the internal data structure inside the OperationalDS. The data structures inside the CandidateDS, RunningDS and OperationalDS are build from the same classes. In an ideal and stable situation, they should be identical.  
+- The MeasurementOrchestrator is cyclically triggering the MeasurementFunctions to retrieve data from the Elements that are managed within the domain.  
+- The MeasurementFunctions collect data and translate it into concrete logical objects that build the internal data structure inside the OperationalDS. The data structures inside the CandidateDS, RunningDS and OperationalDS are build from the same classes. In an ideal and stable situation, they should be identical.  
 
-Further details on [MeasurementFunctions](./Measurement/MeasurementFunctions.md)  
+Further details on [Measurement](./Measurement/Measurement.md)  
 
 ## Monitoring  
 - MonitoringFunctions cyclically compare the data structures inside the RunningDS and the OperationalDS. Depending on the type of deviation found, entries are generated in the internal AlarmList. Each entry is described by an ErrorCode.  
 
-Further details on [MonitoringFunctions](./Monitoring/MonitoringFunctions.md)  
+Further details on [Monitoring](./Monitoring/Monitoring.md)  
 
 ## Implementation  
 - ImplementationFunctions execute a specific configuration activity on one kind of the Elements that are managed within the domain. It documents the result of the configuration attempt and the next step into the AlarmList.  
 - The ImplementationOrchestrator cyclically checks the AlarmList for entries. If an entry is found, it invokes the ImplementationFunction associated with the ErrorCode. The association between ErrorCode and its respective ImplementationFunction is configurable.  
 
-Further details on [ImplementationFunctions](./Implementation/ImplementationFunctions.md)  
+Further details on [Implementation](./Implementation/Implementation.md)  

@@ -1,0 +1,56 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'managementDomainInterfaceTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - manager-ip-address
+          - manager-port
+          - measure-management-domain-interface-service
+          - mediate-management-domain-interface-update-service
+        properties:
+          template-name:
+            type: string
+            description: >
+              'managementDomainInterfaceTemplateName
+              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#management-domain-interface-template-name]
+              running: from candidate
+              operational: ./. - does not exist in OperationalDS as it cannot be measured'
+          category:
+            type: string
+            enum:
+              - 'managementDomainInterfaceTemplate'
+          manager-ip-address:
+            type: string
+            description: >
+              'IP address of the ApplicationDomainManager (ADM)
+              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#manager-ip-address]
+              running: from candidate
+              operational: ./.'
+          manager-port:
+            type: string
+            description: >
+              'TCP port of the ADM
+              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#manager-port]
+              running: from candidate
+              operational: ./.'
+          measure-management-domain-interface-service:
+            type: string
+            description: >
+              'Service for providing configuration information of a management domain at an application at ADM
+              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#measure-management-domain-interface-service]
+              running: from candidate
+              operational: ./.'
+          mediate-management-domain-interface-update-service:
+            type: string
+            description: >
+              'Service for updating the configuration of a management domain at an application at ADM
+              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#mediate-management-domain-interface-update-service]
+              running: from candidate
+              operational: ./.'
+
+          # Please add, remove and change the parameters that need to be managed by template here

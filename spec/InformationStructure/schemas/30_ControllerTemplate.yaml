@@ -9,7 +9,6 @@ profile:
           - template-name
           - category
           - list-mount-points-service
-          - inform-about-mount-point-service
           - update-mount-point-service
           - delete-mount-point-service
         properties:
@@ -32,13 +31,6 @@ profile:
               running: from candidate
               operational: ./.'
             example: '/p1/measure-list-of-mount-points'
-          inform-about-mount-point-service:
-            type: string
-            description: >
-              'Http request for getting details about a MountPoint
-              candidate: from [CDM://v1/create-controller-template$request.body#inform-about-mount-point-service]
-              running: from candidate
-              operational: ./.'
           update-mount-point-service:
             type: string
             description: >

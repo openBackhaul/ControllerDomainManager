@@ -1,302 +1,74 @@
 function:
-  - function-name: 'v1-create-controller-template'
+  
+  - function-name: 'p1MeasurementOrchestrator'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-delete-controller-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-controller-templates'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-inform-about-controller-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-update-controller-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'measurementPeriod'
+        parameter-value: '5000'
+        parameter-definition: 'Duration (in ms) between two identical measurements on the same managed Element'
+      - parameter-name: 'functionMeasuringManagementDomainInterface'
+        parameter-value: 'p1MeasureManagementDomainInterface'
+        parameter-definition: 'Name of the function for measuring a ManagementDomainInterface'
+      - parameter-name: 'functionMeasuringForwardings'
+        parameter-value: 'p1MeasureListOfForwardings'
+        parameter-definition: 'Name of the function for measuring the Forwardings'
+      - parameter-name: 'functionMeasuringMountPoints'
+        parameter-value: 'p1MeasureListOfMountPoints'
+        parameter-definition: 'Name of the function for measuring the MountPoints'
 
-  - function-name: 'v1-create-mediator-vm-template'
+  - function-name: 'p1ImplementationOrchestrator'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-delete-mediator-vm-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-mediator-vm-templates'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-inform-about-mediator-vm-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-update-mediator-vm-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'implementationIntervalDuration'
+        parameter-value: '5000'
+        parameter-definition: 'Duration (in ms) between starting to scan the CurrentAlarms'
 
-  - function-name: 'v1-create-device-template'
+  - function-name: 'p1ReconstructManagementDomainInterface'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-delete-device-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-device-templates'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-inform-about-device-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-update-device-template'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
-  - function-name: 'v1-regard-controller'
+  - function-name: 'p1ConstructForwarding'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-disregard-controller'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-controllers'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
-  - function-name: 'v1-regard-mediator-vm'
+  - function-name: 'p1DestructForwarding'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-disregard-mediator-vm'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-mediator-vms'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
-  - function-name: 'v1-establish-management-plane-transport'
+  - function-name: 'p1ReconstructForwarding'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-dismantle-management-plane-transport'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-list-management-plane-transports'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-inform-about-management-plane-transport'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'v1-provide-alarms-for-management-plane-transport'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
-  - function-name: 'p1-measure-management-plane-transport-availability'
+  - function-name: 'p1ConstructMountPoint'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'p1-measure-snmp-link-availability'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'p1-measure-device-availability'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'p1-measure-mediator-process-availability'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name: 'p1-measure-netconf-link-availability'
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
-  - function-name:
+  - function-name: 'p1DestructMountPoint'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+
+  - function-name: 'p1ReconstructMountPoint'
     function-description:
     parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
-  - function-name:
-    function-description:
-    parameter:
-      - parameter-name:
-        parameter-value:
-        parameter-definition:
+      - parameter-name: 'durationBetweenAttempts'
+        parameter-value: '30000'
+        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+

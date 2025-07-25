@@ -6,11 +6,14 @@
     - [OpenDaylight](./Elements/OpenDaylight/OpenDaylight.md)  
   - LoadBalancer  
     - [nginx](./Elements/nginx/nginx.md)  
+- The following kind of Endpoint is managed, despite its holding Element is encapsulated by a neighboring domain:  
+  - ManagementDomainInterface (TcpClient at Applications)  
+    - [ApplicationDomainManager](./Elements/ADM/adm.md)  
 - The following kinds of Connections are managed:  
-  - Application <---> LoadBalancer/Controller  
-  - LoadBalancer <---> Controller  
-- The following kind of Endpoint is managed, despite its holding Elements are encapsulated by a neighboring domain:  
-  - TcpClient at Applications encapsulated by [ApplicationDomainManager](./Elements/ADM/adm.md)
+  - TCP: ManagementDomainInterface <---> LoadBalancer/Controller  
+  - TCP: LoadBalancer <---> Controller  
+- A neighboring domain is managing the following kind of Endpoint, but CDM is mediating towards the Element:  
+  - TcpClient at MountPoint at Controller  
 
 ### InformationStructure  
 - Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  

@@ -61,15 +61,15 @@ servers:
         #
         # Interpretation
         #
-        - operation-name: /v1/create-application-template
+        - operation-name: /v1/create-management-domain-interface-template
           uuid: 
-        - operation-name: /v1/delete-application-template
+        - operation-name: /v1/delete-management-domain-interface-template
           uuid: 
-        - operation-name: /v1/list-configured-application-templates
+        - operation-name: /v1/list-configured-management-domain-interface-templates
           uuid: 
-        - operation-name: /v1/provide-config-of-application-template
+        - operation-name: /v1/provide-config-of-management-domain-interface-template
           uuid: 
-        - operation-name: /v1/update-application-template
+        - operation-name: /v1/update-management-domain-interface-template
           uuid: 
 
         - operation-name: /v1/create-load-balancer-template
@@ -105,23 +105,13 @@ servers:
         - operation-name: /v1/update-mount-point-template
           uuid: 
 
-# !!! Fehler !!!
-# 
-# Nicht die Applikation, sondern das ManagementDomainInterface ist das managed Object
-#
-# Es sollte /v1/regard-management-domain-interface lauten
-# 
-# welche Auswirkungen hat das auf
-# - MPM
-# - schon beschriebene InterpretationFunctions
-# - ApplicationTemplate
-        - operation-name: /v1/regard-application
+        - operation-name: /v1/regard-management-domain-interface
           uuid: 
-        - operation-name: /v1/disregard-application
+        - operation-name: /v1/disregard-management-domain-interface
           uuid: 
-        - operation-name: /v1/list-configured-applications
+        - operation-name: /v1/list-configured-management-domain-interfaces
           uuid: 
-        - operation-name: /v1/provide-config-of-application
+        - operation-name: /v1/provide-config-of-management-domain-interface
           uuid: 
 
         - operation-name: /v1/regard-load-balancer
@@ -196,19 +186,17 @@ servers:
         #
         # Measurement
         #
+        - operation-name: /p1/measurement-orchestrator
+          uuid: 
         - operation-name: /p1/measure-management-domain-interface
           uuid: 
         - operation-name: /p1/measure-list-of-forwardings
           uuid: 
-        - operation-name: /p1/measure-forwarding
-          uuid: 
         - operation-name: /p1/measure-list-of-mount-points
           uuid: 
-        - operation-name: /p1/measure-mount-point
+        - operation-name: /p1/measure-links
           uuid: 
-        - operation-name: /p1/measure-link
-          uuid: 
-        - operation-name: /p1/measure-route
+        - operation-name: /p1/measure-routes
           uuid: 
         - operation-name: /p1/measure-management-plane-transport
           uuid: 
@@ -216,7 +204,15 @@ servers:
         #
         # Implementation
         #
+        - operation-name: /p1/implementation-orchestrator
+          uuid: 
         - operation-name: /p1/reconstruct-management-domain-interface
+          uuid: 
+        - operation-name: /p1/construct-forwarding
+          uuid: 
+        - operation-name: /p1/destruct-forwarding
+          uuid: 
+        - operation-name: /p1/reconstruct-forwarding
           uuid: 
         - operation-name: /p1/construct-mount-point
           uuid: 
@@ -228,6 +224,21 @@ servers:
         #
         # Monitoring
         #
+        - operation-name: /p1/monitoring-orchestrator
+          uuid: 
+        - operation-name: /p1/monitor-management-plane-transport
+          uuid: 
+        - operation-name: /p1/monitor-management-domain-interface
+          uuid: 
+        - operation-name: /p1/monitor-forwarding
+          uuid: 
+        - operation-name: /p1/monitor-mount-point
+          uuid: 
+        - operation-name: /p1/monitor-load-balancer
+          uuid: 
+        - operation-name: /p1/monitor-controller
+          uuid: 
+
 
 
   http-server:

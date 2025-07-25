@@ -30,21 +30,21 @@ paths:
               type: object
               required:
                 - application-name
-                - management-domain
+                - management-domain-name
               properties:
                 application-name:
                   type: string
                   description: >
                     'Name of the application that holds the ManagementDomainInterface
                     from [CDM://p1/measure-management-domain-interface$request.body#application-name]'
-                management-domain:
+                management-domain-name:
                   type: string
                   description: >
                     'Name of the ManagementDomain
-                    from [CDM://p1/measure-management-domain-interface$request.body#management-domain]'
+                    from [CDM://p1/measure-management-domain-interface$request.body#management-domain-name]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
-                management-domain: 'live'
+                management-domain-name: 'live'
       responses:
         '200':
           description: 'Information about ManagementDomainInterface provided from OperationalDS'
@@ -143,7 +143,7 @@ paths:
                   description: >
                     'Name of the application that holds the ManagementDomainInterface
                     from [CDM://p1/reconstruct-management-domain-interface$request.body#application-name]'
-                management-domain:
+                management-domain-name:
                   type: string
                   description: >
                     'Name of the ManagementDomain towards the interface is
@@ -160,7 +160,7 @@ paths:
                     from [CDM://p1/reconstruct-management-domain-interface$request.body#remote-port]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
-                management-domain: 'live'
+                management-domain-name: 'live'
                 remote-ip-address: '127.0.0.1'
                 remote-port: 4712
       responses:
