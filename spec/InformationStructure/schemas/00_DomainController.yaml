@@ -19,6 +19,12 @@ domain-controller:
       items:
         type: object
         description: 'ValidationSequence - see 03_ValidationSequence.yaml'
+    pulser:
+      type: array
+      x-key: _target-function
+      items:
+        type: object
+        description: 'Pulser - see 04_Pulser.yaml'
     error-code:
       type: array
       x-key: error-code

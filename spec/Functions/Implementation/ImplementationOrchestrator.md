@@ -1,11 +1,12 @@
 # ImplementationOrchestrator  
 
-The ImplementationOrchestrator (/p1/implementation-orchestrator) is cyclically scanning the CurrentAlarms for error objects that are ready for their next attempt to be fixed (means: [date-of-next-attempt-to-fix] exceeded).  
+After being triggered by the Pulser, the ImplementationOrchestrator (/p1/implementation-orchestrator) scans the CurrentAlarms for error objects that are ready for their next attempt to be fixed (means: [dateOfNextAttemptToFix] reached or exceeded).  
 
-The time period between starting two consequent scans is a configurable parameter (implementationIntervalDuration) in the FunctionData.  
-Its initial value can be found [here](../../InformationStructure/initialData/_02_FunctionData.yaml).  
+Whenever such error object is found, it reads the [_errorCode] from the the CurrentAlarms and checks for the associated ImplementationFunction in the ErrorCode definitions.  
+If there is some ImplementationFunction associated, the ImplementationOrchestrator invokes it.  
 
-Whenever such error object found, it reads the [_error-code] from the the CurrentAlarms and invokes the associated ImplementationFunction.  
-
-The association between [_error-code] and ImplementationFunction is configurable in the ErrorCodes.  
-The initial relationships can be found [here](../../InformationStructure/initialData/_05_ErrorCodeData.yaml).  
+The associations between [_errorCode]s and ImplementationFunctions are documented in the ErrorCode definitions.  
+These can be configured via the CDM API.  
+Apart from listing and updating existing relationships, the administrative services also allow to define new ones.  
+One ImplementationFunction can be associated with an [_errorCode] in maximum.  
+[Schema](../../InformationStructure/schemas/05_ErrorCode.yaml) and [initial configuration](../../InformationStructure/initialData/_05_ErrorCodeData.yaml) of the ImplementationOrchestrator.  

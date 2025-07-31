@@ -1,5 +1,9 @@
 # MeasurementFunctions  
 
+The MeasurementFunctions collect data and translate it into concrete logical objects that build the internal data structure inside the OperationalDS.  
+The data structures inside the CandidateDS, RunningDS and OperationalDS are build from the same classes.  
+In an ideal and stable situation, they should be identical.  
+
 Managed Elements and associated MeasurementFunctions (covering availability of termination point + currently effective configuration and status):  
 - [ManagementDomainInterface](#managementdomaininterface)  
   - /p1/measure-management-domain-interface  

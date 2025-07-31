@@ -7,8 +7,7 @@
   - LoadBalancer  
     - [nginx](./Elements/nginx/nginx.md)  
 - The following kind of Endpoint is managed, despite its holding Element is encapsulated by a neighboring domain:  
-  - ManagementDomainInterface (TcpClient at Applications)  
-    - [ApplicationDomainManager](./Elements/ADM/adm.md)  
+  - ManagementDomainInterface (TcpClient at Applications encapsulated by [ApplicationDomainManager](./Elements/ADM/adm.md))  
 - The following kinds of Connections are managed:  
   - TCP: ManagementDomainInterface <---> LoadBalancer/Controller  
   - TCP: LoadBalancer <---> Controller  
@@ -16,16 +15,16 @@
   - TcpClient at MountPoint at Controller  
 
 ### InformationStructure  
-- Introduction and detailed specification of the [Internal Information Structure](./InformationStructure/InformationStructure.md) of the CDM  
-
-### Supported UseCases  
-- Connecting Devices to the ApplicationLayer  
-- Managing multi controller configurations
-- Representing multi controller configurations as a single LogicalController  
-- Adding, removing (and implicitly: upgrading) Controllers without traffic impact  
+- [Internal Information Structure](./InformationStructure/InformationStructure.md)  
 
 ### Functions  
 - [Public and Private Functions](./Functions/Functions.md)  
+
+.  
+
+    Starting from here the detailed specification has to be elaborated from the input above.
+
+.
 
 ### Diagrams  
 - [Collection of Diagrams](./diagrams)  
@@ -46,9 +45,15 @@
 ### CONFIGfile (JSON)  
 - [ControllerDomainManager+config](./ControllerDomainManager+config.json)  
 
-### Comments _(Links to be updated after specification of DeviceDomainManager completed)_  
+### Comments  
 A lot of conceptual work has been done, during specifying the DeviceDomainManager application.  
 The following concepts are base to the ControllerDomainManager, too:  
 - [AutomationArchitecture](https://github.com/openBackhaul/MediatorManager/blob/v1.0.0_spec/spec/concepts/03_AutomationArchitecture.md)  
 - [NetworkTopology](https://github.com/openBackhaul/MediatorManager/blob/v1.0.0_spec/spec/concepts/05_NetworkTopology.md)  
 - [FunctionConcepts](https://github.com/openBackhaul/MediatorManager/blob/v1.0.0_spec/spec/concepts/07_FunctionConcepts.md)  
+
+.
+
+    Links to be updated after specification of DeviceDomainManager has been merged into develop branch
+
+.

@@ -59,6 +59,33 @@ servers:
           operation-key: n.a.
       individual:
         #
+        # Administration
+        #
+        - operation-name: /v1/list-functions
+          uuid: 
+        - operation-name: /v1/update-function
+          uuid: 
+
+        - operation-name: /v1/list-validation-sequences
+          uuid: 
+        - operation-name: /v1/update-validation-sequence
+          uuid: 
+
+        - operation-name: /v1/list-pulsers
+          uuid: 
+        - operation-name: /v1/update-pulser
+          uuid: 
+
+        - operation-name: /v1/create-error-code
+          uuid: 
+        - operation-name: /v1/delete-error-code
+          uuid: 
+        - operation-name: /v1/list-error-codes
+          uuid: 
+        - operation-name: /v1/update-error-code
+          uuid: 
+
+        #
         # Interpretation
         #
         - operation-name: /v1/create-management-domain-interface-template

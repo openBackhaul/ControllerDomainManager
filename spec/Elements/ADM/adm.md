@@ -1,7 +1,20 @@
 # ApplicationDomainManager  
 
-The ApplicationDomainManager's original definitions can be found [here](https://github.com/openBackhaul/ApplicationDomainManager).  
+The [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager) manages and encapsulates all necessary activities for connecting the applications of the MW SDN domain.  
 
-### Interface  
 
-Description of [ApplicationDomainManager's API](./adm.yaml) in regards with the offered MeasurementFunctions and ImplementationFunctions for the TcpClient.  
+### MeasurementFunctions  
+
+- /p1/measure-management-domain-interface  
+  post /v1/provide-status-of-management-domain-interface  
+
+
+### ImplementationFunctions 
+
+- /p1/reconstruct-management-domain-interface  
+  post /v1/mediate-management-domain-interface-update  
+
+
+### Proprietary Interface  
+
+Detailed Description of [ApplicationDomainManager's API](./adm.yaml) in regards with the needed MeasurementFunction and ImplementationFunction for the TcpClient.  

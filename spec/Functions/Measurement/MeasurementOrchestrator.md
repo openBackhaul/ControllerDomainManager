@@ -1,11 +1,12 @@
 # MeasurementOrchestrator  
 
+The MeasurementOrchestrator is cyclically triggered by the Pulser and invokes the MeasurementFunctions to retrieve data from the Elements that are managed within the domain.  
+
 **Termination Points**  
-The MeasurementOrchestrator (/p1/measurement-orchestrator) is cyclically initiating the measurement of the resource consumption on the managed Elements.  
+The MeasurementOrchestrator (/p1/measurement-orchestrator) initiates the measurement of the resource consumption on the managed Elements and triggers the update of the operational state of Connections that are affected by change.  
+This implies that there is a fixed sequence and the return values of many Functions are used as an input to other Functions.  
 
-The time period between two identical measurements on the same managed Element is a configurable parameter (measurementPeriod) in the FunctionData.  
-Its initial value can be found [here](../../InformationStructure/initialData/_02_FunctionData.yaml).  
-
+After being triggered by the Pulser, the MeasurementOrchestrator reads the existing CCs from RunningDS and invokes the following MeasurementFunctions one after another (but not before the returned deviations have been processed by consequent function calls):  
 - TcpClient at Application (ManagementDomainInterface) => /p1/measure-management-domain-interface  
 - LoadBalancer => /p1/measure-list-of-forwardings  
 - Controller => /p1/measure-list-of-mount-points  
@@ -17,7 +18,7 @@ For every entry in any of the returned lists of changed termination points, the 
 
 - changed termination point indicated => /p1/measure-links  
 
-This leads to updating the Links referencing the changed termination point in the OperationalDS and returning a list of changed Links.  
+This leads to updating the Links in the OperationalDS and returning a list of changed Links.  
 
 **Routes**  
 For every entry in the returned list of changed Links, the MeasurementOrchestrator is initiating the measurement of the potentially affected Routes.  

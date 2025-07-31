@@ -90,6 +90,13 @@ logical-termination-point:
                   type: array
                   items:
                     type: object
+                    description: >
+                      'List of Netconf capabilities that are supported by the NetconfServer at the Mediator/Device
+                      It is assumed that this list of capabilities is identical no matter which Controller is addressing the same Mediator/Device
+                      To avoid unnecessary redundancy, the capabilities are only stored once at the LogicalMountPoint
+                      candidate: ./.
+                      running: ./.
+                      operational: set by [/network-control-domain=running/profile=[_template]/list-mount-points-service]'
                     properties:
                       capability:
                         type: string
@@ -99,6 +106,13 @@ logical-termination-point:
                   type: array
                   items:
                     type: object
+                    description: >
+                      'List of Netconf capabilities that are unavailable at the NetconfServer
+                      It is assumed that this list is identical no matter which Controller is addressing the same Mediator/Device
+                      To avoid unnecessary redundancy, it is only stored once at the LogicalMountPoint
+                      candidate: ./.
+                      running: ./.
+                      operational: set by [/network-control-domain=running/profile=[_template]/list-mount-points-service]'
                     properties:
                       capability:
                         type: string

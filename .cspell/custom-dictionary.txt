@@ -13,8 +13,12 @@ keepalive
 ltps
 
 millis
+mwdg
+mwdi
 
 netconf
+
+restconf
 
 siae
 smim

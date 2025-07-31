@@ -1,41 +1,80 @@
-### Validation  
-- p1-validation-orchestrator  
-  - Calls a configurable set of ValidationTestFunctions listed below  
-  - IF all ResponseCodes==204  
-    - Responds 204  
-    ELSE  
-    - Responds the first ResponseCode different from 204 and terminates  
+# ValidationFunctions  
+
+The following kinds of ValidationFunctions can be distinguished:  
+
+- SelfTesting  
+  SelfTestingFunctions analyze whether the data structure that is resulting from executing the InterpretationFunctions are free from conflicts with generic modelling rules (e.g., the Links referenced by a Route must combine to a chain between the two termination points of the FC).  
+  It is expected that these Functions can be reused in various applications.  
+  After completion of a test phase, these functions might be deactivated for performance reasons.  
+
+- TargetStateValidation  
+  TargetStateValidationFunctions analyze whether the data in the CandidateDS is describing a reasonable and stable target state of the administrated network.  
+  This implicitly validates the changes caused by the InterpretationFunctions in the context of the entire network.  
 
 
-    _Table with relations between InterpretationFunction and ValidationTests to be added_
+## SelfTesting  
 
-_(See the following entries as examples. List of ValidationTestFunctions is to be defined by ApplicationOwner:)_  
+.  
 
+    To be discussed:
 
-  - check all ManagementPlaneTransport (FC) for existing termination points (CC) in CandidateDS  
-  - check all Routes at all FCs for existing Links in CandidateDS  
+.
 
-- p1-ensure-unique-template-names  
-  Ensures that all Profile definitions have unique template-names  
-- p1-ensure-all-elements-referencing-an-existing-template  
-  Ensures that all Profile definitions have unique template-names  
-- p1-ensure-all-existing-controllers-complying-with-template-definition  
-  Ensures that updated template is not in conflict with existing controllers  
-- p1-ensure-all-existing-mediator-vms-complying-with-template-definition  
-  Ensures that updated template is not in conflict with existing mediatorVms  
-- p1-ensure-all-existing-devices-complying-with-template-definition  
-  Ensures that updated template is not in conflict with existing devices  
-- p1-ensure-unique-element-names  
-  Ensures that all CC definitions have unique element-names  
-- p1-ensure-all-cc-referenced-by-fc-in-operational-exist-in-candidate  
-  Ensures that no CC of an operational FC gets deleted  
-- p1-ensure-all-lp-referenced-by-link-in-operational-exist-in-candidate  
-  Ensures that no LP of an operational Link gets deleted  
-- p1-ensure-unique-local-ids-at-links  
-  Ensures that the local-ids at links are unique  
-- p1-ensure-unique-mount-names-at-fcs  
-  Ensures that there is just a single FC per MountName  
-- p1-ensure-every-fc-having-at-least-one-route  
-  Ensures every FC being routed
-- p1-ensure-every-route-connecting-end-to-end
-  Ensures every route referencing the links necessary for a path between the endpoints of the FC  
+- p1EnsureUniqueTemplateNames  
+  Ensures that all instances of Profile have unique template-names  
+
+- p1EnsureUniqueElementNames  
+  Ensures that all instances of CC have unique element-names  
+
+- p1EnsureUniqueMountNames  
+  Ensures that LogicalController(Ltp(local-id)) is unique  
+  (Same MountName at different LogicalControllers would be ok)
+
+- p1EnsureExistenceOfTemplates  
+  Ensures that referenced Profiles actually exist  
+
+- p1EnsureTcpLinkTpsToMatch  
+  - Ensures existence (in CandidateDS) of the termination points  
+  - Ensures at termination points of TcpLinks:  
+    - TcpClient(remoteIpAddress)==TcpServer(localIpAddress)  
+    - and TcpClient(remotePort)==TcpServer(localPort)  
+
+- p1EnsureCopyLinkTpsToMatch  
+  - Ensures existence (in CandidateDS) of the termination points  
+  - Ensures at termination points of TcpLinks:  
+    - CopyClient(copySource)==LogicalController(elementName)  
+    - and CopyServer(copyDestination)==Controller(elementName)  
+    - Controller(TcpClient(remoteIpAddress))==LogicalController(TcpClient(remoteIpAddress))  
+    - Controller(TcpClient(remotePort))==LogicalController(TcpClient(remotePort))  
+    - Controller(TcpClient(notificationSubscribe))==LogicalController(TcpClient(notificationSubscribe))  
+    - Controller(TcpClient(notificationStreamName))==LogicalController(TcpClient(notificationStreamName))  
+
+- p1EnsureImplementationOfLogicalController  
+  - Ensures that every LogicalController(_controllers) is referencing at least one Controller  
+  - Ensures existence (in CandidateDS) of all Controllers that are referenced in LogicalController(_controllers) 
+
+.  
+
+    To be completed
+
+.
+
+## TargetStateValidation  
+
+.  
+
+    To be discussed:
+
+.
+
+- p1EnsureRoutesToConnectFcTps  
+  Ensures for all Routes that the comprised Links form a chain between the two termination points of the ManagementPlaneTransportConnection  
+
+- p1EnsureFcBeingRouted
+  Ensures that all ManagementPlaneTransportConnections having at least one Route  
+
+.  
+
+    To be completed
+
+.

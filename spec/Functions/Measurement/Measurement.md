@@ -1,8 +1,5 @@
 # Measurement  
 
-
-## Basic Concept of Measurement  
-
 Tasks of the [MeasurementFunctions](./MeasurementFunctions.md):  
 - Collect data from the managed Elements  
 - Interpret that data into the logical objects of the data structure inside the OperationalDS  
@@ -26,4 +23,3 @@ Measured objects:
 Measurement philosophy:  
 - The logical resources on the managed Elements are completely and exclusively subordinate to the domain manager  
 - The measurement concept must cover all consumers of these resources, also to facilitate removing consumers that are not part of the target state  
-

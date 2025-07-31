@@ -3,9 +3,6 @@ function:
   - function-name: 'p1MeasurementOrchestrator'
     function-description:
     parameter:
-      - parameter-name: 'measurementPeriod'
-        parameter-value: '5000'
-        parameter-definition: 'Duration (in ms) between two identical measurements on the same managed Element'
       - parameter-name: 'functionMeasuringManagementDomainInterface'
         parameter-value: 'p1MeasureManagementDomainInterface'
         parameter-definition: 'Name of the function for measuring a ManagementDomainInterface'
@@ -16,59 +13,52 @@ function:
         parameter-value: 'p1MeasureListOfMountPoints'
         parameter-definition: 'Name of the function for measuring the MountPoints'
 
-  - function-name: 'p1ImplementationOrchestrator'
-    function-description:
-    parameter:
-      - parameter-name: 'implementationIntervalDuration'
-        parameter-value: '5000'
-        parameter-definition: 'Duration (in ms) between starting to scan the CurrentAlarms'
-
   - function-name: 'p1ReconstructManagementDomainInterface'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1ConstructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1DestructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1ReconstructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1ConstructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1DestructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 
   - function-name: 'p1ReconstructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'durationBetweenAttempts'
+      - parameter-name: 'waitTimeBetweenAttempts'
         parameter-value: '30000'
         parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
 

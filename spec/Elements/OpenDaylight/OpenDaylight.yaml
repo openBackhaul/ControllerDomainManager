@@ -6,16 +6,7 @@ info:
 
 paths:
 ########################################################################################################################
-#   Measurements
-#     /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node:
-#       get         (wrapped into /p1/measure-list-of-mount-points)
-#
-#   Implementations
-#     /rests/data/network-topology:network-topology/topology=topology-netconf:
-#       post        (wrapped into /p1/construct-mount-point)
-#     /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}:
-#       delete      (wrapped into /p1/destruct-mount-point)
-#       put         (wrapped into /p1/reconstruct-mount-point)
+#   Measurement and Implementation
 ########################################################################################################################
 
   /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node:

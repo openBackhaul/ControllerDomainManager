@@ -1,0 +1,18 @@
+pulser:
+  - _target-function: 'p1MeasurementOrchestrator'
+    is-activated: true
+    period-length: 5000
+
+  - _target-function: 'p1MonitoringOrchestrator'
+    is-activated: true
+    period-length: 5000
+
+  - _target-function: 'p1ImplementationOrchestrator'
+    is-activated: true
+    period-length: 5000
+
+  - _target-function: ''
+    is-activated: true
+    period-length: 
+    starting-time: ''
+    ending-time: ''

@@ -1,5 +1,8 @@
 # ImplementationFunctions  
 
+After being triggered by the ImplementationOrchestrator, an ImplementationFunction executes a specific configuration activity on one kind of the Elements that are managed within the domain.  
+It documents the result of the configuration attempt and the next step into the CurrentAlarms.  
+
 Managed Elements and associated ImplementationFunctions:  
 - [ManagementDomainInterface](#managementdomaininterface)  
   - Update Forwarding  

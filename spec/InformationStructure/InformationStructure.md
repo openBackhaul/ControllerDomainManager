@@ -11,6 +11,7 @@ The information within the three data stores CandidateDS, RunningDS and Operatio
 The [DomainController (DC)](./schemas/00_DomainController.yaml) holds  
 - the parameter settings of the [Functions (F)](./schemas/02_Function.yaml),  
 - definitions of [ValidationSequences (VS)](./schemas/03_ValidationSequence.yaml),  
+- definitions of [Pulses (P)](./schemas/04_Pulser.yaml),  
 - definitions of [ErrorCodes (EC)](./schemas/05_ErrorCode.yaml) including their countermeasures,  
 - and the [CurrentAlarms (CA)](./schemas/06_CurrentAlarm.yaml) at the DeviceDomainManager.  
 

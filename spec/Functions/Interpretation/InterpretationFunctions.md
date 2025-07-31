@@ -2,6 +2,10 @@
 
 ## Public InterpretationFunctions  
 
+Public InterpretationFunctions translate abstract requests into concrete changes to the logical objects of the internal data structure inside the CandidateDS.  
+This is the only kind of Function, which is not for administrative purposes but publicly available at the API of the automation application.  
+
+
 ### Groups of logical objects
 
 The logical objects of the internal data structure can be grouped as follows:
@@ -87,4 +91,12 @@ The following Public InterpretationFunctions are provided for encapsulating some
 
 ## Private InterpretationFunctions  
 
-No Private InterpretationFunctions in the CDM's first release.
+Private InterpretationFunctions implement closed loop automation.  
+They check the OperationalDS after being triggered by the Pulser.  
+If generically defined conditions are fulfilled, abstractly predefined countermeasures are translated into concrete changes to the logical objects in the CandidateDS.  
+
+.
+
+    Private InterpretationFunctions to be added here  
+
+.
