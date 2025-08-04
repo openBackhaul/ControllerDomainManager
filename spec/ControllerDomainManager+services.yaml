@@ -76,13 +76,14 @@ servers:
         - operation-name: /v1/update-pulser
           uuid: 
 
-        - operation-name: /v1/create-error-code
-          uuid: 
-        - operation-name: /v1/delete-error-code
-          uuid: 
         - operation-name: /v1/list-error-codes
           uuid: 
         - operation-name: /v1/update-error-code
+          uuid: 
+
+
+
+        - operation-name: /v1/provide-domain-controller-dump
           uuid: 
 
         #
