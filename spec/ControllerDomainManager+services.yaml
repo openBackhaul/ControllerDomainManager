@@ -82,7 +82,6 @@ servers:
           uuid:
 
 
-
         - operation-name: /v1/provide-domain-controller-dump
           uuid:
 
@@ -268,7 +267,6 @@ servers:
           uuid:
 
 
-
   http-server:
     own-application-name: ControllerDomainManager
     own-release-number: 1.0.0
@@ -440,4 +438,3 @@ clients:
       service:
         basic:
         individual:
-
