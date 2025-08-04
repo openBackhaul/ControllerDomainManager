@@ -1,5 +1,19 @@
 function:
-  
+  #
+  # Administration
+  #
+
+  #
+  # Interpretation
+  #
+
+  #
+  # Validation
+  #
+
+  #
+  # Measurement
+  #
   - function-name: 'p1MeasurementOrchestrator'
     function-description:
     parameter:
@@ -13,6 +27,13 @@ function:
         parameter-value: 'p1MeasureListOfMountPoints'
         parameter-definition: 'Name of the function for measuring the MountPoints'
 
+  #
+  # Monitoring
+  #
+
+  #
+  # Implementation
+  #
   - function-name: 'p1ReconstructManagementDomainInterface'
     function-description:
     parameter:

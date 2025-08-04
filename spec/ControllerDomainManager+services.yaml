@@ -229,6 +229,24 @@ servers:
           uuid: 
 
         #
+        # Monitoring
+        #
+        - operation-name: /p1/monitoring-orchestrator
+          uuid: 
+        - operation-name: /p1/monitor-management-plane-transport
+          uuid: 
+        - operation-name: /p1/monitor-management-domain-interface
+          uuid: 
+        - operation-name: /p1/monitor-forwarding
+          uuid: 
+        - operation-name: /p1/monitor-mount-point
+          uuid: 
+        - operation-name: /p1/monitor-load-balancer
+          uuid: 
+        - operation-name: /p1/monitor-controller
+          uuid: 
+
+        #
         # Implementation
         #
         - operation-name: /p1/implementation-orchestrator
@@ -246,24 +264,6 @@ servers:
         - operation-name: /p1/destruct-mount-point
           uuid: 
         - operation-name: /p1/reconstruct-mount-point
-          uuid: 
-
-        #
-        # Monitoring
-        #
-        - operation-name: /p1/monitoring-orchestrator
-          uuid: 
-        - operation-name: /p1/monitor-management-plane-transport
-          uuid: 
-        - operation-name: /p1/monitor-management-domain-interface
-          uuid: 
-        - operation-name: /p1/monitor-forwarding
-          uuid: 
-        - operation-name: /p1/monitor-mount-point
-          uuid: 
-        - operation-name: /p1/monitor-load-balancer
-          uuid: 
-        - operation-name: /p1/monitor-controller
           uuid: 
 
 
