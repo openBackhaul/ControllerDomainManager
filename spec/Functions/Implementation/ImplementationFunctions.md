@@ -22,6 +22,13 @@ Managed Elements and associated ImplementationFunctions:
   - Update MountPoint  
     - /p1/reconstruct-mount-point  
 
+**date-of-next-attempt-to-fix:**  
+After attempting to transfer the target state from the RunningDS onto the Elements, the ImplementationFunctions have to document the outcome into the CurrentAlarms.  
+This includes determining when the next attempt should be made.  
+The two parameters for the minimum and maximum wait times (tmin and tmax) can be configured individually for each ImplementationFunction.  
+The formula for calculating the time for the next attempt is identical for all ImplementationFunctions: 
+
+<img src="../diagrams/FormulaWaitTime.png" alt="FormulaWaitTime" width="700" style="display: block; margin: 0 auto"/>  
 
 ## ManagementDomainInterface  
 
