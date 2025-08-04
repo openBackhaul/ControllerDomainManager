@@ -38,7 +38,7 @@ paths:
                                 type: string
                                 description: >
                                   'deviceName defined by Telefonica planing department
-                                  Invariant value defined during creation of the MountPoint'                          
+                                  Invariant value defined during creation of the MountPoint'
                               netconf-node-topology:available-capabilities:
                                 type: object
                                 description: >
@@ -151,7 +151,7 @@ paths:
                                 type: string
                                 description: >
                                   'Status
-                                  Changes from connected to connecting whenever some keep alive packet has not been answered by the MediatorProcess/device 
+                                  Changes from connected to connecting whenever some keep alive packet has not been answered by the MediatorProcess/device
                                   Changes from connecting to unable-to-connect whenever the number unanswered keep alive packets is exceeding the max-connection-attempts'
                               netconf-node-topology:session-id:
                                 type: integer
@@ -377,7 +377,7 @@ paths:
                         type: string
                         description: >
                           'deviceName defined by Telefonica planing department
-                          Invariant value defined during creation of the MountPoint'     
+                          Invariant value defined during creation of the MountPoint'
                       netconf-node-topology:host:
                         type: string
                         description: >

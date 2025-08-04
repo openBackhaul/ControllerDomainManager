@@ -36,7 +36,7 @@ logical-termination-point:
                   description: >
                     'IP address of the LogicalController (if applicable: IP address of the Forwarding inside the LoadBalancer)
                     candidate: from [CDM://v1/establish-management-domain$request.body# ... ]
-                    [Thorsten] Based on input of CDM://v1/establish-management-domain, either the IP address of a single ODL or the IP address of a to be created Forwarding inside a LoadBalancer is to be used here 
+                    [Thorsten] Based on input of CDM://v1/establish-management-domain, either the IP address of a single ODL or the IP address of a to be created Forwarding inside a LoadBalancer is to be used here
                     running: from candidate
                     operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'
                 local-port:
@@ -44,7 +44,7 @@ logical-termination-point:
                   description: >
                     'TCP port of the LogicalController (if applicable: TCP port of the Forwarding inside the LoadBalancer)
                     candidate: from [CDM://v1/establish-management-domain$request.body#local-port-at-logical-controller]
-                    [Thorsten] Based on input of CDM://v1/establish-management-domain, either the TCP Port of a single ODL or the TCP Port of a to be created Forwarding inside a LoadBalancer is to be used here 
+                    [Thorsten] Based on input of CDM://v1/establish-management-domain, either the TCP Port of a single ODL or the TCP Port of a to be created Forwarding inside a LoadBalancer is to be used here
                     running: from candidate
                     operational: set by [/network-control-domain=running/profile=[_template]/list-forwardings-service]'
             - description: 'tcpClient'
