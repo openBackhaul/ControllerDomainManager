@@ -87,4 +87,3 @@ profile:
               'Configuration
               Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device
               CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
-

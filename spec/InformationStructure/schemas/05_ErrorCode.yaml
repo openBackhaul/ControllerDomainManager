@@ -12,7 +12,7 @@ error-code:
         type: integer
         description: >
           'Code for identifying the finding (value must be unique and invariant)
-          Values between 600 and 999 can be freely used and without harmonization 
+          Values between 600 and 999 can be freely used and without harmonization
           for expressing findings by the MeasurementFunctions, respectively for triggering ImplementationFunctions'
       description:
         type: string

@@ -37,49 +37,69 @@ function:
   - function-name: 'p1ReconstructManagementDomainInterface'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1ConstructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1DestructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1ReconstructForwarding'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1ConstructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1DestructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
 
   - function-name: 'p1ReconstructMountPoint'
     function-description:
     parameter:
-      - parameter-name: 'waitTimeBetweenAttempts'
-        parameter-value: '30000'
-        parameter-definition: 'The wait time (in ms) before again attempting to fix the error.'
-
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'

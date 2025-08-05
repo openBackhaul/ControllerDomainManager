@@ -1,7 +1,7 @@
 validation-sequence:
-# See the following entries as examples
-# Exact validations sequences are to be defined by ApplicationOwner
-# (Please, delete this comment after reading)
+  # See the following entries as examples
+  # Exact validations sequences are to be defined by ApplicationOwner
+  # (Please, delete this comment after reading)
 
   - _trigger-function: 'v1-create-controller-template'
     sequence:

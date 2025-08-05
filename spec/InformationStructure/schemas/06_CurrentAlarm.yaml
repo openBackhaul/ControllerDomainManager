@@ -1,7 +1,7 @@
 affected-management-plane-transport:
   type: array
   x-key: _affected-management-plane-transport
-  description: > 
+  description: >
     'List of ForwardingConstructs that have problems
     All references (_affected-management-plane-transport, _affected-cc, _affected-ltp) relate to objects in RunningDS'
   items:

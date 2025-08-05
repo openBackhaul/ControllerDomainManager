@@ -117,13 +117,13 @@ forwardings:
       - server-name: /v1/list-mediator-instance-managers
         uuid: mm-1-0-0-op-s-is-003
       - server-name: /v1/provide-netconf-interface
-        uuid: mm-1-0-0-op-s-is-004      
+        uuid: mm-1-0-0-op-s-is-004
       - server-name: /v1/dismantle-netconf-instances
         uuid: mm-1-0-0-op-s-is-005
       - server-name: /v1/create-mediator-vm-template
         uuid: mm-1-0-0-op-s-is-000
       - server-name: /v1/delete-mediator-vm-template
-        uuid: mm-1-0-0-op-s-is-001      
+        uuid: mm-1-0-0-op-s-is-001
       - server-name: /v1/list-mediator-vm-templates
         uuid: mm-1-0-0-op-s-is-002
     consequent-requests:
@@ -282,7 +282,7 @@ forwardings:
       operation-client-deletion:
     initiating-requests:
       - server-name: /v1/dispose-remainders-of-deregistered-application
-        uuid: mm-1-0-0-op-s-bm-013      
+        uuid: mm-1-0-0-op-s-bm-013
       - server-name: /v1/disregard-mediator-instance-manager
         uuid: mm-1-0-0-op-s-im-002
     consequent-requests:
@@ -339,7 +339,7 @@ forwardings:
       operation-client-deletion:
     initiating-requests:
       - server-name: /v1/end-subscription
-        uuid: mm-1-0-0-op-s-bm-004      
+        uuid: mm-1-0-0-op-s-bm-004
       - server-name: /v1/disregard-mediator-instance-manager
         uuid: mm-1-0-0-op-s-im-002
     consequent-requests:
@@ -490,12 +490,12 @@ forwardings:
           uuid: mm-1-0-0-op-s-im-002
       operation-client-deletion:
     initiating-requests:
-    - server-name: ControllerDomainManager://v1/create-mediator-vm-template
-      uuid: mm-1-0-0-op-s-is-000
-    - server-name: ControllerDomainManager://v1/provide-netconf-interface
-      uuid: mm-1-0-0-op-s-is-004
-    - server-name: ControllerDomainManager://v1/dismantle-netconf-interface
-      uuid: mm-1-0-0-op-s-is-003
+      - server-name: ControllerDomainManager://v1/create-mediator-vm-template
+        uuid: mm-1-0-0-op-s-is-000
+      - server-name: ControllerDomainManager://v1/provide-netconf-interface
+        uuid: mm-1-0-0-op-s-is-004
+      - server-name: ControllerDomainManager://v1/dismantle-netconf-interface
+        uuid: mm-1-0-0-op-s-is-003
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
         uuid: mm-1-0-0-op-c-bs-eatl-2-1-2-000
@@ -514,7 +514,7 @@ forwardings:
     consequent-requests:
       - client-name: ConnectionPreparation://v1/prepare-connections
         uuid: mm-1-0-0-op-c-is-cc-1-1-0-000
-  
+
   - forwarding-name: provideNetconfInterfaceManagesExistingMediatorInstances.ListMediatorInstances
     uuid: mm-1-0-0-op-fc-is-002
     forwarding-type: ProcessSnippet
