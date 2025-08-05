@@ -15,7 +15,7 @@
   - TcpClient at MountPoint at Controller  
 
 ### InformationStructure  
-- [Internal Information Structure](./InformationStructure/InformationStructure.md)  
+- [Internal Information Structure](./InformationStructure/InformationStructure.md) (includes definition of the terminology in the CDM)  
 
 ### Functions  
 - [Public and Private Functions](./Functions/Functions.md)  

@@ -8,29 +8,29 @@ The information within the three data stores CandidateDS, RunningDS and Operatio
 
 <img src="./diagrams/InformationStructure.png" alt="InformationStructure" width="800" style="display: block; margin: 20 auto"/>  
  
-The [DomainController (DC)](./schemas/00_DomainController.yaml) holds  
-- the parameter settings of the [Functions (F)](./schemas/02_Function.yaml),  
-- definitions of [ValidationSequences (VS)](./schemas/03_ValidationSequence.yaml),  
-- definitions of [Pulses (P)](./schemas/04_Pulser.yaml),  
-- definitions of [ErrorCodes (EC)](./schemas/05_ErrorCode.yaml) including their countermeasures,  
-- and the [CurrentAlarms (CA)](./schemas/06_CurrentAlarm.yaml) at the DeviceDomainManager.  
+The [DomainController (DC)](./schemas/00_DomainController.yaml) ([description](Index.md#domaincontroller)) holds  
+- the parameter settings of the [Functions (F)](./schemas/02_Function.yaml) ([description](Index.md#function)),  
+- definitions of [ValidationSequences (VS)](./schemas/03_ValidationSequence.yaml) ([description](../Functions/Validation/ValidationOrchestrator.md)),  
+- definitions of [Pulses (P)](./schemas/04_Pulser.yaml) ([description](../Functions/Pulser/Pulser.md)),  
+- definitions of [ErrorCodes (EC)](./schemas/05_ErrorCode.yaml) ([description](../Functions/Implementation/ImplementationOrchestrator.md)) including their countermeasures,  
+- and the [CurrentAlarms (CA)](./schemas/06_CurrentAlarm.yaml) ([description](../Functions/Monitoring/MonitoringFunctions.md#currentalarms)).  
 
 Up to four semantically different documentations of the same [Network (NCD)](./schemas/09_NetworkControlDomain.yaml) are composed from instances of,   
 
-- pre-defined templates (Profiles)  
+- pre-defined templates (Profiles) ([description](Index.md#profiles)) 
   - [ManagementDomainInterfaceTemplate (P)](./schemas/10_ManagementDomainInterfaceTemplate.yaml)  
   - [LoadBalancerTemplate (P)](./schemas/20_LoadBalancerTemplate.yaml)  
   - [ControllerTemplate (P)](./schemas/30_ControllerTemplate.yaml)  
   - [MountPointTemplate (P)](./schemas/35_MountPointTemplate.yaml)  
 
 - network elements (ControlConstructs) with interfaces (LogicalTerminationPoints)  
-  - Application (CC) incl. [ManagementDomainInterface (LTP)](./schemas/11_ManagementDomainInterface.yaml)  
-  - [LoadBalancer (CC)](./schemas/21_LoadBalancer.yaml) incl. [Forwarding (LTP)](./schemas/22_Forwarding.yaml)  
-  - [Controller (CC)](./schemas/31_Controller.yaml) incl. [MountPoint (LTP)](./schemas/36_MountPoint.yaml)  
-  - [LogicalController (CC)](./schemas/41_LogicalController.yaml) incl. [LogicalMountPoint (LTP)](./schemas/42_LogicalMountPoint.yaml)  
+  - Application (CC) incl. ManagementDomainInterface (LTP) ([schema](./schemas/11_ManagementDomainInterface.yaml)) ([description](Index.md#managementdomaininterface))  
+  - [LoadBalancer (CC)](./schemas/21_LoadBalancer.yaml) incl. [Forwarding (LTP)](./schemas/22_Forwarding.yaml) ([description](Index.md#forwarding))  
+  - [Controller (CC)](./schemas/31_Controller.yaml) incl. [MountPoint (LTP)](./schemas/36_MountPoint.yaml) ([description](Index.md#mountpoint))  
+  - [LogicalController (CC)](./schemas/41_LogicalController.yaml) incl. [LogicalMountPoint (LTP)](./schemas/42_LogicalMountPoint.yaml) ([description](Index.md#logicalmountpoint))  
 
 - and connections (Links and ForwardingConstructs).  
-  - [TcpConnectionA (L)](./schemas/80_TcpConnectionA.yaml)  
-  - [TcpConnectionB (L)](./schemas/81_TcpConnectionB.yaml)  
-  - [CopyConnection (L)](./schemas/82_CopyConnection.yaml)  
+  - [TcpConnectionA (L)](./schemas/80_TcpConnectionA.yaml) ([description](Index.md#tcpconnectiona))  
+  - [TcpConnectionB (L)](./schemas/81_TcpConnectionB.yaml) ([description](Index.md#tcpconnectionb))  
+  - [CopyConnection (L)](./schemas/82_CopyConnection.yaml) ([description](Index.md#copyconnection))    
   - [ManagementPlaneTransportConnection (FC)](./schemas/88_ManagementPlaneTransportConnection.yaml)  
