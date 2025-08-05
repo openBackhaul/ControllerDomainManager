@@ -14,7 +14,7 @@ Deviations are expected to identify missing or faulty configurations on the mana
 Monitoring checks the managed Elements for configurations that do not have any correspondence in the target state defined in the RunningDS.  
 Deviations are expected to identify obsolete configuration artifacts on the managed Elements.  
 
-#### Results:
+#### CurrentAlarms:
 - Results of the monitoring are not passed as a response, but directly consolidated into the CurrentAlarms.  
 - If a new deviation is detected, a new error object is created in the CurrentAlarms.  
 Independently from the kind of monitoring, error objects are grouped by end-to-end connections (ManagementPlaneTransportFc).  
