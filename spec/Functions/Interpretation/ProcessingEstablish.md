@@ -5,6 +5,7 @@
 The **/v1/establish-management-domain** service shall create a LogicalController from Controllers and Loadbalancer (if required).  
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - create LogicalController (CC) with values from RequestBody in CandidateDS  
 - create FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS  
 - IF NO LoadBalancer specified in RequestBody  
@@ -17,13 +18,15 @@ It shall be processed as follows:
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  
+  - create root point for the new managementDomain in currentAlarms list (create empty array in affected-management-domain)  
   ELSE  
-  - create root point for the new managementDomain in currentAlarms list  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 The **/v1/establish-controller-in-management-domain** service is for adding a Controller to an existing LogicalController.  
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - visit LoadBalancer referenced in the _tcpServer attribute of the LogicalController (identified by managementDomain specified in RequestBody) in CandidateDS  
 - add additional LP (TcpClient) identified by the new Controller's controllerName to the Forwarding (LTP) (identified by managementDomain specified in RequestBody) in CandidateDS  
 - (will be referenced from below as (a)) create Link between the new LP and the LP (identified by 'tcp-server') at the LTP (identified by 'controller-manager') at the Controller (CC) identified by the controllerName specified in the RequestBody in CandidateDS  
@@ -42,10 +45,12 @@ It shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 The **/v1/establish-management-domain-connection** service is for connecting an Application to a LogicalController.
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - read _tcpServer from LogicalController (in CandidateDS) specified in RequestBody  
 - create a Link between the Application specified in RequestBody and _tcpServer in CandidateDS  
 - invoke validationOrchestrator  
@@ -54,10 +59,12 @@ It shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 The **/v1/establish-management-plane-transport** service is for connecting a new Device.  
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - create a LogicalMountPoint with values from RequestBody inside LogicalController specified in RequestBody in CandidateDS  
 - create a MountPoint with same values in all n Controllers listed in _controllers attribute of the same LogicalController in CandidateDS  
 - create n Links between the newly created n MountPoints and the LogicalMountPoint in CandidateDS  
@@ -78,6 +85,7 @@ It shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 ### Dismantle  
 
@@ -106,14 +114,15 @@ It shall be processed as follows:
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  
-  ELSE  
   - delete FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS, RunningDS and OperationalDS  
   - delete root point (incl. all attached entries) for the obsolete managementDomain in currentAlarms list  
+  ELSE  
   - respond ResponseCode to requestor  
 
 The **/v1/dismantle-controller-from-management-domain** service is for removing a Controller from a LogicalController.  
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - search list of Links for those referencing the obsolete Controller (identified by the controllerName specified in the RequestBody) in the _cc attribute at one of their termination points (linktp) and  
   - delete the LP referenced by the second termination point (linktp) in that list of two  
   - delete the entire Link in CandidateDS  
@@ -128,6 +137,7 @@ It shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 The **/v1/dismantle-management-domain-connection** service is for disconnecting an Application from a LogicalController. The Link towards the LoadBalancer and all ManagementPlaneTransport FCs terminating at the Application get deleted.  
 It shall be processed as follows:  

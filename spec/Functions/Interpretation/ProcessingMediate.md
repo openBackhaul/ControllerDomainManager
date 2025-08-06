@@ -7,6 +7,7 @@ The following services
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - update object specified in RequestBody with values from RequestBody in CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
@@ -14,3 +15,4 @@ shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  

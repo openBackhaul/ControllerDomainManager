@@ -10,6 +10,7 @@ The following services
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - create logical object of specified type and category with values from RequestBody in CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
@@ -17,6 +18,7 @@ shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 ### Delete  
 
@@ -28,6 +30,7 @@ The following services
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS
 - identify logical object by specified type, category and key attribute value and delete if from CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
@@ -35,6 +38,7 @@ shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 ### List  
 
@@ -70,6 +74,7 @@ The following services
 
 shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
 - identify logical object by specified type, category and key attribute value and change it with values from RequestBody in CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
@@ -77,3 +82,4 @@ shall be processed as follows:
   - respond 204 to requestor  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
