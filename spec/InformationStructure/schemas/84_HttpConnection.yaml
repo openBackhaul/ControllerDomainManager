@@ -68,7 +68,7 @@ link:
                       description: >
                         'controllerName
                         candidate: from [ managementDomain=CDM://v1/establish-management-domain-connection$request.body#management-domain
-                                    create such httpLink for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*] ] 
+                                    create such httpLink for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*] ]
                         running: from candidate
                         operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:

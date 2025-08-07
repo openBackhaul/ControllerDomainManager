@@ -69,7 +69,7 @@ forwarding-construct:
               type: string
               description: >
                 'Identifier that is unique within the list of Routes
-                candidate: An instance of Route is to be created for every entry in 
+                candidate: An instance of Route is to be created for every entry in
                             [ managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
                               /management-domain=running/control-construct=[managementDomain]/_controllers[*] ]
                 running: from candidate
@@ -85,13 +85,13 @@ forwarding-construct:
                   managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
                   odl[n]=/management-domain=running/control-construct=[managementDomain]/_controllers[n] (means: one of the entries in _controllers[*])
                   httpLink:
-                    candidate: from [ local-id of instance of Link with 
+                    candidate: from [ local-id of instance of Link with
                                       [/management-domain=running/link=?/linktp=http-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]
                                       AND [/management-domain=running/link=?/linktp=http-server/_cc]==odl[n] ]
                     running: from candidate
                     operational: from running - must exist in OperationalDS for expressing operational state'
                   copyLink:
-                    candidate: from [ local-id of instance of Link with 
+                    candidate: from [ local-id of instance of Link with
                                       [/management-domain=running/link=?/linktp=copy-client/_cc]==odl[n]
                                       AND [/management-domain=running/link=?/linktp=copy-server/_cc]==[CDM://v1/establish-management-plane-transport$request.body#controller-name] ]
                     running: from candidate
