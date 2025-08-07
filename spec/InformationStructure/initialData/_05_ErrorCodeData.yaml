@@ -30,11 +30,14 @@ error-code:
     description: 'Controller not available'
     _implementation-function:
   - error-code: 651
+    description: 'Controller configuration mismatch'
+    _implementation-function: 'p1ReconstructController'
+  - error-code: 652
     description: 'MountPoint not available'
     _implementation-function: 'p1ConstructMountPoint'
-  - error-code: 652
+  - error-code: 653
     description: 'Unknown MountPoint found'
     _implementation-function: 'p1DestructMountPoint'
-  - error-code: 653
+  - error-code: 654
     description: 'MountPoint configuration mismatch'
     _implementation-function: 'p1ReconstructMountPoint'

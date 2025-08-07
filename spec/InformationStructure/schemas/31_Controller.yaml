@@ -58,10 +58,62 @@ control-construct:
                     layer-protocol:
                       type: array
                       x-key: local-id
-                      minItems: 1
-                      maxItems: 1
                       items:
                         oneOf:
+                          - description: 'httpServer'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                enum:
+                                  - 'httpServer'
+                                description: 'entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if [http-user-name] not included in proprietary response of the Element'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'Name of the user for administrating the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#admin-user-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: integer
+                                description: >
+                                  'Password of the user for administrating the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#admin-password]
+                                  running: from candidate
+                                  operational: set by [/network-control-domain=running/profile=[_template]/measure-controller-function-name]'
+                          - description: 'managementDomainInterface'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                description: >
+                                  'applicationName
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running; entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if applicationName not included in proprietary response of the Element'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'applicationName used as name of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: integer
+                                description: >
+                                  'Password of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
+                                  running: from candidate
+                                  operational: set by [/network-control-domain=running/profile=[_template]/measure-controller-function-name]'
                           - description: 'tcpServer'
                             type: object
                             required:

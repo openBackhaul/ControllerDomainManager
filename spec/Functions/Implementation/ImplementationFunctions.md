@@ -15,6 +15,8 @@ Managed Elements and associated ImplementationFunctions:
   - Update Forwarding  
     - /p1/reconstruct-forwarding  
 - [Controller and MountPoint](#controller-and-mountpoint)  
+  - Update Controller  
+    - /p1/reconstruct-controller  
   - Create MountPoint  
     - /p1/construct-mount-point  
   - Delete MountPoint  
@@ -51,6 +53,7 @@ Is addressing the [ApplicationDomainManager](https://github.com/openBackhaul/App
 
 #### Made Configurations:  
 - The Application's TcpClient is adjusted with the TCP/IP address of either LoadBalancer or Controller  
+- The Application's HttpClient is adjusted with the user credentials at the Controllers  
 
 #### Inverse Interpretations:  
 Callback$request.body#remote-ip-address:  
@@ -58,6 +61,12 @@ Callback$request.body#remote-ip-address:
 
 request.body#remote-port:  
 - From [remote-port] at LP identified by 'tcp-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name] in RunningDS  
+
+request.body#http-user-name:  
+- From [http-user-name] at LP identified by 'http-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name] in RunningDS  
+
+request.body#http-password:  
+- From [http-password] at LP identified by 'http-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name] in RunningDS  
 
 #### Feedback into CurrentAlarms:  
 - date-of-attempt  
@@ -194,6 +203,34 @@ If the Callback would return local-ip-address and local-port of the newly create
 The CDM encapsulates the Controller.  
 It manages the entire logical resource of the Controller, which is the MountPoints.  
 
+### /p1/reconstruct-controller
+
+Is addressing the OpenDaylight controller  
+
+#### Input:  
+- controller-name  
+  Name of the Controller that shall be updated  
+
+#### Callback:  
+- [ODL://rests/???](../../Elements/OpenDaylight/OpenDaylight.yaml) 
+
+#### Made Configurations:  
+- User credentials are updated  
+
+#### Inverse Interpretations:  
+- Callback$???:  
+  - From [http-user-name] at LP[*] inside LTP identified by 'controller-manager' inside ControlConstruct identified by [controller-name] in RunningDS  
+- Callback$???:  
+  - From [http-password] at LP[*] inside LTP identified by 'controller-manager' inside ControlConstruct identified by [controller-name] in RunningDS  
+
+#### Feedback into CurrentAlarms:  
+- date-of-attempt  
+- response-code  
+- date-of-next-attempt-to-fix  
+
+#### Output:  
+./.  
+
 ### /p1/construct-mount-point  
 
 Is addressing the OpenDaylight controller  
@@ -325,3 +362,4 @@ Is addressing the OpenDaylight controller
 
 #### Output:  
 ./.  
+

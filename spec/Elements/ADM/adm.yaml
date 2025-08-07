@@ -62,9 +62,17 @@ paths:
                   remote-port:
                     type: integer
                     description: 'Remote TCP port at the TcpClient of the LTP identified by the managementDomain from OperationalDS'
+                  http-user-name:
+                    type: string
+                    description: 'Username applied by the HttpClient of the LTP identified by the managementDomain from OperationalDS'
+                  http-password:
+                    type: integer
+                    description: 'Password applied by the HttpClient of the LTP identified by the managementDomain from OperationalDS'
                 example:
                   remote-ip-address: '127.0.0.1'
                   remote-port: 4711
+                  http-user-name: 'MicroWaveDeviceInventory'
+                  http-password: 'geheim123'
           headers:
             x-correlator:
               schema:
@@ -158,11 +166,23 @@ paths:
                   description: >
                     'New value of the remote TCP port at the TcpClient of the LTP identified by the managementDomain
                     from [CDM://p1/reconstruct-management-domain-interface$request.body#remote-port]'
+                http-user-name:
+                  type: string
+                  description: >
+                    'New value of the username to be applied by the HttpClient of the LTP identified by the managementDomain
+                    from [CDM://p1/reconstruct-management-domain-interface$request.body#http-user-name]'
+                http-password:
+                  type: integer
+                  description: >
+                    'New value of the password to be applied by the HttpClient of the LTP identified by the managementDomain
+                    from [CDM://p1/reconstruct-management-domain-interface$request.body#http-password]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
                 management-domain-name: 'live'
                 remote-ip-address: '127.0.0.1'
                 remote-port: 4712
+                http-user-name: 'MicroWaveDeviceInventory'
+                http-password: 'geheim123'
       responses:
         '204':
           description: 'ManagementDomainInterface updated'

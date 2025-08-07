@@ -50,10 +50,35 @@ control-construct:
                 layer-protocol:
                   type: array
                   x-key: local-id
-                  minItems: 1
-                  maxItems: 1
+                  minItems: 2
+                  maxItems: 2
                   items:
                     oneOf:
+                      - description: 'httpClient'
+                        type: object
+                        required:
+                          - local-id
+                          - http-user-name
+                          - http-password
+                        properties:
+                          local-id:
+                            type: string
+                            enum:
+                              - 'http-client'
+                          http-user-name:
+                            type: string
+                            description: >
+                              'applicationName used as name of the user applied for authenticating at the Controller
+                              candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                              running: from candidate
+                              operational: from [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-service]$response.body#http-user-name]'
+                          http-password:
+                            type: integer
+                            description: >
+                              'Password of the user applied for authenticating at the Controller
+                              candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
+                              running: from candidate
+                              operational: from [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-service]$response.body#http-password]'
                       - description: 'tcpClient'
                         type: object
                         required:

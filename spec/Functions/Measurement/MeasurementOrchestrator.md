@@ -9,7 +9,7 @@ This implies that there is a fixed sequence and the return values of many Functi
 After being triggered by the Pulser, the MeasurementOrchestrator reads the existing CCs from RunningDS and invokes the following MeasurementFunctions one after another (but not before the returned deviations have been processed by consequent function calls):  
 - TcpClient at Application (ManagementDomainInterface) => /p1/measure-management-domain-interface  
 - LoadBalancer => /p1/measure-list-of-forwardings  
-- Controller => /p1/measure-list-of-mount-points  
+- Controller => /p1/measure-controller and /p1/measure-list-of-mount-points  
 
 Each of these MeasurementFunctions is not just updating the OperationalDS with information about the termination points, it is also returning a list of changed termination points.  
 

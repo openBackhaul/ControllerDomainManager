@@ -96,7 +96,7 @@ logical-termination-point:
                       To avoid unnecessary redundancy, the capabilities are only stored once at the LogicalMountPoint
                       candidate: ./.
                       running: ./.
-                      operational: set by [/network-control-domain=running/profile=[_template]/list-mount-points-service]'
+                      operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
                     properties:
                       capability:
                         type: string
@@ -112,7 +112,7 @@ logical-termination-point:
                       To avoid unnecessary redundancy, it is only stored once at the LogicalMountPoint
                       candidate: ./.
                       running: ./.
-                      operational: set by [/network-control-domain=running/profile=[_template]/list-mount-points-service]'
+                      operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
                     properties:
                       capability:
                         type: string
