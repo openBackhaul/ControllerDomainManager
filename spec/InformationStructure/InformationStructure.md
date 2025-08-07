@@ -32,5 +32,5 @@ Up to four semantically different documentations of the same [Network (NCD)](./s
 - and connections (Links and ForwardingConstructs).  
   - [TcpConnectionA (L)](./schemas/80_TcpConnectionA.yaml) ([description](Index.md#tcpconnectiona))  
   - [TcpConnectionB (L)](./schemas/81_TcpConnectionB.yaml) ([description](Index.md#tcpconnectionb))  
-  - [CopyConnection (L)](./schemas/82_CopyConnection.yaml) ([description](Index.md#copyconnection))    
+  - [CopyConnection (L)](./schemas/85_CopyConnection.yaml) ([description](Index.md#copyconnection))    
   - [ManagementPlaneTransportConnection (FC)](./schemas/88_ManagementPlaneTransportConnection.yaml) ([description](Index.md#managementplanetransportconnection))  

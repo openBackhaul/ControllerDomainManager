@@ -57,5 +57,48 @@ control-construct:
             x-key: local-id
             items:
               oneOf:
+                - description: 'controllerManager'
+                  type: object
+                  required:
+                    - local-id
+                    - layer-protocol
+                  properties:
+                    local-id:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    layer-protocol:
+                      type: array
+                      x-key: local-id
+                      items:
+                        oneOf:
+                          - description: 'managementDomainInterface'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                description: >
+                                  'applicationName
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'applicationName used as name of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: integer
+                                description: >
+                                  'Password of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
+                                  running: from candidate
+                                  operational: from running'
                 - description: 'LogicalTerminationPoint - see 42_LogicalMountPoint.yaml'
                   type: object

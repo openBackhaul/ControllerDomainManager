@@ -28,6 +28,8 @@ The following fixed sequence of MonitoringFunctions gets triggered by the Monito
 
 - /p1/monitor-management-plane-transport  
   - creates a list of Links from the list of Routes inside the ManagementPlaneTransport  
+  - checks the resulting Links for Routes,  
+    - if there is a Route in the Link, the Links inside this Route are also added to the list of Links  
   - creates unique pairs of {[_cc], [_ltp]} from the termination points (linktp) of these Links  
   - classifies these pairs of {[_cc], [_ltp]} into the following categories and invokes the following MonitoringFunctions:
     - pair with [category]=='application' at [_cc] => /p1/monitor-management-domain-interface  
@@ -49,8 +51,8 @@ The following fixed sequence of MonitoringFunctions gets triggered by the Monito
 - /p1/monitor-mount-point
     - checks OperationalDS for the following divergences:  
       - if CC with [_cc] does not exists => error object at CC level with error code 650  
-      - if LTP with [_ltp] does not exists => error object at LTP level with error code 651  
-      - if values at any LP different from RunningDS => error object at LTP level with error code 653  
+      - if LTP with [_ltp] does not exists => error object at LTP level with error code 652  
+      - if values at any LP different from RunningDS => error object at LTP level with error code 654  
 
 ### Monitoring for obsolete  
 
@@ -63,4 +65,5 @@ They get individually triggered by the MonitoringOrchestrator calling them with 
 
 - /p1/monitor-controller  
   - checks OperationalDS for the following divergences:  
-    - if there is LTP with [local-id] not known in RunningDS => error object at LTP level with error code 652
+    - if there are differences in LTP identified by 'controller-manager' => error object at CC level with error code 651
+    - if there is LTP with [local-id] not known in RunningDS => error object at LTP level with error code 653

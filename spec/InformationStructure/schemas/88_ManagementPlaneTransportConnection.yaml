@@ -52,8 +52,8 @@ forwarding-construct:
                 _cc:
                   type: string
                   description: >
-                    'managementDomain, which is same as element-name of LogicalController
-                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                    'element-name of LogicalController = managementDomain
+                    candidate: from [managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]]
                     running: from candidate
                     operational: from running - must exist in OperationalDS for expressing operational state'
       route:
@@ -69,29 +69,30 @@ forwarding-construct:
               type: string
               description: >
                 'Identifier that is unique within the list of Routes
-                candidate: An instance of Route is to be created for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*]]
+                candidate: An instance of Route is to be created for every entry in 
+                            [ managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                              /management-domain=running/control-construct=[managementDomain]/_controllers[*] ]
                 running: from candidate
                 operational: from running; entire Route to be deleted, if one of the referenced Links does not exist in operationalDS'
             _links:
               type: array
-              minItems: 3
-              maxItems: 3
+              minItems: 2
+              maxItems: 2
               items:
                 type: string
                 description: >
-                  'Three localIds of tcpLinkA, tcpLinkB and copyLink on a path between the two fctp
-                  An instance of Route is to be created for every entry in [/management-domain=running/control-construct=[managementDomain]/_controllers[*]]
+                  'This array shall contain two localIds of httpLink and copyLink on a path between the two linktp defined above
                   managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
-                  odlName=[/management-domain=running/control-construct=[managementDomain]/_controllers[n]] (pick one to create this instance of Route)
-                  tcpLinkA:
-                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]]
-                    running: from candidate
-                    operational: from running - must exist in OperationalDS for expressing operational state'
-                  tcpLinkB:
-                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=tcp-server/_cc]==odlName]
+                  odl[n]=/management-domain=running/control-construct=[managementDomain]/_controllers[n] (means: one of the entries in _controllers[*])
+                  httpLink:
+                    candidate: from [ local-id of instance of Link with 
+                                      [/management-domain=running/link=?/linktp=http-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]
+                                      AND [/management-domain=running/link=?/linktp=http-server/_cc]==odl[n] ]
                     running: from candidate
                     operational: from running - must exist in OperationalDS for expressing operational state'
                   copyLink:
-                    candidate: from [local-id of instance of Link with [/management-domain=running/link=?/linktp=copy-client/_cc]==odlName]
+                    candidate: from [ local-id of instance of Link with 
+                                      [/management-domain=running/link=?/linktp=copy-client/_cc]==odl[n]
+                                      AND [/management-domain=running/link=?/linktp=copy-server/_cc]==[CDM://v1/establish-management-plane-transport$request.body#controller-name] ]
                     running: from candidate
                     operational: from running - must exist in OperationalDS for expressing operational state'

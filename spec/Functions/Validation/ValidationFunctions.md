@@ -34,10 +34,16 @@ The following kinds of ValidationFunctions can be distinguished:
   Ensures that referenced Profiles actually exist  
 
 - p1EnsureTcpLinkTpsToMatch  
-  - Ensures existence (in CandidateDS) of the termination points  
+  - Ensures existence of the termination points (in CandidateDS)  
   - Ensures at termination points of TcpLinks:  
     - TcpClient(remoteIpAddress)==TcpServer(localIpAddress)  
     - and TcpClient(remotePort)==TcpServer(localPort)  
+
+- p1EnsureHttpLinkTpsToMatch  
+  - Ensures existence of the termination points (in CandidateDS)  
+  - Ensures at termination points of HttpLinks:  
+    - HttpClient(httpUserName)==HttpServer(httpUserName)  
+    - and HttpClient(httpPassword)==HttpServer(httpPassword)  
 
 - p1EnsureCopyLinkTpsToMatch  
   - Ensures existence (in CandidateDS) of the termination points  

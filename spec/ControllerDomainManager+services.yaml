@@ -219,6 +219,8 @@ servers:
           uuid:
         - operation-name: /p1/measure-list-of-forwardings
           uuid:
+        - operation-name: /p1/measure-controller
+          uuid:
         - operation-name: /p1/measure-list-of-mount-points
           uuid:
         - operation-name: /p1/measure-links
@@ -258,6 +260,8 @@ servers:
         - operation-name: /p1/destruct-forwarding
           uuid:
         - operation-name: /p1/reconstruct-forwarding
+          uuid:
+        - operation-name: /p1/reconstruct-controller
           uuid:
         - operation-name: /p1/construct-mount-point
           uuid:

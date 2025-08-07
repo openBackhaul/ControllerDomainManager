@@ -10,10 +10,11 @@ Managed Elements and associated MeasurementFunctions (covering availability of t
 - [LoadBalancer and Forwarding](#loadbalancer-and-forwarding)  
   - /p1/measure-list-of-forwardings  
 - [Controller and MountPoint](#controller-and-mountpoint)  
+  - /p1/measure-controller
   - /p1/measure-list-of-mount-points  
 
 Managed Connections and associated MeasurementFunctions (covering availability of connection):  
-- [TcpConnectionA, TcpConnectionB and CopyConnection](#tcpconnectiona-tcpconnectionb-and-copyconnection)  
+- [TcpConnectionA, TcpConnectionB, HttpConnection and CopyConnection](#tcpconnectiona-tcpconnectionb-httpconnection-and-copyconnection)  
   - /p1/measure-links  
 - [Route](#route)  
   - /p1/measure-routes
@@ -56,6 +57,14 @@ response.body#remote-ip-address:
 response.body#remote-port:  
 - Object - LP identified by 'tcp-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
 - Interpretation - [Object#remote-port] = [response.body#remote-port]  
+
+response.body#http-user-name:  
+- Object - LP identified by 'http-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
+- Interpretation - [Object#http-user-name] = [response.body#http-user-name]  
+
+response.body#http-password:  
+- Object - LP identified by 'http-client' inside LTP identified by [management-domain] inside ControlConstruct identified by [application-name]  
+- Interpretation - [Object#http-password] = [response.body#http-password]  
 
 #### Output:  
 - list-of-changed-ltps {elementName, ltpId}    
@@ -126,6 +135,33 @@ LTP Configuration
 
 The CDM encapsulates the Controller.  
 It manages the entire logical resource of the Controller, which is the MountPoints.  
+
+### /p1/measure-controller  
+
+Is addressing the OpenDaylight controller  
+
+#### Input:  
+- controller-name  
+  Name of a Controller  
+
+#### Callback:  
+- [ODL://???](../../Elements/OpenDaylight/OpenDaylight.yaml)  
+
+#### Made Measurements:  
+- response.code!=200 => Controller (incl. all MountPoints) is unavailable  
+- response.body  
+  => List of currently configured user credentials  
+
+#### Interpretations:  
+- response.body#???:  
+  - Object - LP identified by applicationName inside LTP identified by 'controller-manager' inside ControlConstruct identified by [controller-name]  
+  - Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#local-id] not included in [response.body#???]  
+- response.body#???:  
+  - Object - LP identified by applicationName inside LTP identified by 'controller-manager' inside ControlConstruct identified by [controller-name]  
+  - Interpretation - [Object#http-password] = [response.body#???]  
+
+#### Output:  
+./.
 
 ### /p1/measure-list-of-mount-points  
 
@@ -236,13 +272,12 @@ Profile Configuration
   - Object - Profile (with category=='mountpoint') identified by [ mountPointTemplateName==[_template] inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] ] 
   - Interpretation - [Object#keepalive-delay] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:keepalive-delay]  
 
-
 #### Output:  
 - list-of-changed-ltps {elementName, ltpId}    
   List of references towards LTPs that are affected by change of un-/available or value  
 
 
-## TcpConnectionA, TcpConnectionB and CopyConnection  
+## TcpConnectionA, TcpConnectionB, HttpConnection and CopyConnection  
 
 The CDM manages the TCP connections:  
 - A: Application <---> LoadBalancer/Controller  
@@ -276,6 +311,11 @@ Link Availability (TcpConnection only) <span style="color:red ;">_(needs to be d
 - if one or more TcpServers at changed LTP {elementName, ltpId}:  
   - Link to be deleted, if [localIpAddress] != [remoteIpAddress at TcpClient at remote end]  
   - Link to be deleted, if [localPort] != [remotePort at TcpClient at remote end]  
+
+Link Availability (HttpConnection only) <span style="color:red ;">_(needs to be detailed)_ </span>  
+- if one or more HttpClients at changed LTP {elementName, ltpId}:  
+  - Link to be deleted, if [httpUserName] != [httpUserName at HttpServer at remote end]  
+  - Link to be deleted, if [httpPassword] != [httpPassword at HttpServer at remote end]  
 
 #### Output:  
 - list-of-changed-links {localId}  
