@@ -37,7 +37,7 @@ link:
                       type: string
                       description: >
                         'applicationName
-                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-domain]
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
                         running: from candidate
                         operational: from running - must exist in OperationalDS for expressing operational state'
                     _ltp:
