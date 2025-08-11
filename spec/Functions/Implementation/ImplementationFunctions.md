@@ -317,16 +317,16 @@ Is addressing the OpenDaylight controller
   - From [remote-port] at LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
 
 - request.body#network-topology:node/netconf-node-optional:notification/subscribe:  
-  - From [notification-subscribe] at LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
+  - From [notification-subscribe] at LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
 
 - request.body#network-topology:node/netconf-node-optional:notification/stream-name:  
-  - From [notification-stream-name] at LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
+  - From [notification-stream-name] at LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
 
 - request.body#network-topology:node/netconf-node-topology:username:  
-  - From [netconf-user-name] at Profile (with category=='mountpoint') identified by mountPointTemplateName==[_template] from inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
-  
+  - From [netconf-user-name] at LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
+
 - request.body#network-topology:node/netconf-node-topology:password:  
-  - From [netconf-password] at Profile (with category=='mountpoint') identified by mountPointTemplateName==[_template] from inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
+  - From [netconf-password] at LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  
 
 - request.body#network-topology:node/netconf-node-topology:sleep-factor:  
   - From [sleep-factor] at Profile (with category=='mountpoint') identified by mountPointTemplateName==[_template] from inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  

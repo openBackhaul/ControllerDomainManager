@@ -45,6 +45,62 @@ logical-termination-point:
                     candidate: from [_logical-controller]
                     running: from [_logical-controller]
                     operational: from [_logical-controller]'
+            - description: 'netconfClient'
+              type: object
+              required:
+                - local-id
+                - netconf-user-name
+                - netconf-password
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'netconf-client'
+                netconf-user-name:
+                  type: string
+                  description: >
+                    'Configuration
+                    Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/netconf-user-name]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/netconf-user-name]
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                netconf-password:
+                  type: string
+                  description: >
+                    'Configuration
+                    Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/netconf-password]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/netconf-password]
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                notification-subscribe:
+                  type: boolean
+                  description: >
+                    'If true, the automated subscribing for notifications while mounting is activated
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/notification-subscribe]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/notification-subscribe]
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                notification-stream-name:
+                  type: string
+                  description: >
+                    'Name of the stream for clients of ODL to identify it while subscribing
+                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/notification-stream-name]
+                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=netconf-client/notification-stream-name]
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                connection-status:
+                  type: string
+                  description: >
+                    'Status of the connection between MountPoint and Device
+                    candidate: ./.
+                    running: ./.
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                session-id:
+                  type: integer
+                  description: >
+                    'Locally unique ID of the connection between MountPoint and Device as it has been assigned by the Controller
+                    candidate: ./.
+                    running: ./.
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
             - description: 'tcpClient'
               type: object
               required:
@@ -69,32 +125,4 @@ logical-termination-point:
                     'TCP port of the mediatorProcess to which the mountPoint is connected to
                     candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
                     running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/remote-port]
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
-                notification-subscribe:
-                  type: boolean
-                  description: >
-                    'If true, the automated subscribing for notifications while mounting is activated
-                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/notification-subscribe]
-                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/notification-subscribe]
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
-                stream-name:
-                  type: string
-                  description: >
-                    'Name of the stream for clients of ODL to identify it while subscribing
-                    candidate: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/stream-name]
-                    running: from [/network-control-domain=running/control-construct=[_logical-controller]/logical-termination-point=[local-id]/layer-protocol=tcp-client/stream-name]
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
-                connection-status:
-                  type: string
-                  description: >
-                    'Status of the connection between MountPoint and Device
-                    candidate: ./.
-                    running: ./.
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
-                session-id:
-                  type: integer
-                  description: >
-                    'Locally unique ID of the connection between MountPoint and Device as it has been assigned by the Controller
-                    candidate: ./.
-                    running: ./.
                     operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'

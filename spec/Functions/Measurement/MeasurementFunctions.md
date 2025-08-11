@@ -193,6 +193,22 @@ LTP Availability
   - Interpretation - any of the Objects to be deleted from OperationalDS, if [Object#local-id] not included in [response.body#network-topology:topology=*/node=*/node-id]  
 
 LTP Configuration  
+- response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:username:  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Interpretation - [Object#netconf-user-name] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:username]  
+
+- response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:password:  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Interpretation - [Object#netconf-password] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:password]  
+
+- response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/subscribe:  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Interpretation - [Object#notification-subscribe] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/subscribe]  
+
+- response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/stream-name:  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Interpretation - [Object#notification-stream-name] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/stream-name]  
+
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:host:  
   - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
   - Interpretation - [Object#remote-ip-address] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:host]  
@@ -201,41 +217,25 @@ LTP Configuration
   - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
   - Interpretation - [Object#remote-port] = [response.body#network-topology:topology=*/node=[device-name]/ netconf-node-topology:port]  
 
-- response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/subscribe:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
-  - Interpretation - [Object#notification-subscribe] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/subscribe]  
-
-- response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/stream-name:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
-  - Interpretation - [Object#notification-stream-name] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-optional:notification/stream-name]  
-
 LTP Status  
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:connection-status:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
   - Interpretation - [Object#connection-status] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:connection-status]  
 
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:session-id:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name]  
   - Interpretation - [Object#session-id] = [response.body#network-topology:topology=*/node=[device-name]/ netconf-node-topology:session-id] 
 
 Logical LTP Capability
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:available-capabilities/available-capability=\*:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [[_logical-controller] inside ControlConstruct identified by [controller-name]]  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [[_logical-controller] inside ControlConstruct identified by [controller-name]]  
   - Interpretation - [Object#available-capability=*] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:available-capabilities/available-capability=\*]; entire list shall be replaced at the LogicalMountPoint  
 
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:unavailable-capabilities/**un**available-capability=\*:  
-  - Object - LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [[_logical-controller] inside ControlConstruct identified by [controller-name]]  
+  - Object - LP identified by 'netconf-client' inside LTP identified by [device-name] inside ControlConstruct identified by [[_logical-controller] inside ControlConstruct identified by [controller-name]]  
   - Interpretation - [Object#unavailable-capability=*] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:unavailable-capabilities/unavailable-capability=\*]; entire list shall be replaced at the LogicalMountPoint  
 
 Profile Configuration  
-- response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:username:  
-  - Object - Profile (with category=='mountpoint') identified by [ mountPointTemplateName==[_template] inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] ] 
-  - Interpretation - [Object#netconf-user-name] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:username]  
-
-- response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:password:  
-  - Object - Profile (with category=='mountpoint') identified by [ mountPointTemplateName==[_template] inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] ] 
-  - Interpretation - [Object#netconf-password] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:password]  
-
 - response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:sleep-factor:  
   - Object - Profile (with category=='mountpoint') identified by [ mountPointTemplateName==[_template] inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] ] 
   - Interpretation - [Object#sleep-factor] = [response.body#network-topology:topology=*/node=[device-name]/netconf-node-topology:sleep-factor]  

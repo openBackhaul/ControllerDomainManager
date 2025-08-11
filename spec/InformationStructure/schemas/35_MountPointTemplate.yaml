@@ -20,30 +20,18 @@ profile:
             type: string
             enum:
               - 'logicalController'
-          netconf-user-name:
-            type: string
-            description: >
-              'Configuration
-              Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
-          netconf-password:
-            type: string
-            description: >
-              'Configuration
-              Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
           sleep-factor:
             type: string
             description: >
               'Configuration
               Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
           max-connection-attempts:
             type: integer
             description: >
               'Configuration
               Maximum number of attempts to connect with the MediatorProcess/device
-              CDM is reading this value from a ControllerTemplate and configuring it into every new instance of MountPoint'
+              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
           default-request-timeout-millis:
             type: integer
             description: >
