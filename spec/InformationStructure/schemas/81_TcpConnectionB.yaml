@@ -14,7 +14,7 @@ link:
             description: >
               'Identifier that is unique within the list of Links
               operational: from running;
-                            entire tcpLink to be deleted, if 
+                            entire tcpLink to be deleted, if
                               referenced tcpClient does not exist in OperationalDS
                               OR referenced tcpServer does not exist in OperationalDS
                               OR [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS

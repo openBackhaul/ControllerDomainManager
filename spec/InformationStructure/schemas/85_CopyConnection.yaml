@@ -14,7 +14,7 @@ link:
             description: >
               'Identifier that is unique within the list of Links
               operational: from running;
-                            entire copyLink to be deleted, if 
+                            entire copyLink to be deleted, if
                               referenced copyClient does not exist in OperationalDS
                               OR referenced copyServer does not exist in OperationalDS
                               OR [/network-control-domain=operational/control-construct=[controllerName]/_logical-controller] != [/copyServer/_cc] (managementDomain)
@@ -54,7 +54,7 @@ link:
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
                                     or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
-                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id] 
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id]
                                               An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
                         running: from candidate
                         operational: from running'
@@ -88,7 +88,7 @@ link:
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
                                     or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
-                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id] 
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id]
                                               An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
                         running: from candidate
                         operational: from running'

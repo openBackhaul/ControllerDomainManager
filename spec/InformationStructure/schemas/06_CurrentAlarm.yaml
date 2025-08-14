@@ -10,7 +10,7 @@ affected-device:
       _affected-device:
         type: string
         description: >
-          'Reference towards an existing (not necessarily having problems) ManagementPlaneTransportFC 
+          'Reference towards an existing (not necessarily having problems) ManagementPlaneTransportFC
           from [CDM://v1/establish-management-plane-transport$request.body#device-name]'
       error:
         type: array

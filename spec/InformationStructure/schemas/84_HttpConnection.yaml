@@ -14,7 +14,7 @@ link:
             description: >
               'Identifier that is unique within the list of Links
               operational: from running;
-                            entire httpLink to be deleted, if 
+                            entire httpLink to be deleted, if
                               referenced httpClient does not exist in OperationalDS
                               OR referenced httpServer does not exist in OperationalDS
                               OR [/httpClient/httpUserName] != [/httpServer/httpUserName] in OperationalDS
@@ -106,7 +106,7 @@ link:
                   description: >
                     'Identifier that is unique within the list of Links
                     operational: from running;
-                                  entire route to be deleted, if 
+                                  entire route to be deleted, if
                                     referenced tcpLinkA does not exist in OperationalDS
                                     OR referenced tcpLinkB does not exist in OperationalDS'
                 _links:

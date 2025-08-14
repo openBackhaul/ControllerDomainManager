@@ -15,7 +15,7 @@ forwarding-construct:
           candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
           running: from candidate
           operational: from running;
-                        entire FC to be deleted, if 
+                        entire FC to be deleted, if
                           referenced managementPlaneTransportClient does not exist in OperationalDS
                           OR referenced managementPlaneTransportServer does not exist in OperationalDS
                           OR no route exists in OperationalDS'
@@ -91,11 +91,11 @@ forwarding-construct:
                 candidate: from [ An instance of Route is to be created for every entry in
                                   [ managementDomain = [CDM://v1/establish-management-plane-transport$request.body#controller-name]
                                   /network-control-domain=running/control-construct=[managementDomain]/_controllers[*] ]
-                            or from [ An additional Route is to be created through 
+                            or from [ An additional Route is to be created through
                                   odl = [CDM://v1/establish-controller-in-management-domain$request.body#controller-name] ]
                 running: from candidate
                 operational: from running;
-                              entire route to be deleted, if 
+                              entire route to be deleted, if
                                 referenced httpLink does not exist in OperationalDS
                                 OR referenced copyLink does not exist in OperationalDS'
             _links:
