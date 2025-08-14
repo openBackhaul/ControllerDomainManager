@@ -14,7 +14,11 @@ forwarding-construct:
           'deviceName
           candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
           running: from candidate
-          operational: from running; entire FC to be deleted, if no entry exists in route in operationalDS'
+          operational: from running;
+                        entire FC to be deleted, if 
+                          referenced managementPlaneTransportClient does not exist in OperationalDS
+                          OR referenced managementPlaneTransportServer does not exist in OperationalDS
+                          OR no route exists in OperationalDS'
       fctp:
         type: array
         x-key: fctp-type
@@ -27,6 +31,7 @@ forwarding-construct:
               required:
                 - fctp-type
                 - _cc
+                - _ltp
               properties:
                 fctp-type:
                   type: string
@@ -38,7 +43,14 @@ forwarding-construct:
                     'applicationName
                     candidate: from [CDM://v1/establish-management-plane-transport$request.body#application-name]
                     running: from candidate
-                    operational: from running - must exist in OperationalDS for expressing operational state'
+                    operational: from running'
+                _ltp:
+                  type: string
+                  description: >
+                    'managementDomain
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                    running: from candidate
+                    operational: from running'
             - description: managementPlaneTransportServer
               type: object
               required:
@@ -53,9 +65,16 @@ forwarding-construct:
                   type: string
                   description: >
                     'element-name of LogicalController = managementDomain
-                    candidate: from [managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]]
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
                     running: from candidate
-                    operational: from running - must exist in OperationalDS for expressing operational state'
+                    operational: from running'
+                _ltp:
+                  type: string
+                  description: >
+                    'deviceName
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                    running: from candidate
+                    operational: from running'
       route:
         type: array
         x-key: local-id
@@ -69,11 +88,16 @@ forwarding-construct:
               type: string
               description: >
                 'Identifier that is unique within the list of Routes
-                candidate: An instance of Route is to be created for every entry in
-                            [ managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
-                              /management-domain=running/control-construct=[managementDomain]/_controllers[*] ]
+                candidate: from [ An instance of Route is to be created for every entry in
+                                  [ managementDomain = [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                                  /network-control-domain=running/control-construct=[managementDomain]/_controllers[*] ]
+                            or from [ An additional Route is to be created through 
+                                  odl = [CDM://v1/establish-controller-in-management-domain$request.body#controller-name] ]
                 running: from candidate
-                operational: from running; entire Route to be deleted, if one of the referenced Links does not exist in operationalDS'
+                operational: from running;
+                              entire route to be deleted, if 
+                                referenced httpLink does not exist in OperationalDS
+                                OR referenced copyLink does not exist in OperationalDS'
             _links:
               type: array
               minItems: 2
@@ -81,18 +105,27 @@ forwarding-construct:
               items:
                 type: string
                 description: >
-                  'This array shall contain two localIds of httpLink and copyLink on a path between the two linktp defined above
-                  managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]
-                  odl[n]=/management-domain=running/control-construct=[managementDomain]/_controllers[n] (means: one of the entries in _controllers[*])
-                  httpLink:
-                    candidate: from [ local-id of instance of Link with
-                                      [/management-domain=running/link=?/linktp=http-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]
-                                      AND [/management-domain=running/link=?/linktp=http-server/_cc]==odl[n] ]
-                    running: from candidate
-                    operational: from running - must exist in OperationalDS for expressing operational state'
-                  copyLink:
-                    candidate: from [ local-id of instance of Link with
-                                      [/management-domain=running/link=?/linktp=copy-client/_cc]==odl[n]
-                                      AND [/management-domain=running/link=?/linktp=copy-server/_cc]==[CDM://v1/establish-management-plane-transport$request.body#controller-name] ]
-                    running: from candidate
-                    operational: from running - must exist in OperationalDS for expressing operational state'
+                  'This array shall contain two localIds of httpLink and copyLink on a path between the two fctp defined above
+                  candidate: from [ managementDomain = [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                                    odl[n] = /network-control-domain=running/control-construct=[managementDomain]/_controllers[n] (means: one of the entries in _controllers[*])
+                                    httpLink:
+                                      from [ local-id of instance of Link with
+                                              [/network-control-domain=running/link=?/linktp=http-client/_cc]==[CDM://v1/establish-management-plane-transport$request.body#application-name]
+                                              AND [/network-control-domain=running/link=?/linktp=http-server/_cc]==odl[n] ]
+                                    copyLink:
+                                      from [ local-id of instance of Link with
+                                              [/network-control-domain=running/link=?/linktp=copy-client/_cc]==odl[n]
+                                              AND [/network-control-domain=running/link=?/linktp=copy-server/_cc]==[CDM://v1/establish-management-plane-transport$request.body#controller-name] ] ]
+                              or from [ odl = [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                                        applicationName = ../../fctp=management-plane-transport-client/_cc
+                                        managementDomain = ../../fctp=management-plane-transport-server/_cc
+                                    httpLink:
+                                      from [ local-id of instance of Link with
+                                              [/network-control-domain=running/link=?/linktp=http-client/_cc]==applicationName
+                                              AND [/network-control-domain=running/link=?/linktp=http-server/_cc]==odl ]
+                                    copyLink:
+                                      from [ local-id of instance of Link with
+                                              [/network-control-domain=running/link=?/linktp=copy-client/_cc]==odl
+                                              AND [/network-control-domain=running/link=?/linktp=copy-server/_cc]==applicationName ] ]
+                  running: from candidate
+                  operational: from running'

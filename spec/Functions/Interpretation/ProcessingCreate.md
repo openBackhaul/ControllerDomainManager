@@ -3,7 +3,7 @@
 ### Create  
 
 The following services  
-- /v1/create-management-domain-interface-template  
+- /v1/create-application-template  
 - /v1/create-load-balancer-template  
 - /v1/create-controller-template  
 - /v1/create-mount-point-template  
@@ -23,7 +23,7 @@ shall be processed as follows:
 ### Delete  
 
 The following services  
-- /v1/delete-management-domain-interface-template  
+- /v1/delete-application-template  
 - /v1/delete-load-balancer-template  
 - /v1/delete-controller-template  
 - /v1/delete-mount-point-template  
@@ -43,7 +43,7 @@ shall be processed as follows:
 ### List  
 
 The following services  
-- /v1/list-configured-management-domain-interface-templates
+- /v1/list-configured-application-templates
 - /v1/list-configured-load-balancer-templates  
 - /v1/list-configured-controller-templates  
 - /v1/list-configured-mount-point-templates  
@@ -55,7 +55,7 @@ shall be processed as follows:
 ### Inform  
 
 The following services  
-- /v1/provide-config-of-management-domain-interface-template  
+- /v1/provide-config-of-application-template  
 - /v1/provide-config-of-load-balancer-template  
 - /v1/provide-config-of-controller-template  
 - /v1/provide-config-of-mount-point-template  
@@ -67,7 +67,7 @@ shall be processed as follows:
 ### Update  
 
 The following services  
-- /v1/update-management-domain-interface-template  
+- /v1/update-application-template  
 - /v1/update-load-balancer-template  
 - /v1/update-controller-template  
 - /v1/update-mount-point-template  

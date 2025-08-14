@@ -1,41 +1,50 @@
-affected-management-plane-transport:
+affected-device:
   type: array
-  x-key: _affected-management-plane-transport
-  description: >
-    'List of ForwardingConstructs that have problems
-    All references (_affected-management-plane-transport, _affected-cc, _affected-ltp) relate to objects in RunningDS'
+  x-key: _affected-device
+  description: 'List of ManagementPlaneTransportFCs that exist within this ManagementDomain and terminate at this Application'
   items:
     type: object
     required:
-      - _affected-management-plane-transport
-      - affected-link
+      - _affected-device
     properties:
-      _affected-management-plane-transport:
+      _affected-device:
         type: string
-        description: 'Reference towards a ForwardingConstruct with problems (value must be unique and invariant)'
+        description: >
+          'Reference towards an existing (not necessarily having problems) ManagementPlaneTransportFC 
+          from [CDM://v1/establish-management-plane-transport$request.body#device-name]'
+      error:
+        type: array
+        x-key: _error-code
+        minItems: 1
+        description: 'error attribute exclusively occurs, if there is at least one error directly associated with the FC'
+        items:
+          $ref: "#/components/schemas/errorDescription"
       affected-link:
         type: array
         x-key: _affected-link
         minItems: 1
-        description: >
-          'List of Links that have problems
-          As the ForwardingConstruct with problems is exclusively composed from Links, at least one Link must have a problem'
+        description: 'affected-link attribute exclusively occurs, if there is at least one error associated with a Link'
         items:
           type: object
+          minProperties: 2
           required:
             - _affected-link
-            - affected-cc
           properties:
             _affected-link:
               type: string
               description: 'Reference towards a Link with problems (value must be unique and invariant)'
+            error:
+              type: array
+              x-key: _error-code
+              minItems: 1
+              description: 'error attribute exclusively occurs, if there is at least one error directly associated with the Link'
+              items:
+                $ref: "#/components/schemas/errorDescription"
             affected-cc:
               type: array
               x-key: _affected-cc
               minItems: 1
-              description: >
-                'List of ControlConstructs that have problems
-                As problems of a Link are always associated with one of its termination points, at least one ControlConstruct must have a problem'
+              description: 'affected-cc attribute exclusively occurs, if there is at least one error associated with a ControlConstruct'
               items:
                 type: object
                 minProperties: 2
@@ -56,9 +65,7 @@ affected-management-plane-transport:
                     type: array
                     x-key: _affected-ltp
                     minItems: 1
-                    description: >
-                      'List of LogicalTerminationPoints that have problems
-                      affected-ltp attribute exclusively occurs, if there is at least one LTP affected by an error'
+                    description: 'affected-ltp attribute exclusively occurs, if there is at least one error associated with a LogicalTerminationPoint'
                     items:
                       type: object
                       minProperties: 2
@@ -79,9 +86,7 @@ affected-management-plane-transport:
                           type: array
                           x-key: _affected-lp
                           minItems: 1
-                          description: >
-                            'List of LayerProtocols that have problems
-                            affected-lp attribute exclusively occurs, if there is at least one LP affected by an error'
+                          description: 'affected-lp attribute exclusively occurs, if there is at least one error associated with a LayerProtocol'
                           items:
                             type: object
                             required:

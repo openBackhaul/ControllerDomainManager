@@ -13,7 +13,12 @@ link:
             type: string
             description: >
               'Identifier that is unique within the list of Links
-              operational: from running; entire Link to be deleted, if one of the referenced CC, LTP or LP does not exist in operationalDS'
+              operational: from running;
+                            entire copyLink to be deleted, if 
+                              referenced copyClient does not exist in OperationalDS
+                              OR referenced copyServer does not exist in OperationalDS
+                              OR [/network-control-domain=operational/control-construct=[controllerName]/_logical-controller] != [/copyServer/_cc] (managementDomain)
+                              OR [/network-control-domain=operational/control-construct=[managementDomain]/_controllers[*]] does not comprise [/copyClient/_cc] (controllerName)'
           linktp:
             type: array
             x-key: interface-type
@@ -37,18 +42,22 @@ link:
                       type: string
                       description: >
                         'controllerName
-                        candidate: from [managementDomain=[CDM://v1/establish-management-plane-transport$request.body#controller-name]]
-                                    and [/management-domain=running/control-construct=[managementDomain]/_controllers[n]]
-                                    An instance of copyLink is to be created for every entry in _controllers[*]
+                        candidate: from [ logicalController = [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                                          [/network-control-domain=running/control-construct=[logicalController]/_controllers[n]
+                                          An instance of copyLink is to be created for every entry in _controllers[*] ]
+                                    and from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       description: >
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                                    or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id] 
+                                              An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _lp:
                       type: string
                       enum:
@@ -70,15 +79,19 @@ link:
                       description: >
                         'managementDomain
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#controller-name]
+                                    and from [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       description: >
                         'deviceName
                         candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                                    or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id] 
+                                              An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _lp:
                       type: string
                       enum:

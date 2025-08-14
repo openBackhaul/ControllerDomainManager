@@ -18,13 +18,13 @@ The [DomainController (DC)](./schemas/00_DomainController.yaml) ([description](I
 Up to four semantically different documentations of the same [Network (NCD)](./schemas/09_NetworkControlDomain.yaml) are composed from instances of,   
 
 - pre-defined templates (Profiles) ([description](Index.md#profiles)) 
-  - [ManagementDomainInterfaceTemplate (P)](./schemas/10_ManagementDomainInterfaceTemplate.yaml)  
+  - [applicationTemplate (P)](./schemas/10_ApplicationTemplate.yaml)  
   - [LoadBalancerTemplate (P)](./schemas/20_LoadBalancerTemplate.yaml)  
   - [ControllerTemplate (P)](./schemas/30_ControllerTemplate.yaml)  
   - [MountPointTemplate (P)](./schemas/35_MountPointTemplate.yaml)  
 
 - network elements (ControlConstructs) with interfaces (LogicalTerminationPoints)  
-  - Application (CC) incl. ManagementDomainInterface (LTP) ([schema](./schemas/11_ManagementDomainInterface.yaml)) ([description](Index.md#managementdomaininterface))  
+  - [Application (CC)](./schemas/11_Application.yaml) incl. [ManagementDomainInterface (LTP)](./schemas/12_ManagementDomainInterface.yaml) ([description](Index.md#managementdomaininterface))  
   - [LoadBalancer (CC)](./schemas/21_LoadBalancer.yaml) incl. [Forwarding (LTP)](./schemas/22_Forwarding.yaml) ([description](Index.md#forwarding))  
   - [Controller (CC)](./schemas/31_Controller.yaml) incl. [MountPoint (LTP)](./schemas/36_MountPoint.yaml) ([description](Index.md#mountpoint))  
   - [LogicalController (CC)](./schemas/41_LogicalController.yaml) incl. [LogicalMountPoint (LTP)](./schemas/42_LogicalMountPoint.yaml) ([description](Index.md#logicalmountpoint))  

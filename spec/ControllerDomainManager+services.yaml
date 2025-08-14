@@ -88,15 +88,15 @@ servers:
         #
         # Interpretation
         #
-        - operation-name: /v1/create-management-domain-interface-template
+        - operation-name: /v1/create-application-template
           uuid:
-        - operation-name: /v1/delete-management-domain-interface-template
+        - operation-name: /v1/delete-application-template
           uuid:
-        - operation-name: /v1/list-configured-management-domain-interface-templates
+        - operation-name: /v1/list-configured-application-templates
           uuid:
-        - operation-name: /v1/provide-config-of-management-domain-interface-template
+        - operation-name: /v1/provide-config-of-application-template
           uuid:
-        - operation-name: /v1/update-management-domain-interface-template
+        - operation-name: /v1/update-application-template
           uuid:
 
         - operation-name: /v1/create-load-balancer-template
@@ -132,13 +132,13 @@ servers:
         - operation-name: /v1/update-mount-point-template
           uuid:
 
-        - operation-name: /v1/regard-management-domain-interface
+        - operation-name: /v1/regard-application
           uuid:
-        - operation-name: /v1/disregard-management-domain-interface
+        - operation-name: /v1/disregard-application
           uuid:
-        - operation-name: /v1/list-configured-management-domain-interfaces
+        - operation-name: /v1/list-applications
           uuid:
-        - operation-name: /v1/provide-config-of-management-domain-interface
+        - operation-name: /v1/provide-config-of-application
           uuid:
 
         - operation-name: /v1/regard-load-balancer
@@ -177,9 +177,9 @@ servers:
           uuid:
         - operation-name: /v1/list-configured-management-domains
           uuid:
-        - operation-name: /v1/provide-config-of-management-domain     # Auf sinnvolles gegenseitiges Ergänzen mit den Informationen über die Komponenten achten
+        - operation-name: /v1/provide-config-of-management-domain
           uuid:
-        - operation-name: /v1/provide-status-of-management-domain     # Auf sinnvolles gegenseitiges Ergänzen mit den Informationen über die Komponenten achten
+        - operation-name: /v1/provide-status-of-management-domain
           uuid:
         - operation-name: /v1/mediate-netconf-client-update
           uuid:
@@ -215,7 +215,7 @@ servers:
         #
         - operation-name: /p1/measurement-orchestrator
           uuid:
-        - operation-name: /p1/measure-management-domain-interface
+        - operation-name: /p1/measure-list-of-management-domain-interfaces
           uuid:
         - operation-name: /p1/measure-list-of-forwardings
           uuid:

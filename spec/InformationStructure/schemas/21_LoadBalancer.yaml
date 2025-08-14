@@ -17,7 +17,7 @@ control-construct:
               'loadBalancerName
               candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-name]
               running: from candidate
-              operational: from running; entire CC to be deleted, if addressing the LoadBalancer fails'
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]$response.code]!=200'
           category:
             type: string
             enum:
@@ -30,7 +30,7 @@ control-construct:
               Both instances of ControlConstruct and Profile must have an identical value in their category attributes
               candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-template-name]
               running: from candidate
-              operational: ./. - does not exist in OperationalDS as it cannot be read from the real element'
+              operational: from running'
           logical-termination-point:
             type: array
             x-key: local-id
@@ -70,13 +70,13 @@ control-construct:
                                   'IP address of the LoadBalancer
                                   candidate: from [CDM://v1/regard-load-balancer$request.body#local-ip-address]
                                   running: from candidate
-                                  operational: from running; value to be deleted, if addressing the LoadBalancer fails'
+                                  operational: from running'
                               local-port:
                                 type: integer
                                 description: >
                                   'TCP port of the LoadBalancer
                                   candidate: from [CDM://v1/regard-load-balancer$request.body#local-port]
                                   running: from candidate
-                                  operational: from running; value to be deleted, if addressing the LoadBalancer fails'
+                                  operational: from running'
                 - description: 'LogicalTerminationPoint - see 22_Forwarding.yaml'
                   type: object
