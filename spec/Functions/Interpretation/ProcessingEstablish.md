@@ -2,18 +2,13 @@
 
 ### Establish  
 
-The **/v1/establish-management-domain** service shall create a LogicalController from Controllers and Loadbalancer (if required).  
-It shall be processed as follows:  
+The **/v1/establish-management-domain** shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
 - lock CandidateDS  
 - create LogicalController (CC) with values from RequestBody in CandidateDS  
 - create FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS  
-- IF NO LoadBalancer specified in RequestBody  
-  - update Controller specified in RequestBody in _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
 - IF LoadBalancer specified in RequestBody  
   - create a Forwarding (LTP) identified by managementDomain specified in RequestBody in CandidateDS  
-  - update all n Controllers specified in RequestBody in _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
-  - create n TcpLinkBs between the Forwarding and these n Controllers in CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
@@ -32,16 +27,11 @@ It shall be processed as follows:
 - (will be referenced from below as (a)) create TcpLinkB between the new LP and the LP (identified by 'tcp-server') at the LTP (identified by 'controller-manager') at the Controller (CC) identified by the controllerName specified in the RequestBody in CandidateDS  
 - update Controller (CC) identified by the controllerName specified in the RequestBody in its _logicalController attribute with managementDomain specified in RequestBody in CandidateDS  
 - add controllerName specified in the RequestBody to the _controllers attribute of the LogicalController (identified by managementDomain specified in RequestBody) in CandidateDS  
-- replicate the information of all LogicalMountPoints (LTPs) inside the LogicalController (identified by managementDomain specified in RequestBody) into new MountPoints (LTPs) of the same number inside the new Controller (identified by the controllerName specified in the RequestBody) in CandidateDS  
-- (will be referenced from below as (b)) create HttpLinks between the existing LPs (identified by 'http-client') at Application that are already connected with the ManagementDomain and new LPs (identified by applicationName) at the new Controller
-- complement every new HttpLink with one Route referencing 
-  - the TcpLinkA from one of the Applications to the LoadBalancer identified in _tcpServer attribute of the LogicalController (identified by managementDomain specified in RequestBody) 
-  - and the TcpLinkB from the LoadBalancer to the new Controller   
-- (will be referenced from below as (c)) create CopyLinks between the LogicalMountPoints (LTPs) inside the LogicalController (identified by managementDomain specified in RequestBody) and the MountPoints (LTPs) identified by the same deviceName inside the new Controller (identified by the controllerName specified in the RequestBody) in CandidateDS  
-- add an additional Route to every ManagementPlaneTransport (FC) that is terminating at the same LogicalController (identified by managementDomain specified in RequestBody) and identified by the same deviceNames in CandidateDS  
-- add the following references to every newly created Route:
-  - reference to newly created HttpLink between Application and Controller (see above (b))
-  - reference to newly created CopyLink between MountPoint and LogicalMountPoint (see above (b))
+- filter list of CC for category=='application'  
+  - filter list of Applications those with LTPs identified by managementDomain specified in RequestBody in CandidateDS  
+  - self-request /v1/establish-management-domain-connection for every Application already connected to the managementDomain specified in RequestBody  
+- filter list of LTPs at LogicalController (identified by managementDomain specified in RequestBody) for those different from 'controllerManager'
+  - self-request /v1/establish-management-plane-transport for every Device having a LogicalMountPoint already  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
@@ -54,11 +44,18 @@ The **/v1/establish-management-domain-connection** service is for connecting an 
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
 - lock CandidateDS  
+- if not already existing, create FD with forwardingDomainName==applicationName (specified in RequestBody) as lowerLevelForwardingDomain to the FD with forwardingDomainName==managementDomain (specified in RequestBody) in CandidateDS  
 - read _tcpServer from LogicalController (in CandidateDS) specified in RequestBody  
-- create a TcpLink between the Application specified in RequestBody and _tcpServer in CandidateDS  
+- read TCP/IP address from the TcpServer at the LoadBalancer or Controller specified in _tcpServer  
+- write TCP/IP address into the TcpClient (LTP identified by managementDomain) at the Application specified in RequestBody  
+- if not already existing, create a TcpLinkA between the Application and _tcpServer in CandidateDS  
 - read _controllers[*] from LogicalController (in CandidateDS) specified in RequestBody  
-- create a HttpLinks between the Application specified in RequestBody and _controllers[*] in CandidateDS  
-- document Routes of TcpLinks inside the HttpLinks
+- read the user credentials from the HttpServer at one of these Controllers  
+- write these user credentials into the HttpClient (LTP identified by managementDomain) at the Application specified in RequestBody in CandidateDS  
+- if not already existing, create a HttpLink between the Application and every _controllers[*] in CandidateDS  
+- document Routes of TcpLinkA and TcpLinkB inside every HttpLink  
+- filter list of LTPs at LogicalController specified in RequestBody for those different from 'controllerManager'
+  - self-request /v1/establish-management-plane-transport for every Device having a LogicalMountPoint already  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
@@ -71,17 +68,17 @@ The **/v1/establish-management-plane-transport** service is for connecting a new
 It shall be processed as follows:  
 - copy content of RunningDS into CandidateDS  
 - lock CandidateDS  
-- create a LogicalMountPoint with values from RequestBody inside LogicalController specified in RequestBody in CandidateDS  
-- create a MountPoint with same values in all n Controllers listed in _controllers attribute of the same LogicalController in CandidateDS  
-- create n CopyLinks between the newly created n MountPoints and the LogicalMountPoint in CandidateDS  
-- create an FC between the Application and the LogicalController (managementDomain) specified in RequestBody in CandidateDS 
+- if not already existing, create a LogicalMountPoint with values from RequestBody inside LogicalController specified in RequestBody in CandidateDS  
+- wherever not already existing, create a MountPoint with same values in all n Controllers listed in _controllers attribute of the same LogicalController in CandidateDS  
+- wherever not already existing, create n CopyLinks between the newly created n MountPoints and the LogicalMountPoint in CandidateDS  
+- if not already existing, create an FC between the Application and the LogicalController (managementDomain) specified in RequestBody in CandidateDS 
 - read _tcpServer from LogicalController (in CandidateDS) specified in RequestBody  
 - IF category of _tcpServer (CC) == controller  
-  - create one Route at newly created FC and reference:  
+  - if not already existing, create one Route at newly created FC and reference:  
     - the HttpLink between Application specified in RequestBody and Controller referenced in the _tcpServer attribute of the LogicalController in CandidateDS  
     - the CopyLink between the newly created MountPoint and the newly created LogicalMountPoint  
 - IF category of _tcpServer (CC) == loadBalancer  
-  - create n Routes at newly created FC and reference in each Route:  
+  - wherever not already existing, create n Routes at newly created FC and reference in each Route:  
     - an HttpLink between the Application specified in RequestBody and one of the Controllers referenced in the _controllers attribute of the LogicalController in CandidateDS  
     - a newly created CopyLink between a newly created MountPoint and the also newly created LogicalMountPoint in CandidateDS  
 - invoke validationOrchestrator  

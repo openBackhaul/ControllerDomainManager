@@ -19,6 +19,7 @@
 
 ### Functions  
 - [Public and Private Functions](./Functions/Functions.md)  
+- [Example: Sequence of steps to the first ManagementPlaneTransport connection](./InformationStructure/Example.md)
 
 .  
 
