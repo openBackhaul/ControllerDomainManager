@@ -34,7 +34,7 @@ The [DomainController (DC)](./schemas/00_DomainController.yaml) holds
 Up to four semantically different documentations of the same [Network (NCD)](./schemas/09_NetworkControlDomain.yaml) are composed from instances of,   
 
 - pre-defined templates (Profiles)  
-  - [applicationTemplate (P)](./schemas/10_ApplicationTemplate.yaml)  
+  - [ApplicationTemplate (P)](./schemas/10_ApplicationTemplate.yaml)  
   - [LoadBalancerTemplate (P)](./schemas/20_LoadBalancerTemplate.yaml)  
   - [ControllerTemplate (P)](./schemas/30_ControllerTemplate.yaml)  
   - [MountPointTemplate (P)](./schemas/35_MountPointTemplate.yaml)  
@@ -48,5 +48,6 @@ Up to four semantically different documentations of the same [Network (NCD)](./s
 - and connections (Links and ForwardingConstructs).  
   - [TcpConnectionA (L)](./schemas/80_TcpConnectionA.yaml)  
   - [TcpConnectionB (L)](./schemas/81_TcpConnectionB.yaml)  
+  - [HttpConnection (L)](./schemas/84_HttpConnection.yaml)  
   - [CopyConnection (L)](./schemas/85_CopyConnection.yaml)  
   - [ManagementPlaneTransportConnection (FC)](./schemas/88_ManagementPlaneTransportConnection.yaml)  

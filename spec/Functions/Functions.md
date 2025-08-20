@@ -1,33 +1,21 @@
 # Functions Overview  
 
-<img src="./diagrams/CategoriesOfFunctions.png" alt="CategoriesOfFunctions" width="700" style="display: block; margin: 0 auto"/>  
+<img src="./diagrams/CategoriesOfFunctions.png" alt="CategoriesOfFunctions" width="700" style="display: block; margin: 0 auto 20"/>  
 
-### Interpretation  
+**Interpretation**  
+[InterpretationFunctions](./Interpretation/InterpretationFunctions.md) are changing the content of the CandidateDataStore either driven by external requests or by events in the OperationalDataStore.  
 
-InterpretationFunctions are changing the content of the CandidateDataStore either driven by external requests or by events in the OperationalDataStore.  
-Further details on [InterpretationFunctions](./Interpretation/InterpretationFunctions.md)  
+**Validation**  
+[ValidationFunctions](./Validation/Validation.md) analyze the data structure inside the CandidateDataStore for compliance with generic rules.  
 
-### Validation  
+**Measurement**  
+[MeasurementFunctions](./Measurement/Measurement.md) document the actual conditions of the Elements under management within the domain in the OperationalDataStore.  
 
-ValidationFunctions analyze the data structure inside the CandidateDataStore for compliance with generic rules.  
-Further details on [Validation](./Validation/Validation.md)  
+**Monitoring**  
+[MonitoringFunctions](./Monitoring/Monitoring.md) compare OperationalDataStore with RunningDataStore. In case of deviations, entries in the alarm list are created.  
 
-### Measurement  
+**Implementation**  
+[ImplementationFunctions](./Implementation/Implementation.md) are attempting to configure the target state (RunningDataStore) into the Elements under management within the domain.  
 
-MeasurementFunctions document the actual conditions of the Elements under management within the domain in the OperationalDataStore.  
-Further details on [Measurement](./Measurement/Measurement.md)  
-
-### Monitoring  
-
-MonitoringFunctions compare OperationalDataStore with RunningDataStore. In case of deviations, entries in the alarm list are created.  
-Further details on [Monitoring](./Monitoring/Monitoring.md)  
-
-### Implementation  
-
-ImplementationFunctions are attempting to configure the target state (RunningDataStore) into the Elements under management within the domain.  
-Further details on [Implementation](./Implementation/Implementation.md)  
-
-### Pulser  
-
-The Pulser is cyclically triggering other Functions.  
-Further details on [Pulser](./Pulser/Pulser.md)  
+**Pulser**  
+The [Pulser](./Pulser/Pulser.md) is cyclically triggering other Functions.   
