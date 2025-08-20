@@ -84,10 +84,10 @@ Not indicated in the diagram:
 - If ManagementPlaneTransport connections would have been configured on the ManagementDomain before the Controller instance gets added, the necessary MountPoints would be copied from the LogicalController to the newly added Controller instance automatically.  
 
 #### Connecting an Application to the ManagementDomain  
-Connection an Application to the ManagementDomain basically means creating  
-- a ManagementDomainInterface inside the Application,  
-- a TCP connection between the ManagementDomainInterface and Forwarding  
-- and an HTTP connection between ManagementDomainInterface and Controller instance.  
+Connection an Application to the ManagementDomain basically means creating ...  
+- ... a ManagementDomainInterface inside the Application, ...  
+- ... a TCP connection between the ManagementDomainInterface and Forwarding ...  
+- ... and an HTTP connection between ManagementDomainInterface and Controller instance.  
 
 The following service is applied for adding a Controller instance to a ManagementDomain:  
 - /v1/establish-management-domain-connection  

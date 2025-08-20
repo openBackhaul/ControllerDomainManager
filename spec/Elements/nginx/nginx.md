@@ -1,5 +1,12 @@
 # nginx  
 
+.  
+
+    ImplementationFunctions are not included in the v1.0.0_spec.  
+    Please, ignore this segment during implementing v1.0.0_impl.  
+
+.
+
 nginx is an open source web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache ([REST API definition](https://nginx.org/en/docs/http/ngx_http_api_module.html)).  
 
 .

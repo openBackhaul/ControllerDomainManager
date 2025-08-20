@@ -1,5 +1,12 @@
 # ApplicationDomainManager  
 
+.  
+
+    ImplementationFunctions are not included in the v1.0.0_spec.  
+    Please, ignore this segment during implementing v1.0.0_impl.  
+
+.
+
 The [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager) manages and encapsulates all necessary activities for connecting the applications of the MW SDN domain.  
 
 
