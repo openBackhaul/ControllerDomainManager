@@ -1,11 +1,7 @@
 # OpenDaylight  
 
-.  
-
     ImplementationFunctions are not included in the v1.0.0_spec.  
     Please, ignore this segment during implementing v1.0.0_impl.  
-
-.
 
 The OpenDaylight Controller is an open source controller [project](https://www.opendaylight.org/), upon which many other controllers are built.  
 

@@ -42,9 +42,9 @@ shall be processed as follows:
 
 The following services  
 - /v1/list-applications  
-- /v1/list-configured-load-balancers  
+- /v1/list-load-balancers  
 - /v1/list-configured-forwardings  
-- /v1/list-configured-controllers  
+- /v1/list-controllers  
 - /v1/list-configured-mount-points  
 
 shall be processed as follows:  

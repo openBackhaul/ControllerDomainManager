@@ -1,26 +1,39 @@
 # Interpretation  
 
+
+## Overview  
+
+The following kinds of InterpretationFunctions are distinguished:  
+
+- [Public InterpretationFunctions](#public-interpretationfunctions) translate abstract requests into concrete changes to the logical objects of the internal data structure inside the CandidateDS.  
+  This is the only kind of Function, which is not for administrative purposes but publicly available at the API of the automation application.  
+
+- [Internal InterpretationFunctions](#internal-interpretationfunctions) implement closed loop automation.  
+  They check the OperationalDS after being triggered by the Pulser.  
+  If generically defined conditions are fulfilled, generically predefined countermeasures are translated into concrete changes to the logical objects in the CandidateDS.  
+
+
 ## Public InterpretationFunctions  
 
-Public InterpretationFunctions translate abstract requests into concrete changes to the logical objects of the internal data structure inside the CandidateDS.  
-This is the only kind of Function, which is not for administrative purposes but publicly available at the API of the automation application.  
+### Groups of logical objects  
 
+The logical objects of the internal data structure can be grouped as follows:  
 
-### Groups of logical objects
+- Logical objects that only exist within the data structure of the application. There is no corresponding actually existing Element. The fact that these Elements can be freely generated in the internal data structure is expressed by the service name /v1/**create**-element-type.  
 
-The logical objects of the internal data structure can be grouped as follows:
-- Logical objects that only exist within the data structure of the application. There is no corresponding, really existing Element. The fact that these Elements can be freely generated in the internal data structure is expressed by the service name /v1/**create**-element-type.  
-- Logical objects that represent a real-world Element, but cannot influence the existence of that Element. The fact that the internal data structure has to follow the real-world conditions is expressed by the service name /v1/**regard**-element-type.  
-- Logical objects that are initially generated in the internal data structure for actively managing the resources of this domain. Obviously, existence and changes of these objects result in configuring the physical Elements encapsulated by this domain. The fact that a specific target state is to be manifested in the real world is expressed by the service name /v1/**establish**-element-type.  
-- Logical objects that are initially generated in the internal data structure because they are representing resources on physical Elements encapsulated by this domain, despite they are not managed by this domain (e.g., termination point of a connection that is managed by a lateral neighboring domain). The fact that the encapsulating domain is acting as a bare translator between the managing domain and the element's management interface is expressed by the service name /v1/**mediate**-element-type-activity.  
+- Logical objects that represent a real-world Element, but cannot influence the existence of that Element. The fact that the internal data structure has to document the real-world conditions is expressed by the service name /v1/**regard**-element-type.  
+
+- Logical objects that are generated in the internal data structure for actively managing the resources of this domain. Obviously, existence and changes of these objects result in configuring the physical Elements encapsulated and managed by this domain. The fact that a specific target state is to be manifested in the real world is expressed by the service name /v1/**establish**-element-type.  
+
+- Logical objects that are generated in the internal data structure because they are representing resources on physical Elements encapsulated by this domain, despite they are not managed by this domain (e.g., termination point of a connection that is managed by a lateral neighboring domain). The fact that the encapsulating domain is acting as a bare translator between the managing domain and the element's management interface is expressed by the service name /v1/**mediate**-element-type-activity.  
 
 ### Created logical objects  
 
 Logical objects need to be created for the following types of Elements:  
-- **ApplicationTemplate**  
-- **LoadBalancerTemplate**  
-- **ControllerTemplate**  
-- **MountPointTemplate**  
+- ApplicationTemplate  
+- LoadBalancerTemplate  
+- ControllerTemplate  
+- MountPointTemplate  
 
 The following Public InterpretationFunctions are provided for managing them:  
 - /v1/**create**-_instance_of_element-type_  
@@ -34,14 +47,14 @@ High level description of the [processing of create](./ProcessingCreate.md)
 ### Regarded Elements  
 
 The following types of Elements need to be regarded by documenting logical objects:  
-- **Application**  
-- **LoadBalancer**  
-- **Controller**  
+- Application  
+- LoadBalancer  
+- Controller  
 
 The following Public InterpretationFunctions are provided for documenting them:  
 - /v1/**regard**-_instance_of_element-type_  
 - /v1/disregard-_instance_of_element-type_  
-- /v1/list-configured-_all_instances-of-element-type_  
+- /v1/list-_all_instances-of-element-type_  
 - /v1/provide-config-of-_instance-of-element-type_  
 - /v1/provide-status-of-_instance-of-element-type_  
 
@@ -50,13 +63,13 @@ High level description of the [processing of regard](./ProcessingRegard.md)
 ### Established Elements  
 
 Logical objects need to be established for the following types of Elements:  
-- **ManagementDomain**, composed from  
+- ManagementDomain, composed from  
   - LogicalController  
   - Forwarding (if LoadBalancer involved)  
   - n Links between the Forwarding and a Controller (if LoadBalancer involved)  
-- **ManagementDomainConnection**, composed from  
+- ManagementDomainConnection, composed from  
   - Link between Application and either Forwarding (if LoadBalancer involved) or Controller  
-- **ManagementPlaneTransport**, composed from  
+- ManagementPlaneTransport, composed from  
   - LogicalMountPoint  
   - 1 or n MountPoint(s)  
   - 1 or n Link(s) between MountPoint(s) and LogicalMountPoint  
@@ -83,20 +96,13 @@ High level description of the [processing of establish](./ProcessingEstablish.md
 ### Mediated Activities  
 
 The following internal resources get managed by lateral neighboring domains:  
-- **NetconfClient** at LogicalController  
+- NetconfClient at LogicalController  
 
 The following Public InterpretationFunctions are provided for encapsulating some Element's management interface:  
-- /v1/**mediate**-netconf-client-update
+- /v1/**mediate**-netconf-client-update  
 
 
-## Private InterpretationFunctions  
+## Internal InterpretationFunctions  
 
-Private InterpretationFunctions implement closed loop automation.  
-They check the OperationalDS after being triggered by the Pulser.  
-If generically defined conditions are fulfilled, abstractly predefined countermeasures are translated into concrete changes to the logical objects in the CandidateDS.  
-
-.
-
-    Private InterpretationFunctions to be added here  
-
-.
+    Internal InterpretationFunctions are not included in the v1.0.0_spec.  
+    Please, ignore this segment during implementing v1.0.0_impl.  

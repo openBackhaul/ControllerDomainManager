@@ -8,6 +8,9 @@
 **Validation**  
 [ValidationFunctions](./Validation/Validation.md) analyze the data structure inside the CandidateDataStore for compliance with generic rules.  
 
+    Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.  
+    Please, ignore these segments during implementing v1.0.0_impl.  
+
 **Measurement**  
 [MeasurementFunctions](./Measurement/Measurement.md) document the actual conditions of the Elements under management within the domain in the OperationalDataStore.  
 

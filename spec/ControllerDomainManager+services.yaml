@@ -140,25 +140,33 @@ servers:
           uuid:
         - operation-name: /v1/provide-config-of-application
           uuid:
+        - operation-name: /v1/provide-status-of-application
+          uuid:
 
         - operation-name: /v1/regard-load-balancer
           uuid:
         - operation-name: /v1/disregard-load-balancer
           uuid:
-        - operation-name: /v1/list-configured-load-balancers
+        - operation-name: /v1/list-load-balancers
           uuid:
+# da ist:
         - operation-name: /v1/list-configured-forwardings
           uuid:
         - operation-name: /v1/provide-config-of-forwarding
           uuid:
         - operation-name: /v1/provide-status-of-forwarding
           uuid:
+# da sollte sein:
+        - operation-name: /v1/provide-config-of-load-balancer
+          uuid:
+        - operation-name: /v1/provide-status-of-load-balancer
+          uuid:
 
         - operation-name: /v1/regard-controller
           uuid:
         - operation-name: /v1/disregard-controller
           uuid:
-        - operation-name: /v1/list-configured-controllers
+        - operation-name: /v1/list-controllers
           uuid:
         - operation-name: /v1/list-configured-mount-points
           uuid:
