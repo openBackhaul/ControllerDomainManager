@@ -13,7 +13,12 @@ link:
             type: string
             description: >
               'Identifier that is unique within the list of Links
-              operational: from running; entire Link to be deleted, if one of the referenced CC, LTP or LP does not exist in operationalDS'
+              operational: from running;
+                            entire tcpLink to be deleted, if
+                              referenced tcpClient does not exist in OperationalDS
+                              OR referenced tcpServer does not exist in OperationalDS
+                              OR [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
+                              OR [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
           linktp:
             type: array
             x-key: interface-type
@@ -39,14 +44,14 @@ link:
                         'applicationName
                         candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       description: >
                         'managementDomain
                         candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _lp:
                       type: string
                       enum:
@@ -67,17 +72,21 @@ link:
                       type: string
                       description: >
                         'Either loadBalancerName or controllerName of the Element that holds the TcpServer of the LogicalController
-                        candidate: from [managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
-                                    and [/management-domain=running/control-construct=[managementDomain]/_tcp-server]
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    and [/network-control-domain=running/control-construct=[managementDomain]/_tcp-server] ]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       description: >
-                        'managementDomain
-                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                        'managementDomain (if LoadBalancer) or controller-manager (if Controller)
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    and tcpServer=[/network-control-domain=running/control-construct=[managementDomain]/_tcp-server]
+                                    and category=[/network-control-domain=running/control-construct=[tcpServer]/category]
+                                    and if category==loadBalancer managementDomain
+                                    or elseif category==controller controller-manager ]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _lp:
                       type: string
                       enum:

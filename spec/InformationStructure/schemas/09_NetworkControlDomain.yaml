@@ -23,7 +23,7 @@ network-control-domain:
         x-key: template-name
         items:
           oneOf:
-            - description: 'Profile - see 10_ManagementDomainInterfaceTemplate.yaml'
+            - description: 'Profile - see 10_ApplicationTemplate.yaml'
               type: object
             - description: 'Profile - see 20_LoadBalancerTemplate.yaml'
               type: object
@@ -36,7 +36,7 @@ network-control-domain:
         x-key: element-name
         items:
           oneOf:
-            - description: 'ControlConstruct - see 11_ManagementDomainInterface.yaml'
+            - description: 'ControlConstruct - see 11_Application.yaml'
               type: object
             - description: 'ControlConstruct - see 21_LoadBalancer.yaml'
               type: object
@@ -62,7 +62,6 @@ network-control-domain:
           type: object
           required:
             - forwarding-domain-name
-            - forwarding-construct
           properties:
             forwarding-domain-name:
               type: string
@@ -70,10 +69,25 @@ network-control-domain:
                 'managementDomain
                 candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
                 running: from candidate
-                operational: from running; must exist/vanish in parallel to CC with elementName==managementDomain'
-            forwarding-construct:
+                operational: from running'
+            lower-level-forwarding-domain:
               type: array
-              x-key: forwarding-construct-name
+              x-key: forwarding-domain-name
               items:
                 type: object
-                description: 'ForwardingConstruct - see 88_ManagementPlaneTransportConnection.yaml'
+                required:
+                  - forwarding-domain-name
+                properties:
+                  forwarding-domain-name:
+                    type: string
+                    description: >
+                      'applicationName
+                      candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                      running: from candidate
+                      operational: from running'
+                  forwarding-construct:
+                    type: array
+                    x-key: forwarding-construct-name
+                    items:
+                      type: object
+                      description: 'ForwardingConstruct - see 88_ManagementPlaneTransportConnection.yaml'

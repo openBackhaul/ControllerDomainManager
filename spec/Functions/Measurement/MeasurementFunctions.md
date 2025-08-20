@@ -6,7 +6,7 @@ In an ideal and stable situation, they should be identical.
 
 Managed Elements and associated MeasurementFunctions (covering availability of termination point + currently effective configuration and status):  
 - [ManagementDomainInterface](#managementdomaininterface)  
-  - /p1/measure-management-domain-interface  
+  - /p1/measure-list-of-management-domain-interfaces  
 - [LoadBalancer and Forwarding](#loadbalancer-and-forwarding)  
   - /p1/measure-list-of-forwardings  
 - [Controller and MountPoint](#controller-and-mountpoint)  
@@ -28,18 +28,22 @@ Applications are managed by another domain (ADM).
 The CDM's scope is limited to ensuring that the ManagementDomainInterface's configuration is aligned with address and authentication at LoadBalancer, respectively Controller.  
 So, measurement is limited to availability, configuration and status of a specified ManagementDomainInterface.  
 
-### /p1/measure-management-domain-interface  
+### /p1/measure-list-of-management-domain-interfaces  
 
 Is addressing the ApplicationDomainManager  
 
 #### Input:  
 - application-name  
-  Name of the Application that holds the ManagementDomainInterface  
-- management-domain  
-  Name of the ManagementDomain  
+  Name of the Application that holds the ManagementDomainInterface(s)  
+
+#### Additional Data from Running:
+- management-domain [*]  
+  List of names of ManagementDomainInterfaces  
+  from [/network-control-domain=running/control-construct=[application-name]/logical-termination-point=[*]/local-id]
 
 #### Callback:  
-- [ADM://v1/provide-status-of-management-domain-interface](../../Elements/ADM/adm.yaml)  
+- to be addressed for every found value of management-domain
+  [ADM://v1/provide-status-of-management-domain-interface](../../Elements/ADM/adm.yaml)  
 
 #### Made Measurements:  
 - response.code!=200 => ManagementDomainInterface is unavailable  
@@ -341,11 +345,11 @@ The CDM manages the Routes from Application to LogicalController/ManagementDomai
 #### Interpretations:  
 Route Availability  
 - [/network-control-domain=operational/link=localId]:  
-  - Objects - one or more Routes with [ [/network-control-domain=running/forwarding-domain=\*/forwarding-construct=\*/route=\*/_links] containing [localId] ]  
+  - Objects - one or more Routes with [ [/network-control-domain=running/forwarding-domain=\*/lower-level-forwarding-domain=\*/forwarding-construct=\*/route=\*/_links] containing [localId] ]  
   - Interpretation - entire Object to be deleted from OperationalDS, if [/network-control-domain=operational/link=localId] not existing  
 
 #### Output:  
-- list-of-affected-fcs [{forwardingDomainName, forwardingConstructName}]  
+- list-of-affected-fcs [{managementDomain, applicationName, deviceName}]  
   List of ManagementPlaneTransports that have changes in their Routes
 
 
@@ -356,7 +360,7 @@ The CDM manages the ManagementPlaneTransport from Application to LogicalControll
 ### /p1/measure-management-plane-transport
 
 #### Input:  
-- affected FC {forwardingDomainName, forwardingConstructName}  
+- affected FC {managementDomain, applicationName, deviceName}  
   Reference towards an FC that changed un-/availability  
 
 #### Callback:  
@@ -367,10 +371,10 @@ The CDM manages the ManagementPlaneTransport from Application to LogicalControll
 
 #### Interpretations:  
 ManagementPlaneTransport Availability  
-- [/network-control-domain=operational/forwarding-domain=forwardingDomainName/forwarding-construct=forwardingConstructName/route]  
-  - Object - [/network-control-domain=operational/forwarding-domain=forwardingDomainName/forwarding-construct=forwardingConstructName]  
-  - Interpretation - entire Object to be deleted from OperationalDS, if no entry in [/network-control-domain=operational/forwarding-domain=forwardingDomainName/forwarding-construct=forwardingConstructName/route]  
+- [/network-control-domain=operational/forwarding-domain=managementDomain/lower-level-forwarding-domain=applicationName/forwarding-construct=deviceName/route]  
+  - Object - [/network-control-domain=operational/forwarding-domain=managementDomain/lower-level-forwarding-domain=applicationName/forwarding-construct=deviceName]  
+  - Interpretation - entire Object to be deleted from OperationalDS, if no entry in [/network-control-domain=operational/forwarding-domain=managementDomain/lower-level-forwarding-domain=applicationName/forwarding-construct=deviceName/route]  
 
 #### Output:  
-- changed-fc {forwardingDomainName, forwardingConstructName}  
+- changed-fc {managementDomain, applicationName, deviceName}  
   ManagementPlaneTransport that that changed un-/availability  

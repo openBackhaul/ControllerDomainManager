@@ -36,12 +36,12 @@ paths:
                   type: string
                   description: >
                     'Name of the application that holds the ManagementDomainInterface
-                    from [CDM://p1/measure-management-domain-interface$request.body#application-name]'
+                    from [CDM://p1/measure-list-of-management-domain-interfaces$request.body#application-name]'
                 management-domain-name:
                   type: string
                   description: >
                     'Name of the ManagementDomain
-                    from [CDM://p1/measure-management-domain-interface$request.body#management-domain-name]'
+                    from [/network-control-domain=running/control-construct=[application-name]/logical-termination-point=[*]/local-id]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
                 management-domain-name: 'live'

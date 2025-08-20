@@ -8,9 +8,9 @@ profile:
         required:
           - template-name
           - category
-          - list-forwardings-service
+          - measure-list-of-forwardings-function-name
           - inform-about-forwarding-service
-          - update-forwarding-service
+          - reconstruct-forwarding-function-name
         properties:
           template-name:
             type: string
@@ -23,25 +23,18 @@ profile:
             type: string
             enum:
               - 'loadBalancer'
-          list-forwardings-service:
+          measure-list-of-forwardings-function-name:
             type: string
             description: >
               'Http request for listing the Forwardings that exist inside the LoadBalancer
-              candidate: from [CDM://v1/create-load-balancer-template$request.body#list-forwardings-service]
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#measure-list-of-forwardings-function-name]
               running: from candidate
               operational: ./.'
-          inform-about-forwarding-service:
-            type: string
-            description: >
-              'Http request for getting details about a Forwarding
-              candidate: from [CDM://v1/create-load-balancer-template$request.body#inform-about-forwarding-service]
-              running: from candidate
-              operational: ./.'
-          update-forwarding-service:
+          reconstruct-forwarding-function-name:
             type: string
             description: >
               'Http request for updating the configuration of a Forwarding
-              candidate: from [CDM://v1/create-load-balancer-template$request.body#update-forwarding-service]
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#reconstruct-forwarding-function-name]
               running: from candidate
               operational: ./.'
 

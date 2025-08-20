@@ -20,6 +20,7 @@ mwdg
 mwdi
 
 netconf
+nmda
 
 restconf
 

@@ -13,7 +13,7 @@ logical-termination-point:
           'deviceName
           candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
           running: from candidate
-          operational: from running - must exist in OperationalDS to terminate CopyLinks that are needed for expressing operational state of the MountPoints in real Controllers'
+          operational: from running'
       _template:
         type: string
         description: >
@@ -26,27 +26,19 @@ logical-termination-point:
       layer-protocol:
         type: array
         x-key: local-id
-        minItems: 2
+        minItems: 3
+        maxItems: 3
         items:
           oneOf:
             - description: 'copyServer'
               type: object
               required:
                 - local-id
-                - copy-destination
               properties:
                 local-id:
                   type: string
                   enum:
                     - 'copy-server'
-                copy-destination:
-                  type: string
-                  description: >
-                    'controllerName
-                    An instance of LP is to be created for every entry in _controllers[*]
-                    candidate: from [_controllers[*]]
-                    running: from candidate
-                    operational: from running'
             - description: 'netconfClient'
               type: object
               required:
@@ -61,17 +53,17 @@ logical-termination-point:
                 netconf-user-name:
                   type: string
                   description: >
-                    'Configuration
-                    Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#netconf-user-name]
+                    'Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#netconf-user-name]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#netconf-user-name]
                     running: from candidate
                     operational: from running'
                 netconf-password:
                   type: string
                   description: >
-                    'Configuration
-                    Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
-                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#netconf-password]
+                    'Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#netconf-password]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#netconf-password]
                     running: from candidate
                     operational: from running'
                 notification-subscribe:
@@ -134,14 +126,16 @@ logical-termination-point:
                 remote-ip-address:
                   type: string
                   description: >
-                    'IP address of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#remote-ip-address]
+                    'IP address of the mediatorProcess
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#remote-ip-address]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#remote-ip-address]
                     running: from candidate
                     operational: from running'
                 remote-port:
                   type: integer
                   description: >
-                    'TCP port of the mediatorProcess to which the referenced MountPoints shall be connected to
-                    candidate: from [CDM://v1/mediate-netconf-client-update$request.body#remote-port]
+                    'TCP port of the mediatorProcess
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#remote-port]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#remote-port]
                     running: from candidate
                     operational: from running'

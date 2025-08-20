@@ -13,7 +13,12 @@ link:
             type: string
             description: >
               'Identifier that is unique within the list of Links
-              operational: from running; entire Link to be deleted, if one of the referenced CC, LTP or LP does not exist in operationalDS'
+              operational: from running;
+                            entire tcpLink to be deleted, if
+                              referenced tcpClient does not exist in OperationalDS
+                              OR referenced tcpServer does not exist in OperationalDS
+                              OR [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
+                              OR [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
           linktp:
             type: array
             x-key: interface-type
@@ -37,25 +42,24 @@ link:
                       type: string
                       description: >
                         'loadBalancerName
-                        candidate: from [element-name of CC that holds LTP with ./logical-termination-point=[CDM://v1/establish-management-domain$request.body#management-domain]]
-                                          if not yet existing pick CC with ./category==loadBalancer and create new Forwarding inside
+                        candidate: from [ managementDomain = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                          [/network-control-domain=running/control-construct=[managementDomain]/_tcp-server]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       description: >
                         'managementDomain
-                        candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _lp:
                       type: string
                       description: >
                         'controllerName
-                        candidate: from [CDM://v1/establish-management-domain$request.body#controllers/controller-name]
-                                    create such tcpLinkB for every entry in [CDM://v1/establish-management-domain$request.body#controllers]
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                 - description: 'tcpServer'
                   type: object
                   required:
@@ -72,10 +76,9 @@ link:
                       type: string
                       description: >
                         'controllerName
-                        candidate: from [CDM://v1/establish-management-domain$request.body#controllers/controller-name]
-                                    create such tcpLinkB for every entry in [CDM://v1/establish-management-domain$request.body#controllers]
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
                         running: from candidate
-                        operational: from running - must exist in OperationalDS for expressing operational state'
+                        operational: from running'
                     _ltp:
                       type: string
                       enum:

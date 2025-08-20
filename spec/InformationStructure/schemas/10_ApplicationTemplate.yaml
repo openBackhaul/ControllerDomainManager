@@ -3,53 +3,53 @@ profile:
   x-key: template-name
   items:
     oneOf:
-      - description: 'managementDomainInterfaceTemplate'
+      - description: 'applicationTemplate'
         type: object
         required:
           - template-name
           - category
           - manager-ip-address
           - manager-port
-          - measure-management-domain-interface-service
-          - mediate-management-domain-interface-update-service
+          - measure-list-of-management-domain-interfaces-function-name
+          - reconstruct-management-domain-interfaces-function-name
         properties:
           template-name:
             type: string
             description: >
-              'managementDomainInterfaceTemplateName
-              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#management-domain-interface-template-name]
+              'applicationTemplateName
+              candidate: from [CDM://v1/create-application-template$request.body#application-template-name]
               running: from candidate
               operational: ./. - does not exist in OperationalDS as it cannot be measured'
           category:
             type: string
             enum:
-              - 'managementDomainInterfaceTemplate'
+              - 'applicationTemplate'
           manager-ip-address:
             type: string
             description: >
               'IP address of the ApplicationDomainManager (ADM)
-              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#manager-ip-address]
+              candidate: from [CDM://v1/create-application-template$request.body#manager-ip-address]
               running: from candidate
               operational: ./.'
           manager-port:
             type: string
             description: >
               'TCP port of the ADM
-              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#manager-port]
+              candidate: from [CDM://v1/create-application-template$request.body#manager-port]
               running: from candidate
               operational: ./.'
-          measure-management-domain-interface-service:
+          measure-list-of-management-domain-interfaces-function-name:
             type: string
             description: >
               'Service for providing configuration information of a management domain at an application at ADM
-              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#measure-management-domain-interface-service]
+              candidate: from [CDM://v1/create-application-template$request.body#measure-list-of-management-domain-interfaces-function-name]
               running: from candidate
               operational: ./.'
-          mediate-management-domain-interface-update-service:
+          reconstruct-management-domain-interfaces-function-name:
             type: string
             description: >
               'Service for updating the configuration of a management domain at an application at ADM
-              candidate: from [CDM://v1/create-management-domain-interface-template$request.body#mediate-management-domain-interface-update-service]
+              candidate: from [CDM://v1/create-application-template$request.body#reconstruct-management-domain-interfaces-function-name]
               running: from candidate
               operational: ./.'
 

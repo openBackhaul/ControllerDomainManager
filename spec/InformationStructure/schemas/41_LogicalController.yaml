@@ -18,7 +18,7 @@ control-construct:
               'managementDomain
               candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
               running: from candidate
-              operational: from running - must exist in OperationalDS to terminate CopyLinks that are needed for expressing operational state of the MountPoints in real Controllers'
+              operational: from running'
           category:
             type: string
             enum:
@@ -31,7 +31,7 @@ control-construct:
               The referenced instances of Profile must have category==controller
               candidate: from [CDM://v1/establish-management-domain$request.body#controller-template-name]
               running: from candidate
-              operational: ./.'
+              operational: from running'
           _controllers:
             type: array
             minItems: 1
@@ -41,17 +41,17 @@ control-construct:
                 'controllerName
                 References towards at least one entry in the list of CC with category==controller
                 The referenced instances of CC must reference the same instance of Profile in their _template
-                candidate: from [CDM://v1/establish-management-domain$request.body#controllers/controller-name]
+                candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controllerName]
                 running: from candidate
-                operational: ./.'
+                operational: from running'
           _tcp-server:
             type: string
             description: >
-              'Either loadBalancerName or controllerName of the element that holds the TcpServer that has to be addressed by applications
-              Reference towards an entry in the list of CC with category e {loadBalancer, controller}
+              'Either loadBalancerName or controllerName of the element that holds the TcpServer that has to be addressed by Applications
+              Reference towards an entry in the list of CC with category==loadBalancer OR category==controller
               candidate: from [CDM://v1/establish-management-domain$request.body#tcp-server]
               running: from candidate
-              operational: ./.'
+              operational: from running'
           logical-termination-point:
             type: array
             x-key: local-id

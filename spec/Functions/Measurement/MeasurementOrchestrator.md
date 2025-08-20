@@ -7,7 +7,7 @@ The MeasurementOrchestrator (/p1/measurement-orchestrator) initiates the measure
 This implies that there is a fixed sequence and the return values of many Functions are used as an input to other Functions.  
 
 After being triggered by the Pulser, the MeasurementOrchestrator reads the existing CCs from RunningDS and invokes the following MeasurementFunctions one after another (but not before the returned deviations have been processed by consequent function calls):  
-- TcpClient at Application (ManagementDomainInterface) => /p1/measure-management-domain-interface  
+- TcpClient at Application (ManagementDomainInterface) => /p1/measure-list-of-management-domain-interfaces  
 - LoadBalancer => /p1/measure-list-of-forwardings  
 - Controller => /p1/measure-controller and /p1/measure-list-of-mount-points  
 
