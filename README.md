@@ -3,11 +3,8 @@
 ### Location  
 The ControllerDomainManager is part of the OperationSupport.  
 
-.  
-
-    Please note that the following description describes a planned target that is to be achieved iteratively.  
-
-.
+    Please note:
+    The following chapter describes a planned target that is to be achieved iteratively.  
 
 ### Description  
 The ControllerDomainManager manages and encapsulates all necessary activities for providing and maintaining the transport of the device management connection (= ManagementPlaneTransport) between the REST clients at the lowest layer of applications (MWDI, MWDG, NP) and the NETCONF clients at the MountPoints inside the Controller.  
