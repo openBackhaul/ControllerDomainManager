@@ -11,21 +11,18 @@
 - The following kinds of Connections are managed:  
   - TCP: ManagementDomainInterface <---> LoadBalancer/Controller  
   - TCP: LoadBalancer <---> Controller  
+  - HTTP: ManagementDomainInterface <---> Controller  
+  - (Copy: LogicalMountPoint ---> MountPoints)  
+  - (ManagementPlaneTransport: Application <---> LogicalController)  
 - A neighboring domain is managing the following kind of Endpoint, but CDM is mediating towards the Element:  
-  - TcpClient at MountPoint at Controller  
+  - TcpClient at MountPoints at Controllers  
 
 ### InformationStructure  
 - [Internal Information Structure](./InformationStructure/InformationStructure.md) (includes definition of the terminology in the CDM)  
 
 ### Functions  
 - [Public and Private Functions](./Functions/Functions.md)  
-- [Example: Sequence of steps to the first ManagementPlaneTransport connection](./InformationStructure/Example.md)
-
-.  
-
-    Starting from here the detailed specification has to be elaborated from the input above.
-
-.
+- [Example: Sequence of steps to the first ManagementPlaneTransport connection](./Functions/Example.md)
 
 ### Diagrams  
 - [Collection of Diagrams](./diagrams)  
