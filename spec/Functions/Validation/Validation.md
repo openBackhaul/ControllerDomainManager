@@ -3,7 +3,7 @@
 Tasks of the [ValidationFunctions](./ValidationFunctions.md):  
 - Validate the content of the CandidateDS against generic rules  
 
-Tasks of the [ValidationOrchestrator](./MeasurementOrchestrator.md):  
+Tasks of the [ValidationOrchestrator](./ValidationOrchestrator.md):  
 - Invoke a configurable set of ValidationFunctions depending on the InterpretationFunctions executed before  
 
 Validation philosophy:  
