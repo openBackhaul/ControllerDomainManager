@@ -91,29 +91,25 @@ It shall be processed as follows:
 
 ### Dismantle  
 
-The **/v1/dismantle-management-domain** service is deleting the LogicalController and the Forwarding (inside LoadBalancer), the Links to and from the involved Controllers and Forwarding. All ManagementPlaneTransport FCs to the LogicalController get deleted. Application, LoadBalancer and Controllers remain.  
-It shall be processed as follows:  
-- read (in CandidateDS) _tcpServer from LogicalController (managementDomain) specified in RequestBody  
-- read (in CandidateDS) _controllers from LogicalController (managementDomain) specified in RequestBody  
-- IF (number of entries in _controllers)==1 AND (_tcpServer)==(entry in _controllers) (means no LoadBalancer)  
-  - search all Links terminating at the LPs identified by 'tcp-server' and 'http-server' of the LTP identified by 'controller-manager' inside the Controller identified in _tcpServer in CandidateDS  
-  - visit the remote ends with _lp==tcp-client of these Links and delete entries in remote-ip-address and remote-port in CandidateDS  
-  - visit the remote ends with _lp==http-client of these Links and delete entries in http-user-name and http-password  
-  - delete the TcpLinks and the HttpLinks (incl. their reference in the NetworkControlDomain) in CandidateDS  
-- ELSE
-  - search all TcpLinks terminating at the LPs of the Forwarding identified by managementDomain inside the LoadBalancer identified in _tcpServer in CandidateDS  
-  - visit the remote ends with _lp==tcp-client of these Links and delete entries in remote-ip-address and remote-port in CandidateDS  
-  - delete all TcpLinks (both directions) (incl. their reference in the NetworkControlDomain) in CandidateDS  
-  - delete the Forwarding (incl. its reference in the CC) identified by managementDomain inside the LoadBalancer identified in _tcpServer in CandidateDS  
-  - search all HttpLinks terminating at the LPs, which are NOT identified by 'http-server' or 'copy-client', of the Controllers identified by _controllers at LogicalController  
-  - visit the remote ends with _lp==http-client of these Links and delete entries in http-user-name and http-password in CandidateDS  
-  - delete HttpLinks (incl. their reference in the NetworkControlDomain) in CandidateDS  
-- read list of deviceNames (in CandidateDS) from list of local-ids of LTPs inside LogicalController (managementDomain) specified in RequestBody  
-- visit all Controllers identified in _controllers of LogicalController  
-  - delete all LTPs with local-ids from list of deviceNames in CandidateDS  
-  - delete entry in _logicalController attribute at CC in CandidateDS  
-- delete all CopyLinks (incl. their reference in the NetworkControlDomain) terminating at the LogicalController (managementDomain) specified in RequestBody  
-- delete the LogicalController (incl. its reference in the NetworkControlDomain) in CandidateDS  
+The following service  
+- **/v1/dismantle-management-domain**  
+
+shall be processed as follows:  
+- managementDomain is specified in RequestBody  
+- copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
+- read list of deviceName from list of local-ids of LTPs inside LogicalController (CC identified by managementDomain)  
+- create list of applicationName by filtering list of CC for category=='application' and those having an LTP identified by managementDomain  
+- read list of controllerName from _controllers[*] attribute at CC identified by managementDomain  
+- read loadBalancerName from _tcpServer attribute at CC identified by managementDomain  
+- FOR all values of deviceName  
+  - call /v1/dismantle-management-plane-transport  
+- FOR all values of applicationName  
+  - call /v1/dismantle-management-domain-connection  
+- FOR all values of controllerName  
+  - call /v1/dismantle-controller-from-management-domain
+- delete the LTP identified by managementDomain (Forwarding) inside the CC identified by loadBalancerName in CandidateDS  
+- delete LogicalController (incl. its reference in the NetworkControlDomain) in CandidateDS  
 - invoke validationOrchestrator  
   - check all ManagementPlaneTransport (FC) for existing termination points (CC) in CandidateDS  
   - check all Routes at all FCs for existing Links in CandidateDS  
@@ -121,37 +117,29 @@ It shall be processed as follows:
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  
   - delete FD with forwardingDomainName==managementDomain specified in RequestBody in CandidateDS, RunningDS and OperationalDS  
-  - delete root point (incl. all attached entries) for the obsolete managementDomain in currentAlarms list  
+  - delete root point (incl. all attached entries) for the obsolete managementDomain in currentAlarms  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS 
 
-The **/v1/dismantle-controller-from-management-domain** service is for removing a Controller from a LogicalController.  
-It shall be processed as follows:  
+
+The following service  
+- **/v1/dismantle-controller-from-management-domain**  
+
+shall be processed as follows:  
+- controllerName is specified in RequestBody  
 - copy content of RunningDS into CandidateDS  
 - lock CandidateDS  
-- search list of Links for those referencing the obsolete Controller (identified by the controllerName specified in the RequestBody) in the _cc attribute at one of their termination points (linktp) and  
-  - filter this list of Links for LinkTPs with _lp==controllerName specified in the RequestBody  
-    and delete these LPs (means: TcpClients at Forwardings) in CandidateDS  
-    and delete the filtered Links in CandidateDS  
-  - filter this list of Links for the LinkTP with _lp==copyServer  
-    and delete this LP (means: CopyServer at LogicalController) in CandidateDS  
-    and delete the filtered Link in CandidateDS  
-
-.
-
-    I got lazy :(  
-    Starting from here, the processing is poorly defined.  
-    Instead of describing a deterministic process an error correction logic is applied to clean up.  
-    This obsoletes the validation and poses a risk.  
-    If detailed specification could complement a deterministic process, would be create.  
-
-.
-
-- visit all Routes at all FCs and check whether the Links referenced in the Route's _links attribute still exist; if referenced Link does not exist, delete Route from FC in CandidateDS  
-- visit the Controller (CC) identified by the controllerName specified in the RequestBody  
+- read managementDomain from _logical-controller attribute at CC identified by controllerName  
+- read loadBalancerName from _tcpServer attribute at CC identified by managementDomain  
+- delete LP identified by controllerName at LTP identified by managementDomain at CC identified by loadBalancerName in CandidateDS  
+- delete controllerName from _controllers[*] attribute at CC identified by managementDomain in CandidateDS  
+- create list of Links with _cc==controllerName at any linktp  
+  - delete all Links from that list in CandidateDS  
+  - delete all Routes that reference any of the listed Links from all FCs in CandidateDS  
+- visit the Controller (CC) identified by the controllerName  
   - delete the value from the _logicalController attribute in CandidateDS  
   - delete all LTPs except the one identified by 'controller-manager' in CandidateDS  
-- visit the LogicalController identified by managementDomain specified in RequestBody and delete the controllerName specified in the RequestBody from its _logicalController attribute in CandidateDS  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
@@ -160,46 +148,69 @@ It shall be processed as follows:
   - respond ResponseCode to requestor  
 - unlock CandidateDS  
 
-The **/v1/dismantle-management-domain-connection** service is for disconnecting an Application from a LogicalController.  
-The TcpLink towards the LoadBalancer, the HttpLinks towards the Controller and all ManagementPlaneTransport FCs terminating at the Application get deleted.  
-It shall be processed as follows:  
-- read (in CandidateDS) _tcpServer from LogicalController (managementDomain) specified in RequestBody  
-- search all FCs for those terminating at the Application specified in RequestBody  
-  - delete resulting list of FCs (incl. their reference in the FD) in CandidateDS  
-- search all Links for those terminating at the Application specified in RequestBody  
-  - search resulting list of Links for 
-    - those (might be several HttpLinks) terminating at the CCs (could be several Controllers) identified in _controllers at LogicalController (identified by managementDomain) in CandidateDS  
-      visit the link termination points with _lp=http-client and delete entries in http-user-name and http-password  
-      delete Links (incl. their reference in the NetworkControlDomain) in CandidateDS  
-    - those (should be one TcpLink) terminating at the CC (could be Controller or LoadBalancer) identified in _tcpServer at LogicalController (identified by managementDomain) in CandidateDS  
-      visit the link termination points with _lp=tcp-client and delete entries in remote-ip-address and remote-port in CandidateDS  
-      delete Links (should be one)(incl. their reference in the NetworkControlDomain) in CandidateDS  
+
+The following service  
+- **/v1/dismantle-management-domain-connection**  
+
+shall be processed as follows:  
+- managementDomain (controller-name) and applicationName are specified in RequestBody  
+- copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
+- filter FCs for ( (fctp::fctp-type=='management-plane-transport-client') AND (fctp::_cc==applicationName) AND (fctp::_ltp==managementDomain) )  
+  - create list of Devices from the value of fctp::_ltp at fctp with fctp-type=='management-plane-transport-server'  
+  - create list of Links from references in Routes at these FCs  
+    - note the LinkId of the one with ( (linktp::interface-type=='tcp-client') AND (linktp::_cc==applicationName) ) => TcpLink  
+    - create list of LinkIds from those with ( (linktp::interface-type=='http-client') AND (linktp::_cc==applicationName) ) => list of HttpLinks  
+- FOR all listed Devices  
+  - call /v1/dismantle-management-plane-transport  
+- FOR all HttpLinks  
+  - delete Link in CandidateDS  
+- delete TcpLink in CandidateDS  
+- delete LTP identified by managementDomain at CC identified by applicationName in CandidateDS  
 - invoke validationOrchestrator  
   - check all Routes at all FCs for existing Links in CandidateDS  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  
+  - delete LowerLevelForwardingDomain identified by applicationName from ForwardingDomain identified by managementDomain in CandidateDS  
+  - delete applicationName from affected-application attribute in affected-management-domain==managementDomain in the currentAlarms  
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
-The **/v1/dismantle-management-plane-transport** service is for disconnecting a Device. The ManagementPlaneTransport FC between Application and LogicalController gets deleted.  
-It shall be processed as follows:  
-- search the FD that is identified by the managementDomain specified in RequestBody  
-- search this FD's list of FCs for the one identified by the deviceName specified in RequestBody  
-- delete this FC (incl. its reference in the FD) from CandidateDS   
+
+The following service  
+- **/v1/dismantle-management-plane-transport**  
+
+shall be processed as follows:  
+- deviceName, managementDomain (controller-name) and applicationName are specified in RequestBody  
+- copy content of RunningDS into CandidateDS  
+- lock CandidateDS  
+- filter FCs for  
+  - ( (fctp::fctp-type=='management-plane-transport-client') AND (fctp::_cc==*) AND (fctp::_ltp==managementDomain) )  
+  - AND ( (fctp::fctp-type=='management-plane-transport-server') AND (fctp::_cc==managementDomain) AND (fctp::_ltp==deviceName) )  
+- IF number of filtered FCs (equals number of Applications that are connecting to the specified combination of ManagementDomain and Device) == 1  
+  - FOR every Route at that FC  
+    - filter list of Links referenced in Route for the one with linktp::interface-type=='copy-server'  
+    - delete the LTPs (LogicalMountPoint and MountPoint) referenced as LinkTps at that Link  
+    - delete the Link  
+- search list of already filtered FCs for the one with ( (fctp::fctp-type=='management-plane-transport-client') AND (fctp::_cc==applicationName) ) and delete it  
 - invoke validationOrchestrator  
 - IF ResponseCode==204  
   - copy content of CandidateDS into RunningDS  
   - respond 204 to requestor  
+  - delete the entry identified by  from the affectedDevice attribute in the currentAlarms
   ELSE  
   - respond ResponseCode to requestor  
+- unlock CandidateDS  
 
 ### List  
 
 The following services  
-- /v1/list-configured-management-domains  
-- /v1/list-configured-management-domain-connections  
-- /v1/list-configured-management-plane-transports  
+- /v1/list-management-domains  
+- /v1/list-controllers-in-management-domain
+- /v1/list-management-domain-interfaces  
+- /v1/list-management-plane-transports  
 
 shall be processed as follows:  
 - retrieve key attribute values of logical objects of specified type and category from RunningDS  
@@ -209,6 +220,7 @@ shall be processed as follows:
 
 The following services  
 - /v1/provide-config-of-management-domain  
+- /v1/provide-config-of-management-domain-interface  
 - /v1/provide-config-of-management-plane-transport  
 
 shall be processed as follows:  
@@ -217,7 +229,7 @@ shall be processed as follows:
 
 The following services  
 - /v1/provide-status-of-management-domain  
-- /v1/provide-status-of-management-domain-connection
+- /v1/provide-status-of-management-domain-interface  
 - /v1/provide-status-of-management-plane-transport  
 
 shall be processed as follows:  

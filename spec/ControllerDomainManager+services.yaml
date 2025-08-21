@@ -92,7 +92,7 @@ servers:
           uuid:
         - operation-name: /v1/delete-application-template
           uuid:
-        - operation-name: /v1/list-configured-application-templates
+        - operation-name: /v1/list-application-templates
           uuid:
         - operation-name: /v1/provide-config-of-application-template
           uuid:
@@ -103,7 +103,7 @@ servers:
           uuid:
         - operation-name: /v1/delete-load-balancer-template
           uuid:
-        - operation-name: /v1/list-configured-load-balancer-templates
+        - operation-name: /v1/list-load-balancer-templates
           uuid:
         - operation-name: /v1/provide-config-of-load-balancer-template
           uuid:
@@ -114,7 +114,7 @@ servers:
           uuid:
         - operation-name: /v1/delete-controller-template
           uuid:
-        - operation-name: /v1/list-configured-controller-templates
+        - operation-name: /v1/list-controller-templates
           uuid:
         - operation-name: /v1/provide-config-of-controller-template
           uuid:
@@ -125,7 +125,7 @@ servers:
           uuid:
         - operation-name: /v1/delete-mount-point-template
           uuid:
-        - operation-name: /v1/list-configured-mount-point-templates
+        - operation-name: /v1/list-mount-point-templates
           uuid:
         - operation-name: /v1/provide-config-of-mount-point-template
           uuid:
@@ -149,14 +149,6 @@ servers:
           uuid:
         - operation-name: /v1/list-load-balancers
           uuid:
-# da ist:
-        - operation-name: /v1/list-configured-forwardings
-          uuid:
-        - operation-name: /v1/provide-config-of-forwarding
-          uuid:
-        - operation-name: /v1/provide-status-of-forwarding
-          uuid:
-# da sollte sein:
         - operation-name: /v1/provide-config-of-load-balancer
           uuid:
         - operation-name: /v1/provide-status-of-load-balancer
@@ -168,50 +160,54 @@ servers:
           uuid:
         - operation-name: /v1/list-controllers
           uuid:
-        - operation-name: /v1/list-configured-mount-points
+        - operation-name: /v1/provide-config-of-controller
           uuid:
-        - operation-name: /v1/provide-config-of-mount-point
-          uuid:
-        - operation-name: /v1/provide-status-of-mount-point
+        - operation-name: /v1/provide-status-of-controller
           uuid:
 
         - operation-name: /v1/establish-management-domain
           uuid:
         - operation-name: /v1/dismantle-management-domain
           uuid:
-        - operation-name: /v1/establish-controller-in-management-domain
-          uuid:
-        - operation-name: /v1/dismantle-controller-from-management-domain
-          uuid:
-        - operation-name: /v1/list-configured-management-domains
+        - operation-name: /v1/list-management-domains
           uuid:
         - operation-name: /v1/provide-config-of-management-domain
           uuid:
         - operation-name: /v1/provide-status-of-management-domain
           uuid:
-        - operation-name: /v1/mediate-netconf-client-update
+
+        - operation-name: /v1/establish-controller-in-management-domain
+          uuid:
+        - operation-name: /v1/dismantle-controller-from-management-domain
+          uuid:
+        - operation-name: /v1/list-controllers-in-management-domain
           uuid:
 
         - operation-name: /v1/establish-management-domain-connection
           uuid:
         - operation-name: /v1/dismantle-management-domain-connection
           uuid:
-        - operation-name: /v1/list-configured-management-domain-connections
+        - operation-name: /v1/list-management-domain-interfaces
           uuid:
-        - operation-name: /v1/provide-status-of-management-domain-connection
+        - operation-name: /v1/provide-config-of-management-domain-interface
+          uuid:
+        - operation-name: /v1/provide-status-of-management-domain-interface
           uuid:
 
         - operation-name: /v1/establish-management-plane-transport
           uuid:
         - operation-name: /v1/dismantle-management-plane-transport
           uuid:
-        - operation-name: /v1/list-configured-management-plane-transports
+        - operation-name: /v1/list-management-plane-transports
           uuid:
         - operation-name: /v1/provide-config-of-management-plane-transport
           uuid:
         - operation-name: /v1/provide-status-of-management-plane-transport
           uuid:
         - operation-name: /v1/list-alarms-at-management-plane-transport
+          uuid:
+
+        - operation-name: /v1/mediate-netconf-client-update
           uuid:
 
         #
@@ -336,8 +332,6 @@ clients:
       service:
         basic:
         individual:
-          - operation-name: /v1/create-mediator-vm-template
-            uuid: mm-1-0-0-op-c-is-nr-1-0-0-000
 
   - http-client:
       application-name: RegistryOffice
