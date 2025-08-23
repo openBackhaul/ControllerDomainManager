@@ -1,13 +1,17 @@
 # ControllerDomainManager Specification  
 
 ### Managed Elements  
+
+    Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.  
+    Please, ignore the Managed Elements segment during implementing v1.0.0_impl.  
+
 - The following kinds of Elements are encapsulated:  
   - Controller  
-    - [OpenDaylight](./Elements/OpenDaylight/OpenDaylight.md)  
+    - [OpenDaylight](./Elements/OpenDaylight)  
   - LoadBalancer  
-    - [nginx](./Elements/nginx/nginx.md)  
+    - [nginx](./Elements/nginx)  
 - The following kind of Endpoint is managed, despite its holding Element is encapsulated by a neighboring domain:  
-  - ManagementDomainInterface (TcpClient at Applications encapsulated by [ApplicationDomainManager](./Elements/ADM/adm.md))  
+  - ManagementDomainInterface (TcpClient at Applications encapsulated by [ApplicationDomainManager](./Elements/ADM))  
 - The following kinds of Connections are managed:  
   - TCP: ManagementDomainInterface <---> LoadBalancer/Controller  
   - TCP: LoadBalancer <---> Controller  
@@ -18,10 +22,10 @@
   - TcpClient at MountPoints at Controllers  
 
 ### InformationStructure  
-- [Internal Information Structure](./InformationStructure/InformationStructure.md) (includes definition of the terminology in the CDM)  
+- [Internal Information Structure](./InformationStructure) (includes definition of the terminology in the CDM)  
 
 ### Functions  
-- [Public and Private Functions](./Functions/Functions.md)  
+- [Public and Private Functions](./Functions)  
 - [Example: Sequence of steps to the first ManagementPlaneTransport connection](./Functions/Example.md)
 
 ### Diagrams  
