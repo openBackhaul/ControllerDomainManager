@@ -91,7 +91,7 @@ Example: There might be several Applications that are managed by the same Applic
 
 ### Pulser (P)  
 Class definition from the state-based design of applications for network automation tasks.  
-It facilitates the management of the cyclic triggering of internal functions ([further details](../Functions/Pulser/Pulser.md)).  
+It facilitates the management of the cyclic triggering of internal functions ([further details](../Functions/Pulser)).  
 
 ### Route (R)  
 Attribute definition from the official ONF Core IM.  
