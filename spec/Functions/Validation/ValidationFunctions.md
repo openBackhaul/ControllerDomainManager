@@ -14,24 +14,28 @@ The following kinds of ValidationFunctions can be distinguished:
 
 ## SelfTesting  
 
-.  
-
-    To be discussed:
-
-.
-
 - p1EnsureUniqueTemplateNames  
   Ensures that all instances of Profile have unique template-names  
+  (allowing just unique values in key attribute of CC list could also be assured by InterpretationFunction; p1EnsureUniqueTemplateNames would be obsoleted in that case)  
 
 - p1EnsureUniqueElementNames  
   Ensures that all instances of CC have unique element-names  
+  (allowing just unique values in key attribute of CC list could also be assured by InterpretationFunction; p1EnsureUniqueElementNames would be obsoleted in that case)  
+
+- p1EnsureUniqueForwardingNames  
+  Ensures that values of LoadBalancer::Ltp::local-id are unique  
+  (allowing just unique values in key attribute of LTP list could also be assured by InterpretationFunction; p1EnsureUniqueForwardingNames would be obsoleted in that case)  
 
 - p1EnsureUniqueMountNames  
-  Ensures that LogicalController(Ltp(local-id)) is unique  
-  (Same MountName at different LogicalControllers would be ok)
+  Ensures that values of LogicalController::Ltp::local-id are unique  
+  (Same MountName at different LogicalControllers would be ok)  
+  (allowing just unique values in key attribute of LTP list could also be assured by InterpretationFunction; p1EnsureUniqueMountNames would be obsoleted in that case)  
 
 - p1EnsureExistenceOfTemplates  
   Ensures that referenced Profiles actually exist  
+
+- p1EnsureProperCategorization  
+  Ensures that the category of the referenced template is matching the category of the referencing element  
 
 - p1EnsureTcpLinkTpsToMatch  
   - Ensures existence of the termination points (in CandidateDS)  
@@ -45,42 +49,27 @@ The following kinds of ValidationFunctions can be distinguished:
     - HttpClient(httpUserName)==HttpServer(httpUserName)  
     - and HttpClient(httpPassword)==HttpServer(httpPassword)  
 
+- p1EnsureProperHttpLinkRoutes  
+  - Ensures that exactly two TcpLinks are referenced in a Route  
+  - Ensures that the TcpLinks form an uninterrupted chain between the endpoints  
+
 - p1EnsureCopyLinkTpsToMatch  
   - Ensures existence (in CandidateDS) of the termination points  
   - Ensures at termination points of TcpLinks:  
-    - CopyClient(copySource)==LogicalController(elementName)  
-    - and CopyServer(copyDestination)==Controller(elementName)  
     - Controller(TcpClient(remoteIpAddress))==LogicalController(TcpClient(remoteIpAddress))  
     - Controller(TcpClient(remotePort))==LogicalController(TcpClient(remotePort))  
     - Controller(TcpClient(notificationSubscribe))==LogicalController(TcpClient(notificationSubscribe))  
     - Controller(TcpClient(notificationStreamName))==LogicalController(TcpClient(notificationStreamName))  
 
-- p1EnsureImplementationOfLogicalController  
-  - Ensures that every LogicalController(_controllers) is referencing at least one Controller  
-  - Ensures existence (in CandidateDS) of all Controllers that are referenced in LogicalController(_controllers) 
+- p1EnsureProperManagementPlaneTransportFcRoutes  
+  - Ensures that exactly one HttpLink and one CopyLink are referenced in a Route  
+  - Ensures that HttpLink and CopyLink form an uninterrupted chain between the endpoints  
 
-.  
+- p1EnsureReciprocalControllerRelationships  
+  - Ensures that every Controller that is referenced in the _controllers[*] attribute at some
+    LogicalController is referencing the same LogicalController in its _logical-controller attribute  
 
-    To be completed
-
-.
 
 ## TargetStateValidation  
 
-.  
-
-    To be discussed:
-
-.
-
-- p1EnsureRoutesToConnectFcTps  
-  Ensures for all Routes that the comprised Links form a chain between the two termination points of the ManagementPlaneTransportConnection  
-
-- p1EnsureFcBeingRouted
-  Ensures that all ManagementPlaneTransportConnections having at least one Route  
-
-.  
-
-    To be completed
-
-.
+    If there would be engineering limits (, e.g. like maximum number of MountPoints per Controller) these limits would have to be added to the respective Template and compliance with these limits could be validated here.

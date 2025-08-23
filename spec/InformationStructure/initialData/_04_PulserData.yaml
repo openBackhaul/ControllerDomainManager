@@ -1,4 +1,10 @@
 pulser:
+
+#
+#  Pulser is not included in the v1.0.0_spec.  
+#  Please, ignore this segment during implementing v1.0.0_impl.  
+#
+
   - _target-function: 'p1MeasurementOrchestrator'
     is-activated: false
     period-length: 5000

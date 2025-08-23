@@ -11,6 +11,11 @@ function:
   # Validation
   #
 
+#
+#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.  
+#  Please, ignore these segments during implementing v1.0.0_impl.  
+#
+
   #
   # Measurement
   #

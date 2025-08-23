@@ -29,8 +29,12 @@ The following tables are defining the inner mechanics of the ControllerDomainMan
 - Pulser  
 - ErrorCode  
 
-These tables are intended to be configured upfront the rollout of a new release and to remain static throughout its runtime.  
-Currently, there are no service paths defined on the API for changing these tables.  
+These tables are intended to be configured with all necessary instances upfront the rollout.  
+The following services can be applied to modify the entries during runtime:  
+- /v1/update-function (changes parameters of functions)  
+- /v1/update-validation-sequence (changes list of ValidationFunctions following an InterpretationFunction)  
+- /v1/update-pulser (changes periodicity of functions)  
+- /v1/update-error-code (changes ImplementationFunction initiated by ErrorCode)  
 
 ### Data  
 It is assumed that the values of some attributes change in the same way for entire groups of Elements of the same type.  

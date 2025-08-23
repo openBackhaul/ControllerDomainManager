@@ -1,5 +1,10 @@
 error-code:
 
+#
+#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.  
+#  Please, ignore this segment during implementing v1.0.0_impl.  
+#
+
   - error-code: 630
     description: 'ApplicationDomainManager cannot be reached'
     _implementation-function:
