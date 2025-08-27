@@ -18,7 +18,7 @@ affected-device:
         minItems: 1
         description: 'error attribute exclusively occurs, if there is at least one error directly associated with the FC'
         items:
-          $ref: "#/components/schemas/errorDescription"
+          $ref: "#/components/schemas/errorObject"
       affected-link:
         type: array
         x-key: _affected-link
@@ -39,7 +39,7 @@ affected-device:
               minItems: 1
               description: 'error attribute exclusively occurs, if there is at least one error directly associated with the Link'
               items:
-                $ref: "#/components/schemas/errorDescription"
+                $ref: "#/components/schemas/errorObject"
             affected-cc:
               type: array
               x-key: _affected-cc
@@ -60,7 +60,7 @@ affected-device:
                     minItems: 1
                     description: 'error attribute exclusively occurs, if there is at least one error directly associated with the ControlConstruct'
                     items:
-                      $ref: "#/components/schemas/errorDescription"
+                      $ref: "#/components/schemas/errorObject"
                   affected-ltp:
                     type: array
                     x-key: _affected-ltp
@@ -81,7 +81,7 @@ affected-device:
                           minItems: 1
                           description: 'error attribute exclusively occurs, if there is at least one error directly associated with the LogicalTerminationPoint'
                           items:
-                            $ref: "#/components/schemas/errorDescription"
+                            $ref: "#/components/schemas/errorObject"
                         affected-lp:
                           type: array
                           x-key: _affected-lp
@@ -102,10 +102,10 @@ affected-device:
                                 minItems: 1
                                 description: 'Error associated with the LayerProtocol'
                                 items:
-                                  $ref: "#/components/schemas/errorDescription"
+                                  $ref: "#/components/schemas/errorObject"
 components:
   schemas:
-    errorDescription:
+    errorObject:
       type: object
       required:
         - _error-code

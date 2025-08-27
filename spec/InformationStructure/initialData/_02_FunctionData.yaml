@@ -2,6 +2,41 @@ function:
   #
   # Administration
   #
+  - function-name: 'v1ProvideDomainControllerDump'
+    function-description: 'Provides entire internal data tree (DomainController)'
+    parameter:
+
+  - function-name: 'v1ListFunctions'
+    function-description: 'Provides list of identifiers of internal Functions'
+    parameter:
+
+  - function-name: 'v1UpdateFunction'
+    function-description:
+    parameter:
+
+  - function-name: 'v1ListValidationSequences'
+    function-description:
+    parameter:
+
+  - function-name: 'v1UpdateValidationSequence'
+    function-description:
+    parameter:
+
+  - function-name: 'v1ListPulsers'
+    function-description:
+    parameter:
+
+  - function-name: 'v1UpdatePulser'
+    function-description:
+    parameter:
+
+  - function-name: 'v1ListErrorCodes'
+    function-description:
+    parameter:
+
+  - function-name: 'v1UpdateErrorCode'
+    function-description:
+    parameter:
 
   #
   # Interpretation
@@ -12,15 +47,15 @@ function:
   #
 
 #
-#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.  
-#  Please, ignore these segments during implementing v1.0.0_impl.  
+#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.
+#  Please, ignore these segments during implementing v1.0.0_impl.
 #
 
   #
   # Measurement
   #
   - function-name: 'p1MeasurementOrchestrator'
-    function-description:
+    function-description: 'Invokes the MeasurementFunctions to retrieve data from the Elements'
     parameter:
       - parameter-name: 'functionMeasuringManagementDomainInterface'
         parameter-value: 'p1MeasureManagementDomainInterface'

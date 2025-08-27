@@ -98,6 +98,24 @@ forwardings:
         uuid: cdm-1-0-0-op-s-bm-015
       - server-name: /v1/bequeath-your-data-and-die
         uuid: cdm-1-0-0-op-s-im-000
+      - server-name: /v1/provide-domain-controller-dump
+        uuid: cdm-1-0-0-op-s-im-005
+      - server-name: /v1/list-functions
+        uuid: cdm-1-0-0-op-s-im-010
+      - server-name: /v1/update-function
+        uuid: cdm-1-0-0-op-s-im-011
+      - server-name: /v1/list-validation-sequences
+        uuid: cdm-1-0-0-op-s-im-020
+      - server-name: /v1/update-validation-sequence
+        uuid: cdm-1-0-0-op-s-im-021
+      - server-name: /v1/list-pulsers
+        uuid: cdm-1-0-0-op-s-im-030
+      - server-name: /v1/update-pulser
+        uuid: cdm-1-0-0-op-s-im-031
+      - server-name: /v1/list-error-codes
+        uuid: cdm-1-0-0-op-s-im-040
+      - server-name: /v1/update-error-code
+        uuid: cdm-1-0-0-op-s-im-041
       - server-name: /v1/start-application-in-generic-representation
         uuid: cdm-1-0-0-op-s-bs-000
       - server-name: /v1/inform-about-application
@@ -110,24 +128,6 @@ forwardings:
         uuid: cdm-1-0-0-op-s-bs-004
       - server-name: /docs
         uuid: cdm-1-0-0-op-s-bs-005
-      - server-name: /v1/provide-domain-controller-dump
-        uuid: cdm-1-0-0-op-s-is-000
-      - server-name: /v1/list-functions
-        uuid: cdm-1-0-0-op-s-is-010
-      - server-name: /v1/update-function
-        uuid: cdm-1-0-0-op-s-is-011
-      - server-name: /v1/list-validation-sequences
-        uuid: cdm-1-0-0-op-s-is-020
-      - server-name: /v1/update-validation-sequence
-        uuid: cdm-1-0-0-op-s-is-021
-      - server-name: /v1/list-pulsers
-        uuid: cdm-1-0-0-op-s-is-030
-      - server-name: /v1/update-pulser
-        uuid: cdm-1-0-0-op-s-is-031
-      - server-name: /v1/list-error-codes
-        uuid: cdm-1-0-0-op-s-is-040
-      - server-name: /v1/update-error-code
-        uuid: cdm-1-0-0-op-s-is-041
       - server-name: /v1/create-application-template
         uuid: cdm-1-0-0-op-s-is-110
       - server-name: /v1/delete-application-template
@@ -255,7 +255,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      # [all oam requests]
+    # [all oam requests]
     consequent-requests:
       - client-name: OamLog://v1/record-oam-request
         uuid: cdm-1-0-0-op-c-bs-ol-2-1-2-000
@@ -277,7 +277,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
-      # [all oam requests]
+    # [all oam requests]
     consequent-requests:
       - client-name: AccessAdministration://v1/approve-basic-auth-request
         uuid: cdm-1-0-0-op-c-bs-aa-2-1-2-000

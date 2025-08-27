@@ -37,6 +37,32 @@ servers:
       individual:
         - operation-name: /v1/bequeath-your-data-and-die
           uuid: cdm-1-0-0-op-s-im-000
+        #
+        # Administration
+        #
+        - operation-name: /v1/provide-domain-controller-dump
+          uuid: cdm-1-0-0-op-s-im-005
+
+        - operation-name: /v1/list-functions
+          uuid: cdm-1-0-0-op-s-im-010
+        - operation-name: /v1/update-function
+          uuid: cdm-1-0-0-op-s-im-011
+
+        - operation-name: /v1/list-validation-sequences
+          uuid: cdm-1-0-0-op-s-im-020
+        - operation-name: /v1/update-validation-sequence
+          uuid: cdm-1-0-0-op-s-im-021
+
+        - operation-name: /v1/list-pulsers
+          uuid: cdm-1-0-0-op-s-im-030
+        - operation-name: /v1/update-pulser
+          uuid: cdm-1-0-0-op-s-im-031
+
+        - operation-name: /v1/list-error-codes
+          uuid: cdm-1-0-0-op-s-im-040
+        - operation-name: /v1/update-error-code
+          uuid: cdm-1-0-0-op-s-im-041
+
     service:
       basic:
         - operation-name: /v1/start-application-in-generic-representation
@@ -58,32 +84,6 @@ servers:
           uuid: cdm-1-0-0-op-s-bs-005
           operation-key: n.a.
       individual:
-        #
-        # Administration
-        #
-        - operation-name: /v1/provide-domain-controller-dump
-          uuid: cdm-1-0-0-op-s-is-000
-
-        - operation-name: /v1/list-functions
-          uuid: cdm-1-0-0-op-s-is-010
-        - operation-name: /v1/update-function
-          uuid: cdm-1-0-0-op-s-is-011
-
-        - operation-name: /v1/list-validation-sequences
-          uuid: cdm-1-0-0-op-s-is-020
-        - operation-name: /v1/update-validation-sequence
-          uuid: cdm-1-0-0-op-s-is-021
-
-        - operation-name: /v1/list-pulsers
-          uuid: cdm-1-0-0-op-s-is-030
-        - operation-name: /v1/update-pulser
-          uuid: cdm-1-0-0-op-s-is-031
-
-        - operation-name: /v1/list-error-codes
-          uuid: cdm-1-0-0-op-s-is-040
-        - operation-name: /v1/update-error-code
-          uuid: cdm-1-0-0-op-s-is-041
-
         #
         # Interpretation
         #
