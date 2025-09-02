@@ -1,0 +1,155 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'controller'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - _logical-controller
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'controllerName
+              candidate: from [CDM://v1/regard-controller$request.body#controller-name]
+              running: from candidate
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]$response.code]!=200'
+          category:
+            type: string
+            enum:
+              - 'controller'
+          _template:
+            type: string
+            description: >
+              'controllerTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/regard-controller$request.body#template]
+              running: from candidate
+              operational: from running'
+          _logical-controller:
+            type: string
+            description: >
+              'managementDomain
+              Reference towards an entry in the list of CC with category==logicalController
+              candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'controllerManager'
+                  type: object
+                  required:
+                    - local-id
+                    - layer-protocol
+                  properties:
+                    local-id:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    layer-protocol:
+                      type: array
+                      x-key: local-id
+                      items:
+                        oneOf:
+                          - description: 'httpServer'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                enum:
+                                  - 'http-server'
+                                description: 'entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if [http-user-name] not included in proprietary response of the Element'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'Name of the admin user at the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#admin-user-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: string
+                                description: >
+                                  'Password of the user for administrating the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#admin-password]
+                                  running: from candidate
+                                  operational: from running'
+                          - description: 'managementDomainInterface'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                description: >
+                                  'applicationName
+                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                                    logicalController = ./_logical-controller
+                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/local-id] ]
+                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
+                                  running: from candidate
+                                  operational: from running; entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if applicationName not included in proprietary response of the Element'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'applicationName used as name of the user applied by the application to authenticate at the Controller
+                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                                    logicalController = ./_logical-controller
+                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/http-user-name] ]
+                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: string
+                                description: >
+                                  'Password of the user applied by the application to authenticate at the Controller
+                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                                    logicalController = ./_logical-controller
+                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/http-password] ]
+                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
+                                  running: from candidate
+                                  operational: from running'
+                          - description: 'tcpServer'
+                            type: object
+                            required:
+                              - local-id
+                              - local-ip-address
+                              - local-port
+                            properties:
+                              local-id:
+                                type: string
+                                enum:
+                                  - 'tcp-server'
+                              local-ip-address:
+                                type: string
+                                description: >
+                                  'IP address of the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#local-ip-address]
+                                  running: from candidate
+                                  operational: from running'
+                              local-port:
+                                type: integer
+                                description: >
+                                  'TCP port of the Controller
+                                  candidate: from [CDM://v1/regard-controller$request.body#local-port]
+                                  running: from candidate
+                                  operational: from running'
+                - description: 'LogicalTerminationPoint - see 36_MountPoint.yaml'
+                  type: object

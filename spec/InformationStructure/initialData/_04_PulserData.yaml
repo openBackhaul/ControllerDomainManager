@@ -1,0 +1,24 @@
+pulser:
+
+#
+#  Pulser is not included in the v1.0.0_spec.
+#  Please, ignore this segment during implementing v1.0.0_impl.
+#
+
+  - _target-function: 'p1MeasurementOrchestrator'
+    is-activated: false
+    period-length: 5000
+    starting-time: '1999-12-31T23:59:59+01:00'
+    ending-time: '2059-06-30T23:59:59+02:00'
+
+  - _target-function: 'p1MonitoringOrchestrator'
+    is-activated: false
+    period-length: 5000
+    starting-time: '1999-12-31T23:59:59+01:00'
+    ending-time: '2059-06-30T23:59:59+02:00'
+
+  - _target-function: 'p1ImplementationOrchestrator'
+    is-activated: false
+    period-length: 5000
+    starting-time: '1999-12-31T23:59:59+01:00'
+    ending-time: '2059-06-30T23:59:59+02:00'

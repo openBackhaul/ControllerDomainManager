@@ -1,0 +1,542 @@
+forwardings:
+
+  - forwarding-name: PromptForRegisteringCausesRegistrationRequest
+    uuid: cdm-1-0-0-op-fc-bm-999
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/register-yourself
+          uuid: cdm-1-0-0-op-s-bm-000
+      fc-port-update:
+        - server-name: /v1/register-yourself
+          uuid: cdm-1-0-0-op-s-bm-000
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/register-yourself
+        uuid: cdm-1-0-0-op-s-bm-000
+    consequent-requests:
+      - client-name: RegistryOffice://v2/register-application
+        uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-000
+
+  - forwarding-name: PromptForRegisteringCausesRegistrationRequest2
+    uuid: cdm-1-0-0-op-fc-bm-000
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/register-yourself
+          uuid: cdm-1-0-0-op-s-bm-000
+      fc-port-update:
+        - server-name: /v1/register-yourself
+          uuid: cdm-1-0-0-op-s-bm-000
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/register-yourself
+        uuid: cdm-1-0-0-op-s-bm-000
+    consequent-requests:
+      - client-name: RegistryOffice://v2/register-application
+        uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-000
+
+  - forwarding-name: PromptForEmbeddingCausesRequestForBequeathingData
+    uuid: cdm-1-0-0-op-fc-bm-001
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/embed-yourself
+        uuid: cdm-1-0-0-op-s-bm-001
+    consequent-requests:
+      - client-name: OldRelease://v1/bequeath-your-data-and-die
+        uuid: cdm-1-0-0-op-c-bm-or-1-0-0-000
+
+  - forwarding-name: ServiceRequestCausesLoggingRequest
+    uuid: cdm-1-0-0-op-fc-bm-002
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-service-request-information
+          uuid: cdm-1-0-0-op-s-bm-002
+      fc-port-update:
+        - server-name: /v1/redirect-service-request-information
+          uuid: cdm-1-0-0-op-s-bm-002
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/register-yourself
+        uuid: cdm-1-0-0-op-s-bm-000
+      - server-name: /v1/embed-yourself
+        uuid: cdm-1-0-0-op-s-bm-001
+      - server-name: /v1/redirect-service-request-information
+        uuid: cdm-1-0-0-op-s-bm-002
+      - server-name: /v1/redirect-oam-request-information
+        uuid: cdm-1-0-0-op-s-bm-003
+      - server-name: /v1/end-subscription
+        uuid: cdm-1-0-0-op-s-bm-004
+      - server-name: /v1/inquire-oam-request-approvals
+        uuid: cdm-1-0-0-op-s-bm-005
+      - server-name: /v1/update-client
+        uuid: cdm-1-0-0-op-s-bm-007
+      - server-name: /v1/list-ltps-and-fcs
+        uuid: cdm-1-0-0-op-s-bm-008
+      - server-name: /v1/redirect-topology-change-information
+        uuid: cdm-1-0-0-op-s-bm-009
+      - server-name: /v1/update-operation-key
+        uuid: cdm-1-0-0-op-s-bm-010
+      - server-name: /v1/update-operation-client
+        uuid: cdm-1-0-0-op-s-bm-011
+      - server-name: /v1/inquire-basic-auth-approvals
+        uuid: cdm-1-0-0-op-s-bm-012
+      - server-name: /v1/dispose-remainders-of-deregistered-application
+        uuid: cdm-1-0-0-op-s-bm-013
+      - server-name: /v1/inform-about-preceding-release
+        uuid: cdm-1-0-0-op-s-bm-014
+      - server-name: /v1/update-client-of-subsequent-release
+        uuid: cdm-1-0-0-op-s-bm-015
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: cdm-1-0-0-op-s-im-000
+      - server-name: /v1/provide-domain-controller-dump
+        uuid: cdm-1-0-0-op-s-im-005
+      - server-name: /v1/list-functions
+        uuid: cdm-1-0-0-op-s-im-010
+      - server-name: /v1/provide-config-of-function
+        uuid: cdm-1-0-0-op-s-im-011
+      - server-name: /v1/update-function
+        uuid: cdm-1-0-0-op-s-im-012
+      - server-name: /v1/list-validation-sequences
+        uuid: cdm-1-0-0-op-s-im-020
+      - server-name: /v1/provide-config-of-validation-sequence
+        uuid: cdm-1-0-0-op-s-im-021
+      - server-name: /v1/update-validation-sequence
+        uuid: cdm-1-0-0-op-s-im-022
+      - server-name: /v1/list-pulsers
+        uuid: cdm-1-0-0-op-s-im-030
+      - server-name: /v1/provide-config-of-pulser
+        uuid: cdm-1-0-0-op-s-im-031
+      - server-name: /v1/update-pulser
+        uuid: cdm-1-0-0-op-s-im-032
+      - server-name: /v1/list-error-codes
+        uuid: cdm-1-0-0-op-s-im-040
+      - server-name: /v1/provide-config-of-error-code
+        uuid: cdm-1-0-0-op-s-im-041
+      - server-name: /v1/update-error-code
+        uuid: cdm-1-0-0-op-s-im-042
+      - server-name: /v1/start-application-in-generic-representation
+        uuid: cdm-1-0-0-op-s-bs-000
+      - server-name: /v1/inform-about-application
+        uuid: cdm-1-0-0-op-s-bs-001
+      - server-name: /v1/inform-about-application-in-generic-representation
+        uuid: cdm-1-0-0-op-s-bs-002
+      - server-name: /v1/inform-about-release-history
+        uuid: cdm-1-0-0-op-s-bs-003
+      - server-name: /v1/inform-about-release-history-in-generic-representation
+        uuid: cdm-1-0-0-op-s-bs-004
+      - server-name: /docs
+        uuid: cdm-1-0-0-op-s-bs-005
+      - server-name: /v1/create-application-template
+        uuid: cdm-1-0-0-op-s-is-110
+      - server-name: /v1/delete-application-template
+        uuid: cdm-1-0-0-op-s-is-111
+      - server-name: /v1/list-application-templates
+        uuid: cdm-1-0-0-op-s-is-112
+      - server-name: /v1/provide-config-of-application-template
+        uuid: cdm-1-0-0-op-s-is-113
+      - server-name: /v1/update-application-template
+        uuid: cdm-1-0-0-op-s-is-114
+      - server-name: /v1/create-load-balancer-template
+        uuid: cdm-1-0-0-op-s-is-120
+      - server-name: /v1/delete-load-balancer-template
+        uuid: cdm-1-0-0-op-s-is-121
+      - server-name: /v1/list-load-balancer-templates
+        uuid: cdm-1-0-0-op-s-is-122
+      - server-name: /v1/provide-config-of-load-balancer-template
+        uuid: cdm-1-0-0-op-s-is-123
+      - server-name: /v1/update-load-balancer-template
+        uuid: cdm-1-0-0-op-s-is-124
+      - server-name: /v1/create-controller-template
+        uuid: cdm-1-0-0-op-s-is-130
+      - server-name: /v1/delete-controller-template
+        uuid: cdm-1-0-0-op-s-is-131
+      - server-name: /v1/list-controller-templates
+        uuid: cdm-1-0-0-op-s-is-132
+      - server-name: /v1/provide-config-of-controller-template
+        uuid: cdm-1-0-0-op-s-is-133
+      - server-name: /v1/update-controller-template
+        uuid: cdm-1-0-0-op-s-is-134
+      - server-name: /v1/create-mount-point-template
+        uuid: cdm-1-0-0-op-s-is-140
+      - server-name: /v1/delete-mount-point-template
+        uuid: cdm-1-0-0-op-s-is-141
+      - server-name: /v1/list-mount-point-templates
+        uuid: cdm-1-0-0-op-s-is-143
+      - server-name: /v1/provide-config-of-mount-point-template
+        uuid: cdm-1-0-0-op-s-is-144
+      - server-name: /v1/update-mount-point-template
+        uuid: cdm-1-0-0-op-s-is-145
+      - server-name: /v1/regard-application
+        uuid: cdm-1-0-0-op-s-is-150
+      - server-name: /v1/disregard-application
+        uuid: cdm-1-0-0-op-s-is-151
+      - server-name: /v1/list-applications
+        uuid: cdm-1-0-0-op-s-is-152
+      - server-name: /v1/provide-config-of-application
+        uuid: cdm-1-0-0-op-s-is-153
+      - server-name: /v1/provide-status-of-application
+        uuid: cdm-1-0-0-op-s-is-154
+      - server-name: /v1/regard-load-balancer
+        uuid: cdm-1-0-0-op-s-is-160
+      - server-name: /v1/disregard-load-balancer
+        uuid: cdm-1-0-0-op-s-is-161
+      - server-name: /v1/list-load-balancers
+        uuid: cdm-1-0-0-op-s-is-162
+      - server-name: /v1/provide-config-of-load-balancer
+        uuid: cdm-1-0-0-op-s-is-163
+      - server-name: /v1/provide-status-of-load-balancer
+        uuid: cdm-1-0-0-op-s-is-164
+      - server-name: /v1/regard-controller
+        uuid: cdm-1-0-0-op-s-is-170
+      - server-name: /v1/disregard-controller
+        uuid: cdm-1-0-0-op-s-is-171
+      - server-name: /v1/list-controllers
+        uuid: cdm-1-0-0-op-s-is-172
+      - server-name: /v1/provide-config-of-controller
+        uuid: cdm-1-0-0-op-s-is-173
+      - server-name: /v1/provide-status-of-controller
+        uuid: cdm-1-0-0-op-s-is-174
+      - server-name: /v1/establish-management-domain
+        uuid: cdm-1-0-0-op-s-is-180
+      - server-name: /v1/dismantle-management-domain
+        uuid: cdm-1-0-0-op-s-is-181
+      - server-name: /v1/list-management-domains
+        uuid: cdm-1-0-0-op-s-is-182
+      - server-name: /v1/provide-config-of-management-domain
+        uuid: cdm-1-0-0-op-s-is-183
+      - server-name: /v1/provide-status-of-management-domain
+        uuid: cdm-1-0-0-op-s-is-184
+      - server-name: /v1/establish-controller-in-management-domain
+        uuid: cdm-1-0-0-op-s-is-190
+      - server-name: /v1/dismantle-controller-from-management-domain
+        uuid: cdm-1-0-0-op-s-is-191
+      - server-name: /v1/establish-management-domain-connection
+        uuid: cdm-1-0-0-op-s-is-200
+      - server-name: /v1/dismantle-management-domain-connection
+        uuid: cdm-1-0-0-op-s-is-201
+      - server-name: /v1/list-management-domain-interfaces
+        uuid: cdm-1-0-0-op-s-is-202
+      - server-name: /v1/provide-config-of-management-domain-connection
+        uuid: cdm-1-0-0-op-s-is-203
+      - server-name: /v1/provide-status-of-management-domain-connection
+        uuid: cdm-1-0-0-op-s-is-204
+      - server-name: /v1/establish-management-plane-transport
+        uuid: cdm-1-0-0-op-s-is-210
+      - server-name: /v1/dismantle-management-plane-transport
+        uuid: cdm-1-0-0-op-s-is-211
+      - server-name: /v1/list-management-plane-transports
+        uuid: cdm-1-0-0-op-s-is-212
+      - server-name: /v1/provide-config-of-management-plane-transport
+        uuid: cdm-1-0-0-op-s-is-213
+      - server-name: /v1/provide-status-of-management-plane-transport
+        uuid: cdm-1-0-0-op-s-is-214
+      - server-name: /v1/list-alarms-at-management-plane-transport
+        uuid: cdm-1-0-0-op-s-is-215
+      - server-name: /v1/mediate-netconf-client-update
+        uuid: cdm-1-0-0-op-s-is-220
+    consequent-requests:
+      - client-name: ExecutionAndTraceLog://v1/record-service-request
+        uuid: cdm-1-0-0-op-c-bs-eatl-2-1-2-000
+
+  - forwarding-name: OamRequestCausesLoggingRequest
+    uuid: cdm-1-0-0-op-fc-bm-003
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-oam-request-information
+          uuid: cdm-1-0-0-op-s-bm-003
+      fc-port-update:
+        - server-name: /v1/redirect-oam-request-information
+          uuid: cdm-1-0-0-op-s-bm-003
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    # [all oam requests]
+    consequent-requests:
+      - client-name: OamLog://v1/record-oam-request
+        uuid: cdm-1-0-0-op-c-bs-ol-2-1-2-000
+
+  - forwarding-name: BasicAuthRequestCausesInquiryForAuthentication
+    uuid: cdm-1-0-0-op-fc-bm-005
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/inquire-basic-auth-approvals
+          uuid: cdm-1-0-0-op-s-bm-012
+        - server-name: /v1/inquire-oam-request-approvals
+          uuid: cdm-1-0-0-op-s-bm-005
+      fc-port-update:
+        - server-name: /v1/inquire-basic-auth-approvals
+          uuid: cdm-1-0-0-op-s-bm-012
+        - server-name: /v1/inquire-oam-request-approvals
+          uuid: cdm-1-0-0-op-s-bm-005
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    # [all oam requests]
+    consequent-requests:
+      - client-name: AccessAdministration://v1/approve-basic-auth-request
+        uuid: cdm-1-0-0-op-c-bs-aa-2-1-2-000
+
+  - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
+    uuid: cdm-1-0-0-op-fc-bm-105
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: cdm-1-0-0-op-s-im-000
+    consequent-requests:
+      - client-name: RegistryOffice://v1/relay-server-replacement
+        uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-001
+
+  - forwarding-name: PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease
+    uuid: cdm-1-0-0-op-fc-bm-106
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: cdm-1-0-0-op-s-im-000
+    consequent-requests:
+      - client-name: RegistryOffice://v1/deregister-application
+        uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-002
+
+  - forwarding-name: PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation
+    uuid: cdm-1-0-0-op-fc-bm-107
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-update:
+        - server-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/update-client
+        uuid: cdm-1-0-0-op-s-bm-007
+    consequent-requests:
+      - client-name: RegistryOffice://v1/relay-operation-update
+        uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-003
+
+  - forwarding-name: ServiceRequestCausesLtpUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-006
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/register-yourself
+        uuid: cdm-1-0-0-op-s-bm-000
+      - server-name: /v1/embed-yourself
+        uuid: cdm-1-0-0-op-s-bm-001
+      - server-name: /v1/redirect-service-request-information
+        uuid: cdm-1-0-0-op-s-bm-002
+      - server-name: /v1/redirect-oam-request-information
+        uuid: cdm-1-0-0-op-s-bm-003
+      - server-name: /v1/inquire-oam-request-approvals
+        uuid: cdm-1-0-0-op-s-bm-005
+      - server-name: /v1/update-client
+        uuid: cdm-1-0-0-op-s-bm-007
+      - server-name: /v1/redirect-topology-change-information
+        uuid: cdm-1-0-0-op-s-bm-009
+      - server-name: /v1/update-operation-client
+        uuid: cdm-1-0-0-op-s-bm-011
+      - server-name: /v1/inquire-basic-auth-approvals
+        uuid: cdm-1-0-0-op-s-bm-012
+      - server-name: /v1/update-client-of-subsequent-release
+        uuid: cdm-1-0-0-op-s-bm-015
+      - server-name: /v1/bequeath-your-data-and-die
+        uuid: cdm-1-0-0-op-s-im-000
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-ltp
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-001
+
+  - forwarding-name: ServiceRequestCausesLtpDeletionRequest
+    uuid: cdm-1-0-0-op-fc-bm-007
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/dispose-remainders-of-deregistered-application
+        uuid: cdm-1-0-0-op-s-bm-013
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-002
+
+  - forwarding-name: ServiceRequestCausesFcUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-008
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-fc
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-003
+
+  - forwarding-name: ServiceRequestCausesFcPortUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-009
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-fc-port
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-004
+
+  - forwarding-name: ServiceRequestCausesFcPortDeletionRequest
+    uuid: cdm-1-0-0-op-fc-bm-010
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/end-subscription
+        uuid: cdm-1-0-0-op-s-bm-004
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/delete-fc-port
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-005
+
+  - forwarding-name: OamRequestCausesLtpUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-011
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-ltp
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-001
+
+  - forwarding-name: OamRequestCausesLtpDeletionRequest
+    uuid: cdm-1-0-0-op-fc-bm-012
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-002
+
+  - forwarding-name: OamRequestCausesFcUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-013
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-fc
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-003
+
+  - forwarding-name: OamRequestCausesFcPortUpdateRequest
+    uuid: cdm-1-0-0-op-fc-bm-014
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/update-fc-port
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-004
+
+  - forwarding-name: OamRequestCausesFcPortDeletionRequest
+    uuid: cdm-1-0-0-op-fc-bm-015
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-update:
+        - server-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/delete-fc-port
+        uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-005

@@ -1,0 +1,337 @@
+validation-sequence:
+
+#
+# ApplicationTemplate
+#
+  - _triggerFunction: 'v1CreateApplicationTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueTemplateNames'
+
+  - _triggerFunction: 'v1DeleteApplicationTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+
+  - _triggerFunction: 'v1ListApplicationTemplates'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfApplicationTemplate'
+    sequence:
+
+  - _triggerFunction: 'v1UpdateApplicationTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureProperCategorization'
+
+#
+# LoadBalancerTemplate
+#
+  - _triggerFunction: 'v1CreateLoadBalancerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueTemplateNames'
+
+  - _triggerFunction: 'v1DeleteLoadBalancerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+
+  - _triggerFunction: 'v1ListLoadBalancerTemplates'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfLoadBalancerTemplate'
+    sequence:
+
+  - _triggerFunction: 'v1UpdateLoadBalancerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureProperCategorization'
+
+#
+# ControllerTemplate
+#
+  - _triggerFunction: 'v1CreateControllerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueTemplateNames'
+
+  - _triggerFunction: 'v1DeleteControllerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+
+  - _triggerFunction: 'v1ListControllerTemplates'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfControllerTemplate'
+    sequence:
+
+  - _triggerFunction: 'v1UpdateControllerTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureProperCategorization'
+
+#
+# MountPointTemplate
+#
+  - _triggerFunction: 'v1CreateMountPointTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueTemplateNames'
+
+  - _triggerFunction: 'v1DeleteMountPointTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+
+  - _triggerFunction: 'v1ListMountPointTemplates'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfMountPointTemplate'
+    sequence:
+
+  - _triggerFunction: 'v1UpdateMountPointTemplate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureProperCategorization'
+
+#
+# Application
+#
+  - _triggerFunction: 'v1RegardApplication'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueElementNames'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperCategorization'
+
+  - _triggerFunction: 'v1DisregardApplication'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureHttpLinkTpsToMatch'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+
+  - _triggerFunction: 'v1ListApplications'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfApplication'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideStatusOfApplication'
+    sequence:
+
+#
+# LoadBalancer
+#
+  - _triggerFunction: 'v1RegardLoadBalancer'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueElementNames'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperCategorization'
+
+  - _triggerFunction: 'v1DisregardLoadBalancer'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+
+  - _triggerFunction: 'v1ListLoadBalancers'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfLoadBalancer'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideStatusOfLoadBalancer'
+    sequence:
+
+#
+# Controller
+#
+  - _triggerFunction: 'v1RegardController'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueElementNames'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperCategorization'
+
+  - _triggerFunction: 'v1DisregardController'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureHttpLinkTpsToMatch'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'
+      - stepNumber: 4
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+      - stepNumber: 5
+        _validationFunction: 'p1EnsureReciprocalControllerRelationships'
+
+  - _triggerFunction: 'v1ListControllers'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfController'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideStatusOfController'
+    sequence:
+
+#
+# ManagementDomain
+#
+  - _triggerFunction: 'v1EstablishManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueElementNames'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureUniqueForwardingNames'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureProperCategorization'
+
+  - _triggerFunction: 'v1DismantleManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+      - stepNumber: 4
+        _validationFunction: 'p1EnsureReciprocalControllerRelationships'
+
+  - _triggerFunction: 'v1ListManagementDomains'
+    sequence:
+      - stepNumber: 0
+        _validationFunction:
+      - stepNumber: 1
+        _validationFunction:
+
+  - _triggerFunction: 'v1ProvideConfigOfManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction:
+      - stepNumber: 1
+        _validationFunction:
+
+  - _triggerFunction: 'v1ProvideStatusOfManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction:
+      - stepNumber: 1
+        _validationFunction:
+
+#
+# Controller Integration
+#
+  - _triggerFunction: 'v1EstablishControllerInManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+
+  - _triggerFunction: 'v1DismantleControllerFromManagementDomain'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureHttpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+      - stepNumber: 4
+        _validationFunction: 'p1EnsureReciprocalControllerRelationships'
+
+#
+# ManagementDomainConnection
+#
+  - _triggerFunction: 'v1EstablishManagementDomainConnection'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureHttpLinkTpsToMatch'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperHttpLinkRoutes'
+
+  - _triggerFunction: 'v1DismantleManagementDomainConnection'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureTcpLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureHttpLinkTpsToMatch'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+
+  - _triggerFunction: 'v1ListManagementDomainInterfaces'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfManagementDomainInterface'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideStatusOfManagementDomainInterface'
+    sequence:
+
+#
+# ManagementPlaneTransport
+#
+  - _triggerFunction: 'v1EstablishManagementPlaneTransport'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureUniqueMountNames'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureExistenceOfTemplates'
+      - stepNumber: 2
+        _validationFunction: 'p1EnsureProperCategorization'
+      - stepNumber: 3
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'
+      - stepNumber: 4
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+
+  - _triggerFunction: 'v1DismantleManagementPlaneTransport'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'
+      - stepNumber: 1
+        _validationFunction: 'p1EnsureProperManagementPlaneTransportFcRoutes'
+
+  - _triggerFunction: 'v1ListManagementPlaneTransports'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideConfigOfManagementPlaneTransport'
+    sequence:
+
+  - _triggerFunction: 'v1ProvideStatusOfManagementPlaneTransport'
+    sequence:
+
+  - _triggerFunction: 'v1ListAlarmsAtManagementPlaneTransport'
+    sequence:
+
+#
+# Mediate
+#
+  - _triggerFunction: 'v1MediateNetconfClientUpdate'
+    sequence:
+      - stepNumber: 0
+        _validationFunction: 'p1EnsureCopyLinkTpsToMatch'

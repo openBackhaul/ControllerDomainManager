@@ -1,0 +1,40 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'application'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'applicationName
+              candidate: from [CDM://v1/regard-application$request.body#application-name]
+              running: from candidate
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]$response.code]!=200'
+          category:
+            type: string
+            enum:
+              - 'application'
+          _template:
+            type: string
+            description: >
+              'applicationTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/regard-application$request.body#template]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'ManagementDomainInterface - see 12_ManagementDomainInterface.yaml'
+                  type: object

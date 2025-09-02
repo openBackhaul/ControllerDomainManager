@@ -1,0 +1,103 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'logicalController'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - _controllers
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'managementDomain
+              candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'logicalController'
+          _template:
+            type: string
+            description: >
+              'controllerTemplateName
+              Reference towards an entry in the list of Profiles
+              The referenced instances of Profile must have category==controller
+              candidate: from [CDM://v1/establish-management-domain$request.body#controller-template-name]
+              running: from candidate
+              operational: from running'
+          _controllers:
+            type: array
+            items:
+              type: string
+              description: >
+                'controllerName
+                References towards instances of CC with category==controller
+                The referenced instances of CC must reference the same instance of Profile in their _template
+                candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                running: from candidate
+                operational: from running'
+          _tcp-server:
+            type: string
+            description: >
+              'Either loadBalancerName or controllerName of the element that holds the TcpServer that has to be addressed by Applications
+              Reference towards an entry in the list of CC with category==loadBalancer OR category==controller
+              candidate: from [CDM://v1/establish-management-domain$request.body#tcp-server]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'controllerManager'
+                  type: object
+                  required:
+                    - local-id
+                    - layer-protocol
+                  properties:
+                    local-id:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    layer-protocol:
+                      type: array
+                      x-key: local-id
+                      items:
+                        oneOf:
+                          - description: 'managementDomainInterface'
+                            type: object
+                            required:
+                              - local-id
+                              - http-user-name
+                              - http-password
+                            properties:
+                              local-id:
+                                type: string
+                                description: >
+                                  'applicationName
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-user-name:
+                                type: string
+                                description: >
+                                  'applicationName used as name of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                  running: from candidate
+                                  operational: from running'
+                              http-password:
+                                type: integer
+                                description: >
+                                  'Password of the user applied by the application to authenticate at the Controller
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
+                                  running: from candidate
+                                  operational: from running'
+                - description: 'LogicalTerminationPoint - see 42_LogicalMountPoint.yaml'
+                  type: object

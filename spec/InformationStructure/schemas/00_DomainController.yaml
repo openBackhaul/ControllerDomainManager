@@ -1,0 +1,88 @@
+domain-controller:
+  type: object
+  required:
+    - function
+    - validation-sequence
+    - error-code
+    - alarm-pac
+    - network-control-domain
+  properties:
+    function:
+      type: array
+      x-key: function-name
+      items:
+        type: object
+        description: 'function - see 02_Function.yaml'
+    validation-sequence:
+      type: array
+      x-key: _trigger-function
+      items:
+        type: object
+        description: 'ValidationSequence - see 03_ValidationSequence.yaml'
+    pulser:
+      type: array
+      x-key: _target-function
+      items:
+        type: object
+        description: 'Pulser - see 04_Pulser.yaml'
+    error-code:
+      type: array
+      x-key: error-code
+      items:
+        type: object
+        description: 'ErrorCode - see 05_ErrorCode.yaml'
+    alarm-pac:
+      type: object
+      required:
+        - current-alarms
+      properties:
+        current-alarms:
+          type: object
+          required:
+            - affected-management-domain
+          properties:
+            affected-management-domain:
+              type: array
+              x-key: _affected-management-domain
+              description: 'List of ManagementDomains (LogicalControllers) that exist'
+              items:
+                type: object
+                required:
+                  - _affected-management-domain
+                  - affected-application
+                properties:
+                  _affected-management-domain:
+                    type: string
+                    description: >
+                      'Reference towards an existing (not necessarily having problems) ManagementDomain
+                      from [CDM://v1/establish-management-domain$request.body#management-domain]'
+                  affected-application:
+                    type: array
+                    x-key: _affected-application
+                    description: 'List of Applications that exist within this ManagementDomain'
+                    items:
+                      type: object
+                      required:
+                        - _affected-application
+                        - affected-device
+                      properties:
+                        _affected-application:
+                          type: string
+                          description: >
+                            'Reference towards an existing (not necessarily having problems) Application
+                            from [CDM://v1/establish-management-domain-connection$request.body#application-name]'
+                        affected-device:
+                          type: array
+                          x-key: _affected-device
+                          description: 'List of ManagementPlaneTransportFCs that exist within this ManagementDomain and terminate at this Application'
+                          items:
+                            type: object
+                            description: 'AffectedFc - see 06_CurrentAlarm.yaml'
+    network-control-domain:
+      type: array
+      x-key: storage
+      items:
+        type: object
+        description: >
+          'NetworkControlDomain for CandidateDS, RunningDS, OperationalDS or StartupDS - see 09_NetworkControlDomain.yaml
+          Up to four identical information structures describing candidate, running, operational and potentially startup data store according to NMDA concept'

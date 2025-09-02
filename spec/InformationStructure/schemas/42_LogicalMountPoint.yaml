@@ -1,0 +1,141 @@
+logical-termination-point:
+  type: array
+  x-key: local-id
+  items:
+    type: object
+    required:
+      - local-id
+      - layer-protocol
+    properties:
+      local-id:
+        type: string
+        description: >
+          'deviceName
+          candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+          running: from candidate
+          operational: from running'
+      _template:
+        type: string
+        description: >
+          'mountPointTemplateName
+          Reference towards an entry in the list of Profiles
+          The referenced instances of Profile must have category==mountPoint
+          candidate: from [CDM://v1/establish-management-plane-transport$request.body#mount-point-template-name]
+          running: from candidate
+          operational: from running'
+      layer-protocol:
+        type: array
+        x-key: local-id
+        minItems: 3
+        maxItems: 3
+        items:
+          oneOf:
+            - description: 'copyServer'
+              type: object
+              required:
+                - local-id
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'copy-server'
+            - description: 'netconfClient'
+              type: object
+              required:
+                - local-id
+                - netconf-user-name
+                - netconf-password
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'netconf-client'
+                netconf-user-name:
+                  type: string
+                  description: >
+                    'Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#netconf-user-name]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#netconf-user-name]
+                    running: from candidate
+                    operational: from running'
+                netconf-password:
+                  type: string
+                  description: >
+                    'Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#netconf-password]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#netconf-password]
+                    running: from candidate
+                    operational: from running'
+                notification-subscribe:
+                  type: boolean
+                  description: >
+                    'If true, the automated subscribing for notifications while mounting is activated
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#notification-subscribe]
+                    running: from candidate
+                    operational: from running'
+                notification-stream-name:
+                  type: string
+                  description: >
+                    'Name of the stream for clients of ODL to identify it while subscribing
+                    from [CDM://v1/establish-management-plane-transport$request.body#notification-stream-name]
+                    running: from candidate
+                    operational: from running'
+                available-capability:
+                  type: array
+                  items:
+                    type: object
+                    description: >
+                      'List of Netconf capabilities that are supported by the NetconfServer at the Mediator/Device
+                      It is assumed that this list of capabilities is identical no matter which Controller is addressing the same Mediator/Device
+                      To avoid unnecessary redundancy, the capabilities are only stored once at the LogicalMountPoint
+                      candidate: ./.
+                      running: ./.
+                      operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                    properties:
+                      capability:
+                        type: string
+                      capability-origin:
+                        type: string
+                unavailable-capability:
+                  type: array
+                  items:
+                    type: object
+                    description: >
+                      'List of Netconf capabilities that are unavailable at the NetconfServer
+                      It is assumed that this list is identical no matter which Controller is addressing the same Mediator/Device
+                      To avoid unnecessary redundancy, it is only stored once at the LogicalMountPoint
+                      candidate: ./.
+                      running: ./.
+                      operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]'
+                    properties:
+                      capability:
+                        type: string
+                      failure-reason:
+                        type: string
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-client'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the mediatorProcess
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#remote-ip-address]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#remote-ip-address]
+                    running: from candidate
+                    operational: from running'
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the mediatorProcess
+                    candidate: from [CDM://v1/establish-management-plane-transport$request.body#remote-port]
+                                or from [CDM://v1/mediate-netconf-client-update$request.body#remote-port]
+                    running: from candidate
+                    operational: from running'

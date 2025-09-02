@@ -1,0 +1,82 @@
+control-construct:
+  type: array
+  x-key: element-name
+  items:
+    oneOf:
+      - description: 'loadBalancer'
+        type: object
+        required:
+          - element-name
+          - category
+          - _template
+          - logical-termination-point
+        properties:
+          element-name:
+            type: string
+            description: >
+              'loadBalancerName
+              candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-name]
+              running: from candidate
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]$response.code]!=200'
+          category:
+            type: string
+            enum:
+              - 'loadBalancer'
+          _template:
+            type: string
+            description: >
+              'loadBalancerTemplateName
+              Reference towards an entry in the list of Profiles
+              Both instances of ControlConstruct and Profile must have an identical value in their category attributes
+              candidate: from [CDM://v1/regard-load-balancer$request.body#template]
+              running: from candidate
+              operational: from running'
+          logical-termination-point:
+            type: array
+            x-key: local-id
+            items:
+              oneOf:
+                - description: 'loadBalancerManager'
+                  type: object
+                  required:
+                    - local-id
+                    - layer-protocol
+                  properties:
+                    local-id:
+                      type: string
+                      enum:
+                        - 'load-balancer-manager'
+                    layer-protocol:
+                      type: array
+                      x-key: local-id
+                      minItems: 1
+                      maxItems: 1
+                      items:
+                        oneOf:
+                          - description: 'tcpServer'
+                            type: object
+                            required:
+                              - local-id
+                              - local-ip-address
+                              - local-port
+                            properties:
+                              local-id:
+                                type: string
+                                enum:
+                                  - 'tcp-server'
+                              local-ip-address:
+                                type: string
+                                description: >
+                                  'IP address of the LoadBalancer
+                                  candidate: from [CDM://v1/regard-load-balancer$request.body#local-ip-address]
+                                  running: from candidate
+                                  operational: from running'
+                              local-port:
+                                type: integer
+                                description: >
+                                  'TCP port of the LoadBalancer
+                                  candidate: from [CDM://v1/regard-load-balancer$request.body#local-port]
+                                  running: from candidate
+                                  operational: from running'
+                - description: 'LogicalTerminationPoint - see 22_Forwarding.yaml'
+                  type: object

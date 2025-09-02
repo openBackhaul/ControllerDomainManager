@@ -1,0 +1,92 @@
+link:
+  type: array
+  x-key: local-id
+  items:
+    oneOf:
+      - description: 'tcpLinkA'
+        type: object
+        required:
+          - local-id
+          - linktp
+        properties:
+          local-id:
+            type: string
+            description: >
+              'Identifier that is unique within the list of Links
+              operational: from running, entire tcpLink to be deleted
+                                          IF referenced tcpClient does not exist in OperationalDS
+                                          OR IF referenced tcpServer does not exist in OperationalDS
+                                          OR IF [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
+                                          OR IF [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
+          linktp:
+            type: array
+            x-key: interface-type
+            minItems: 2
+            maxItems: 2
+            items:
+              oneOf:
+                - description: 'tcpClient'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'tcp-client'
+                    _cc:
+                      type: string
+                      description: >
+                        'applicationName
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'managementDomain
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'tcp-client'
+                - description: 'tcpServer'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'tcp-server'
+                    _cc:
+                      type: string
+                      description: >
+                        'Either loadBalancerName or controllerName of the Element that holds the TcpServer of the LogicalController
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    and [/network-control-domain=running/control-construct=[managementDomain]/_tcp-server] ]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'managementDomain (if LoadBalancer) or controller-manager (if Controller)
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    and tcpServer=[/network-control-domain=running/control-construct=[managementDomain]/_tcp-server]
+                                    and category=[/network-control-domain=running/control-construct=[tcpServer]/category]
+                                    and if category==loadBalancer managementDomain
+                                    or elseif category==controller controller-manager ]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'tcp-server'

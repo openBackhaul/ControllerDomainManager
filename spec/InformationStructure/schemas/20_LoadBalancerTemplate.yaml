@@ -1,0 +1,58 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'loadBalancerTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - measure-list-of-forwardings-function-name
+          - construct-forwarding-function-name
+          - destruct-forwarding-function-name
+          - reconstruct-forwarding-function-name
+        properties:
+          template-name:
+            type: string
+            description: >
+              'loadBalancerTemplateName
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#load-balancer-template-name]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'loadBalancer'
+          measure-list-of-forwardings-function-name:
+            type: string
+            description: >
+              'Function for listing the Forwardings that exist inside the LoadBalancer
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#measure-list-of-forwardings-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1MeasureListOfForwardings'
+          construct-forwarding-function-name:
+            type: string
+            description: >
+              'Function for creating a new Forwarding inside the LoadBalancer
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#construct-forwarding-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ConstructForwarding'
+          destruct-forwarding-function-name:
+            type: string
+            description: >
+              'Function for removing a Forwarding from the LoadBalancer
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#destruct-forwarding-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1DestructForwarding'
+          reconstruct-forwarding-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a Forwarding
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#reconstruct-forwarding-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructForwarding'

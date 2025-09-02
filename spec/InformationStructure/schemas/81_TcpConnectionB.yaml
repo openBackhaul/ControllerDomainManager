@@ -1,0 +1,88 @@
+link:
+  type: array
+  x-key: local-id
+  items:
+    oneOf:
+      - description: 'tcpLinkB'
+        type: object
+        required:
+          - local-id
+          - linktp
+        properties:
+          local-id:
+            type: string
+            description: >
+              'Identifier that is unique within the list of Links
+              operational: from running, entire tcpLink to be deleted
+                                          IF referenced tcpClient does not exist in OperationalDS
+                                          OR IF referenced tcpServer does not exist in OperationalDS
+                                          OR IF [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
+                                          OR IF [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
+          linktp:
+            type: array
+            x-key: interface-type
+            minItems: 2
+            maxItems: 2
+            items:
+              oneOf:
+                - description: 'tcpClient'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'tcp-client'
+                    _cc:
+                      type: string
+                      description: >
+                        'loadBalancerName
+                        candidate: from [ managementDomain = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                          [/network-control-domain=running/control-construct=[managementDomain]/_tcp-server]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'managementDomain
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      description: >
+                        'controllerName
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                        running: from candidate
+                        operational: from running'
+                - description: 'tcpServer'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'tcp-server'
+                    _cc:
+                      type: string
+                      description: >
+                        'controllerName
+                        candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'tcp-server'

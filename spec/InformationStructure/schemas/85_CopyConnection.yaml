@@ -1,0 +1,97 @@
+link:
+  type: array
+  x-key: local-id
+  items:
+    oneOf:
+      - description: 'copyLink'
+        type: object
+        required:
+          - local-id
+          - linktp
+        properties:
+          local-id:
+            type: string
+            description: >
+              'Identifier that is unique within the list of Links
+              operational: from running, entire copyLink to be deleted
+                                          IF referenced copyClient does not exist in OperationalDS
+                                          OR IF referenced copyServer does not exist in OperationalDS
+                                          OR IF [/network-control-domain=operational/control-construct=[controllerName]/_logical-controller] != [/copyServer/_cc] (managementDomain)
+                                          OR IF [/network-control-domain=operational/control-construct=[managementDomain]/_controllers[*]] does not comprise [/copyClient/_cc] (controllerName)'
+          linktp:
+            type: array
+            x-key: interface-type
+            minItems: 2
+            maxItems: 2
+            items:
+              oneOf:
+                - description: 'copyClient'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'copy-client'
+                    _cc:
+                      type: string
+                      description: >
+                        'controllerName
+                        candidate: from [ logicalController = [CDM://v1/establish-management-plane-transport$request.body#management-domain]
+                                          [/network-control-domain=running/control-construct=[logicalController]/_controllers[n]
+                                          An instance of copyLink is to be created for every entry in _controllers[*] ]
+                                    and from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'deviceName
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                                    or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id]
+                                              An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'copy-client'
+                - description: 'copyServer'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'copy-server'
+                    _cc:
+                      type: string
+                      description: >
+                        'managementDomain
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#management-domain]
+                                    and from [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'deviceName
+                        candidate: from [CDM://v1/establish-management-plane-transport$request.body#device-name]
+                                    or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
+                                              [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id]
+                                              An instance of copyLink is to be created for every entry in /logical-termination-point=*/local-id ]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'copy-server'

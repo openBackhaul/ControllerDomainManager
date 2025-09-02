@@ -1,0 +1,398 @@
+servers:
+
+  operation-servers:
+    own-oam:
+      basic:
+        - operation-name: /v1/register-yourself
+          uuid: cdm-1-0-0-op-s-bm-000
+        - operation-name: /v1/embed-yourself
+          uuid: cdm-1-0-0-op-s-bm-001
+        - operation-name: /v1/redirect-service-request-information
+          uuid: cdm-1-0-0-op-s-bm-002
+        - operation-name: /v1/redirect-oam-request-information
+          uuid: cdm-1-0-0-op-s-bm-003
+        - operation-name: /v1/end-subscription
+          uuid: cdm-1-0-0-op-s-bm-004
+        - operation-name: /v1/inquire-oam-request-approvals
+          uuid: cdm-1-0-0-op-s-bm-005
+        - operation-name: /v1/update-client
+          uuid: cdm-1-0-0-op-s-bm-007
+        - operation-name: /v1/list-ltps-and-fcs
+          uuid: cdm-1-0-0-op-s-bm-008
+        - operation-name: /v1/redirect-topology-change-information
+          uuid: cdm-1-0-0-op-s-bm-009
+        - operation-name: /v1/update-operation-key
+          uuid: cdm-1-0-0-op-s-bm-010
+        - operation-name: /v1/update-operation-client
+          uuid: cdm-1-0-0-op-s-bm-011
+        - operation-name: /v1/inquire-basic-auth-approvals
+          uuid: cdm-1-0-0-op-s-bm-012
+        - operation-name: /v1/dispose-remainders-of-deregistered-application
+          uuid: cdm-1-0-0-op-s-bm-013
+        - operation-name: /v1/inform-about-preceding-release
+          uuid: cdm-1-0-0-op-s-bm-014
+          operation-key: n.a.
+        - operation-name: /v1/update-client-of-subsequent-release
+          uuid: cdm-1-0-0-op-s-bm-015
+      individual:
+        - operation-name: /v1/bequeath-your-data-and-die
+          uuid: cdm-1-0-0-op-s-im-000
+        #
+        # Administration
+        #
+        - operation-name: /v1/provide-domain-controller-dump
+          uuid: cdm-1-0-0-op-s-im-005
+
+        - operation-name: /v1/list-functions
+          uuid: cdm-1-0-0-op-s-im-010
+        - operation-name: /v1/provide-config-of-function
+          uuid: cdm-1-0-0-op-s-im-011
+        - operation-name: /v1/update-function
+          uuid: cdm-1-0-0-op-s-im-012
+
+        - operation-name: /v1/list-validation-sequences
+          uuid: cdm-1-0-0-op-s-im-020
+        - operation-name: /v1/provide-config-of-validation-sequence
+          uuid: cdm-1-0-0-op-s-im-021
+        - operation-name: /v1/update-validation-sequence
+          uuid: cdm-1-0-0-op-s-im-022
+
+        - operation-name: /v1/list-pulsers
+          uuid: cdm-1-0-0-op-s-im-030
+        - operation-name: /v1/provide-config-of-pulser
+          uuid: cdm-1-0-0-op-s-im-031
+        - operation-name: /v1/update-pulser
+          uuid: cdm-1-0-0-op-s-im-032
+
+        - operation-name: /v1/list-error-codes
+          uuid: cdm-1-0-0-op-s-im-040
+        - operation-name: /v1/provide-config-of-error-code
+          uuid: cdm-1-0-0-op-s-im-041
+        - operation-name: /v1/update-error-code
+          uuid: cdm-1-0-0-op-s-im-042
+
+    service:
+      basic:
+        - operation-name: /v1/start-application-in-generic-representation
+          uuid: cdm-1-0-0-op-s-bs-000
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application
+          uuid: cdm-1-0-0-op-s-bs-001
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-application-in-generic-representation
+          uuid: cdm-1-0-0-op-s-bs-002
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history
+          uuid: cdm-1-0-0-op-s-bs-003
+          operation-key: n.a.
+        - operation-name: /v1/inform-about-release-history-in-generic-representation
+          uuid: cdm-1-0-0-op-s-bs-004
+          operation-key: n.a.
+        - operation-name: /docs
+          uuid: cdm-1-0-0-op-s-bs-005
+          operation-key: n.a.
+      individual:
+        #
+        # Interpretation
+        #
+        - operation-name: /v1/create-application-template
+          uuid: cdm-1-0-0-op-s-is-110
+        - operation-name: /v1/delete-application-template
+          uuid: cdm-1-0-0-op-s-is-111
+        - operation-name: /v1/list-application-templates
+          uuid: cdm-1-0-0-op-s-is-112
+        - operation-name: /v1/provide-config-of-application-template
+          uuid: cdm-1-0-0-op-s-is-113
+        - operation-name: /v1/update-application-template
+          uuid: cdm-1-0-0-op-s-is-114
+
+        - operation-name: /v1/create-load-balancer-template
+          uuid: cdm-1-0-0-op-s-is-120
+        - operation-name: /v1/delete-load-balancer-template
+          uuid: cdm-1-0-0-op-s-is-121
+        - operation-name: /v1/list-load-balancer-templates
+          uuid: cdm-1-0-0-op-s-is-122
+        - operation-name: /v1/provide-config-of-load-balancer-template
+          uuid: cdm-1-0-0-op-s-is-123
+        - operation-name: /v1/update-load-balancer-template
+          uuid: cdm-1-0-0-op-s-is-124
+
+        - operation-name: /v1/create-controller-template
+          uuid: cdm-1-0-0-op-s-is-130
+        - operation-name: /v1/delete-controller-template
+          uuid: cdm-1-0-0-op-s-is-131
+        - operation-name: /v1/list-controller-templates
+          uuid: cdm-1-0-0-op-s-is-132
+        - operation-name: /v1/provide-config-of-controller-template
+          uuid: cdm-1-0-0-op-s-is-133
+        - operation-name: /v1/update-controller-template
+          uuid: cdm-1-0-0-op-s-is-134
+
+        - operation-name: /v1/create-mount-point-template
+          uuid: cdm-1-0-0-op-s-is-140
+        - operation-name: /v1/delete-mount-point-template
+          uuid: cdm-1-0-0-op-s-is-141
+        - operation-name: /v1/list-mount-point-templates
+          uuid: cdm-1-0-0-op-s-is-142
+        - operation-name: /v1/provide-config-of-mount-point-template
+          uuid: cdm-1-0-0-op-s-is-143
+        - operation-name: /v1/update-mount-point-template
+          uuid: cdm-1-0-0-op-s-is-144
+
+        - operation-name: /v1/regard-application
+          uuid: cdm-1-0-0-op-s-is-150
+        - operation-name: /v1/disregard-application
+          uuid: cdm-1-0-0-op-s-is-151
+        - operation-name: /v1/list-applications
+          uuid: cdm-1-0-0-op-s-is-152
+        - operation-name: /v1/provide-config-of-application
+          uuid: cdm-1-0-0-op-s-is-153
+        - operation-name: /v1/provide-status-of-application
+          uuid: cdm-1-0-0-op-s-is-154
+
+        - operation-name: /v1/regard-load-balancer
+          uuid: cdm-1-0-0-op-s-is-160
+        - operation-name: /v1/disregard-load-balancer
+          uuid: cdm-1-0-0-op-s-is-161
+        - operation-name: /v1/list-load-balancers
+          uuid: cdm-1-0-0-op-s-is-162
+        - operation-name: /v1/provide-config-of-load-balancer
+          uuid: cdm-1-0-0-op-s-is-163
+        - operation-name: /v1/provide-status-of-load-balancer
+          uuid: cdm-1-0-0-op-s-is-164
+
+        - operation-name: /v1/regard-controller
+          uuid: cdm-1-0-0-op-s-is-170
+        - operation-name: /v1/disregard-controller
+          uuid: cdm-1-0-0-op-s-is-171
+        - operation-name: /v1/list-controllers
+          uuid: cdm-1-0-0-op-s-is-172
+        - operation-name: /v1/provide-config-of-controller
+          uuid: cdm-1-0-0-op-s-is-173
+        - operation-name: /v1/provide-status-of-controller
+          uuid: cdm-1-0-0-op-s-is-174
+
+        - operation-name: /v1/establish-management-domain
+          uuid: cdm-1-0-0-op-s-is-180
+        - operation-name: /v1/dismantle-management-domain
+          uuid: cdm-1-0-0-op-s-is-181
+        - operation-name: /v1/list-management-domains
+          uuid: cdm-1-0-0-op-s-is-182
+        - operation-name: /v1/provide-config-of-management-domain
+          uuid: cdm-1-0-0-op-s-is-183
+        - operation-name: /v1/provide-status-of-management-domain
+          uuid: cdm-1-0-0-op-s-is-184
+
+        - operation-name: /v1/establish-controller-in-management-domain
+          uuid: cdm-1-0-0-op-s-is-190
+        - operation-name: /v1/dismantle-controller-from-management-domain
+          uuid: cdm-1-0-0-op-s-is-191
+
+        - operation-name: /v1/establish-management-domain-connection
+          uuid: cdm-1-0-0-op-s-is-200
+        - operation-name: /v1/dismantle-management-domain-connection
+          uuid: cdm-1-0-0-op-s-is-201
+        - operation-name: /v1/list-management-domain-interfaces
+          uuid: cdm-1-0-0-op-s-is-202
+        - operation-name: /v1/provide-config-of-management-domain-connection
+          uuid: cdm-1-0-0-op-s-is-203
+        - operation-name: /v1/provide-status-of-management-domain-connection
+          uuid: cdm-1-0-0-op-s-is-204
+
+        - operation-name: /v1/establish-management-plane-transport
+          uuid: cdm-1-0-0-op-s-is-210
+        - operation-name: /v1/dismantle-management-plane-transport
+          uuid: cdm-1-0-0-op-s-is-211
+        - operation-name: /v1/list-management-plane-transports
+          uuid: cdm-1-0-0-op-s-is-212
+        - operation-name: /v1/provide-config-of-management-plane-transport
+          uuid: cdm-1-0-0-op-s-is-213
+        - operation-name: /v1/provide-status-of-management-plane-transport
+          uuid: cdm-1-0-0-op-s-is-214
+        - operation-name: /v1/list-alarms-at-management-plane-transport
+          uuid: cdm-1-0-0-op-s-is-215
+
+        - operation-name: /v1/mediate-netconf-client-update
+          uuid: cdm-1-0-0-op-s-is-220
+
+  http-server:
+    own-application-name: ControllerDomainManager
+    own-release-number: 1.0.0
+    uuid: cdm-1-0-0-http-s-000
+    application-purpose: Manages the connections between the lowest REST clients and the NETCONF clients
+    owner-name: Thorsten Heinze
+    owner-email-address: thorsten.heinze@telefonica.com
+    release-list:
+      - release-number: 1.0.0
+        release-date: 02.09.2025
+        changes: Initial version
+  tcp-server:
+    - description: Without TLS layer
+      local-protocol: http
+      own-ip-address: 127.0.0.1
+      own-tcp-port: 4027
+      uuid: cdm-1-0-0-tcp-s-000
+
+
+clients:
+
+  - http-client:
+      application-name: ElasticSearch
+      release-number: 1.0.0
+      uuid: cdm-1-0-0-http-c-es-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3015
+      uuid: cdm-1-0-0-tcp-c-es-1-0-0-000
+    elasticsearch-client:
+      uuid: cdm-1-0-0-es-c-es-1-0-0-000
+      index-alias: 12
+
+  - http-client:
+      application-name: OldRelease
+      release-number:
+      uuid: cdm-1-0-0-http-c-or-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port:
+      uuid: cdm-1-0-0-tcp-c-or-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/bequeath-your-data-and-die
+            uuid: cdm-1-0-0-op-c-bm-or-1-0-0-000
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: NewRelease
+      release-number:
+      uuid: cdm-1-0-0-http-c-nr-1-0-0-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port:
+      uuid: cdm-1-0-0-tcp-c-nr-1-0-0-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: RegistryOffice
+      release-number: 2.1.2
+      uuid: cdm-1-0-0-http-c-ro-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3031
+      uuid: cdm-1-0-0-tcp-c-ro-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v2/register-application
+            uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-000
+          - operation-name: /v1/relay-server-replacement
+            uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-001
+          - operation-name: /v1/deregister-application
+            uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-002
+          - operation-name: /v1/relay-operation-update
+            uuid: cdm-1-0-0-op-c-bm-ro-2-1-2-003
+        individual:
+      service:
+        basic:
+        individual:
+
+  - http-client:
+      application-name: ExecutionAndTraceLog
+      release-number: 2.1.2
+      uuid: cdm-1-0-0-http-c-eatl-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3033
+      uuid: cdm-1-0-0-tcp-c-eatl-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-service-request
+            uuid: cdm-1-0-0-op-c-bs-eatl-2-1-2-000
+            detailed-logging-is-on: false
+        individual:
+
+  - http-client:
+      application-name: OamLog
+      release-number: 2.1.2
+      uuid: cdm-1-0-0-http-c-ol-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3034
+      uuid: cdm-1-0-0-tcp-c-ol-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/record-oam-request
+            uuid: cdm-1-0-0-op-c-bs-ol-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: AccessAdministration
+      release-number: 2.1.2
+      uuid: cdm-1-0-0-http-c-aa-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3035
+      uuid: cdm-1-0-0-tcp-c-aa-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+        individual:
+      service:
+        basic:
+          - operation-name: /v1/approve-basic-auth-request
+            uuid: cdm-1-0-0-op-c-bs-aa-2-1-2-000
+        individual:
+
+  - http-client:
+      application-name: ApplicationLayerTopology
+      release-number: 2.1.2
+      uuid: cdm-1-0-0-http-c-alt-2-1-2-000
+    tcp-client:
+      remote-protocol: http
+      ip-address: 127.0.0.1
+      tcp-port: 3036
+      uuid: cdm-1-0-0-tcp-c-alt-2-1-2-000
+    operation-clients:
+      own-oam:
+        basic:
+          - operation-name: /v1/update-all-ltps-and-fcs
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-000
+          - operation-name: /v1/update-ltp
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-001
+          - operation-name: /v1/delete-ltp-and-dependents
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-002
+          - operation-name: /v1/update-fc
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-003
+          - operation-name: /v1/update-fc-port
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-004
+          - operation-name: /v1/delete-fc-port
+            uuid: cdm-1-0-0-op-c-bm-alt-2-1-2-005
+        individual:
+      service:
+        basic:
+        individual:

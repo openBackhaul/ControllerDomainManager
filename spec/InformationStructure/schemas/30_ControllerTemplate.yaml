@@ -1,0 +1,73 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'controllerTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - measure-list-of-mount-points-function-name
+          - reconstruct-mount-point-function-name
+          - destruct-mount-point-function-name
+        properties:
+          template-name:
+            type: string
+            description: >
+              'controllerTemplateName
+              candidate: from [CDM://v1/create-controller-template$request.body#controller-template-name]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'controller'
+          measure-controller-function-name:
+            type: string
+            description: >
+              'Function for reading the Controller configuration including list of user credentials
+              candidate: from [CDM://v1/create-controller-template$request.body#measure-controller-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1MeasureController'
+          measure-list-of-mount-points-function-name:
+            type: string
+            description: >
+              'Function for listing the MountPoints that exist inside a Controller
+              candidate: from [CDM://v1/create-controller-template$request.body#measure-list-of-mount-points-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1MeasureListOfMountPoints'
+          reconstruct-controller-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a Controller
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-controller-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructController'
+          construct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for creating a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#construct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ConstructMountPoint'
+          destruct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for deleting a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#destruct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1DestructMountPoint'
+          reconstruct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructMountPoint'

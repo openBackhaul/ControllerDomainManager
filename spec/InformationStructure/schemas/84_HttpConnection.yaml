@@ -1,0 +1,136 @@
+link:
+  type: array
+  x-key: local-id
+  items:
+    oneOf:
+      - description: 'httpLink'
+        type: object
+        required:
+          - local-id
+          - linktp
+        properties:
+          local-id:
+            type: string
+            description: >
+              'Identifier that is unique within the list of Links
+              operational: from running, entire httpLink to be deleted
+                                          IF referenced httpClient does not exist in OperationalDS
+                                          OR IF referenced httpServer does not exist in OperationalDS
+                                          OR IF [/httpClient/httpUserName] != [/httpServer/httpUserName] in OperationalDS
+                                          OR IF [/httpClient/httpPassword] != [/httpServer/httpPassword] in OperationalDS
+                                          OR IF no route exists in OperationalDS'
+          linktp:
+            type: array
+            x-key: interface-type
+            minItems: 2
+            maxItems: 2
+            items:
+              oneOf:
+                - description: 'httpClient'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'http-client'
+                    _cc:
+                      type: string
+                      description: >
+                        'applicationName
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      description: >
+                        'managementDomain
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                        running: from candidate
+                        operational: from running'
+                    _lp:
+                      type: string
+                      enum:
+                        - 'http-client'
+                - description: 'httpServer'
+                  type: object
+                  required:
+                    - interface-type
+                    - _cc
+                    - _ltp
+                    - _lp
+                  properties:
+                    interface-type:
+                      type: string
+                      enum:
+                        - 'http-server'
+                    _cc:
+                      type: string
+                      description: >
+                        'controllerName
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    create httpLink for every entry in [/network-control-domain=running/control-construct=[managementDomain]/_controllers[*] ]
+                        running: from candidate
+                        operational: from running'
+                    _ltp:
+                      type: string
+                      enum:
+                        - 'controller-manager'
+                    _lp:
+                      type: string
+                      description: >
+                        'applicationName
+                        candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
+                        running: from candidate
+                        operational: from running'
+          route:
+            type: array
+            x-key: local-id
+            minItems: 1
+            maxItems: 1
+            items:
+              type: object
+              required:
+                - local-id
+                - _links
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-link-chain'
+                  description: >
+                    'Identifier that is unique within the list of Links
+                    candidate: The route attribute is to be created while executing CDM://v1/establish-management-domain-connection
+                    operational: from running, entire Route to be deleted
+                                                IF tcpLinkA reference does not exist in OperationalDS
+                                                OR IF tcpLinkB reference does not exist in OperationalDS'
+                _links:
+                  type: array
+                  minItems: 1
+                  maxItems: 2
+                  items:
+                    type: string
+                    description: >
+                      'This array shall contain the localIds of tcpLinkA and potentially tcpLinkB on a path between the two linktp defined above
+                      tcpLinkA:
+                        candidate: from [ local-id of instance of Link with
+                                    [/network-control-domain=running/link=?/linktp=tcp-client/_cc]==[CDM://v1/establish-management-domain-connection$request.body#application-name]
+                                    and [/network-control-domain=running/link=?/linktp=tcp-client/_ltp]==[CDM://v1/establish-management-domain-connection$request.body#management-domain] ]
+                        running: from candidate
+                        operational: from running'
+                      tcpLinkB:
+                        candidate: from [ managementDomain=[CDM://v1/establish-management-domain-connection$request.body#management-domain]
+                                    and tcpServer=[/network-control-domain=running/control-construct=[managementDomain]/_tcp-server]
+                                    and category=[/network-control-domain=running/control-construct=[tcpServer]/category]
+                                    if category==loadBalancer from local-id of instance of Link with
+                                      [/network-control-domain=running/link=?/linktp=tcp-client/_cc]==tcpServer
+                                      and [/network-control-domain=running/link=?/linktp=tcp-client/_ltp]==managementDomain
+                                      and [/network-control-domain=running/link=?/linktp=tcp-client/_lp]==controllerName from this Links /linktp/_cc at httpServer
+                                    elseif category==Controller no reference to a tcpLinkB to be added ]
+                        running: from candidate
+                        operational: from running, Link reference to be deleted
+                                                    IF [/network-control-domain=operational/link=[local-id]] does not exist'

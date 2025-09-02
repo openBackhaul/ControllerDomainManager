@@ -1,0 +1,376 @@
+function:
+  #
+  # Administration
+  #
+  - function-name: 'v1ProvideDomainControllerDump'
+    function-description: 'Provides entire internal data tree (DomainController)'
+    parameter:
+
+  - function-name: 'v1ListFunctions'
+    function-description: 'Provides list of identifiers of internal Functions'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfFunction'
+    function-description: 'Provides parameter set of the specified internal Function'
+    parameter:
+
+  - function-name: 'v1UpdateFunction'
+    function-description: 'Updates parameter set of specified internal Function'
+    parameter:
+
+  - function-name: 'v1ListValidationSequences'
+    function-description: 'Provides list of operationIds of InterpretationFunctions'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfValidationSequence'
+    function-description: 'Provides sequence of ValidationFunctions triggered by specified InterpretationFunction'
+    parameter:
+
+  - function-name: 'v1UpdateValidationSequence'
+    function-description: 'Updates sequence of ValidationFunctions triggered by specified InterpretationFunction'
+    parameter:
+
+  - function-name: 'v1ListPulsers'
+    function-description: 'Provides list of Functions triggered by Pulser'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfPulser'
+    function-description: 'Provides configuration of specified Pulser'
+    parameter:
+
+  - function-name: 'v1UpdatePulser'
+    function-description: 'Updates configuration of specified Pulser'
+    parameter:
+
+  - function-name: 'v1ListErrorCodes'
+    function-description: 'Provides list of defined ErrorCodes'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfErrorCode'
+    function-description: 'Provides specified ErrorCode and associated ImplementationFunction'
+    parameter:
+
+  - function-name: 'v1UpdateErrorCode'
+    function-description: 'Updates configuration of an ErrorCode'
+    parameter:
+
+  #
+  # Interpretation
+  #
+  - function-name: 'v1CreateApplicationTemplate'
+    function-description: 'Creates a new ApplicationTemplate'
+    parameter:
+
+  - function-name: 'v1DeleteApplicationTemplate'
+    function-description: 'Deletes an obsolete ApplicationTemplate'
+    parameter:
+
+  - function-name: 'v1ListApplicationTemplates'
+    function-description: 'Provides list of ApplicationTemplates'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfApplicationTemplate'
+    function-description: 'Provides the configuration data of an ApplicationTemplate'
+    parameter:
+
+  - function-name: 'v1UpdateApplicationTemplate'
+    function-description: 'Updates an ApplicationTemplate'
+    parameter:
+
+  - function-name: 'v1CreateLoadBalancerTemplate'
+    function-description: 'Creates a new LoadBalancerTemplate'
+    parameter:
+
+  - function-name: 'v1DeleteLoadBalancerTemplate'
+    function-description: 'Deletes an obsolete LoadBalancerTemplate'
+    parameter:
+
+  - function-name: 'v1ListLoadBalancerTemplates'
+    function-description: 'Provides list of LoadBalancerTemplates'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfLoadBalancerTemplate'
+    function-description: 'Provides the configuration data of a LoadBalancerTemplate'
+    parameter:
+
+  - function-name: 'v1UpdateLoadBalancerTemplate'
+    function-description: 'Updates a LoadBalancerTemplate'
+    parameter:
+
+  - function-name: 'v1CreateControllerTemplate'
+    function-description: 'Creates a new ControllerTemplate'
+    parameter:
+
+  - function-name: 'v1DeleteControllerTemplate'
+    function-description: 'Deletes an obsolete ControllerTemplate'
+    parameter:
+
+  - function-name: 'v1ListControllerTemplates'
+    function-description: 'Provides list of ControllerTemplates'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfControllerTemplate'
+    function-description: 'Provides the configuration data of a ControllerTemplate'
+    parameter:
+
+  - function-name: 'v1UpdateControllerTemplate'
+    function-description: 'Updates a ControllerTemplate'
+    parameter:
+
+  - function-name: 'v1CreateMountPointTemplate'
+    function-description: 'Creates a new MountPointTemplate'
+    parameter:
+
+  - function-name: 'v1DeleteMountPointTemplate'
+    function-description: 'Deletes an obsolete MountPointTemplate'
+    parameter:
+
+  - function-name: 'v1ListMountPointTemplates'
+    function-description: 'Provides list of MountPointTemplates'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfMountPointTemplate'
+    function-description: 'Provides the configuration data of a MountPointTemplate'
+    parameter:
+
+  - function-name: 'v1UpdateMountPointTemplate'
+    function-description: 'Updates a MountPointTemplate'
+    parameter:
+
+  - function-name: 'v1RegardApplication'
+    function-description: 'Regards a new Application'
+    parameter:
+
+  - function-name: 'v1DisregardApplication'
+    function-description: 'Disregards an obsolete Application'
+    parameter:
+
+  - function-name: 'v1ListApplications'
+    function-description: 'Provides list of Applications'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfApplication'
+    function-description: 'Provides the configuration data of an Application'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfApplication'
+    function-description: 'Provides the status of an Application'
+    parameter:
+
+  - function-name: 'v1RegardLoadBalancer'
+    function-description: 'Regards a new LoadBalancer'
+    parameter:
+
+  - function-name: 'v1DisregardLoadBalancer'
+    function-description: 'Disregards an obsolete LoadBalancer'
+    parameter:
+
+  - function-name: 'v1ListLoadBalancers'
+    function-description: 'Provides list of LoadBalancers'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfLoadBalancer'
+    function-description: 'Provides the configuration data of a LoadBalancer'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfLoadBalancer'
+    function-description: 'Provides the status of a LoadBalancer'
+    parameter:
+
+  - function-name: 'v1RegardController'
+    function-description: 'Regards a new Controller'
+    parameter:
+
+  - function-name: 'v1DisregardController'
+    function-description: 'Disregards an obsolete Controller'
+    parameter:
+
+  - function-name: 'v1ListControllers'
+    function-description: 'Provides list of Controllers'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfController'
+    function-description: 'Provides the configuration data of a Controller'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfController'
+    function-description: 'Provides the status of a Controller'
+    parameter:
+
+  - function-name: 'v1EstablishManagementDomain'
+    function-description: 'Establishes a new ManagementDomain'
+    parameter:
+
+  - function-name: 'v1DismantleManagementDomain'
+    function-description: 'Dismantles an obsolete ManagementDomain'
+    parameter:
+
+  - function-name: 'v1ListManagementDomains'
+    function-description: 'Provides list of ManagementDomains'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfManagementDomain'
+    function-description: 'Provides the configuration data of a ManagementDomain'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfManagementDomain'
+    function-description: 'Provides the status of a ManagementDomain'
+    parameter:
+
+  - function-name: 'v1EstablishControllerInManagementDomain'
+    function-description: 'Establishes an additional Controller in a ManagementDomain'
+    parameter:
+
+  - function-name: 'v1DismantleControllerFromManagementDomain'
+    function-description: 'Dismantles an obsolete Controller from a ManagementDomain'
+    parameter:
+
+  - function-name: 'v1EstablishManagementDomainConnection'
+    function-description: 'Connects an Application to a ManagementDomain'
+    parameter:
+
+  - function-name: 'v1DismantleManagementDomainConnection'
+    function-description: 'Dismantles an obsolete ManagementDomainConnection'
+    parameter:
+
+  - function-name: 'v1ListManagementDomainInterfaces'
+    function-description: 'Provides list of ManagementDomainInterfaces'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfManagementDomainConnection'
+    function-description: 'Provides the configuration data of a ManagementDomainConnection'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfManagementDomainConnection'
+    function-description: 'Provides the status of a ManagementDomainConnection'
+    parameter:
+
+  - function-name: 'v1EstablishManagementPlaneTransport'
+    function-description: 'Establishes a new ManagementPlaneTransport'
+    parameter:
+
+  - function-name: 'v1DismantleManagementPlaneTransport'
+    function-description: 'Dismantles an obsolete ManagementPlaneTransport'
+    parameter:
+
+  - function-name: 'v1ListManagementPlaneTransports'
+    function-description: 'Provides list of ManagementPlaneTransports'
+    parameter:
+
+  - function-name: 'v1ProvideConfigOfManagementPlaneTransport'
+    function-description: 'Provides the configuration data of a ManagementPlaneTransport'
+    parameter:
+
+  - function-name: 'v1ProvideStatusOfManagementPlaneTransport'
+    function-description: 'Provides the status of a ManagementPlaneTransport'
+    parameter:
+
+  - function-name: 'v1ListAlarmsAtManagementPlaneTransport'
+    function-description: 'Lists the current alarms at a ManagementPlaneTransport'
+    parameter:
+
+  - function-name: 'v1MediateNetconfClientUpdate'
+    function-description: 'Mediates an update of the NetconfClient configuration'
+    parameter:
+
+  #
+  # Validation
+  #
+
+#
+#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.
+#  Please, ignore these segments during implementing v1.0.0_impl.
+#
+
+  #
+  # Measurement
+  #
+  - function-name: 'p1MeasurementOrchestrator'
+    function-description: 'Invokes the MeasurementFunctions to retrieve data from the Elements'
+    parameter:
+      - parameter-name: 'functionMeasuringManagementDomainInterface'
+        parameter-value: 'p1MeasureManagementDomainInterface'
+        parameter-definition: 'Name of the function for measuring a ManagementDomainInterface'
+      - parameter-name: 'functionMeasuringForwardings'
+        parameter-value: 'p1MeasureListOfForwardings'
+        parameter-definition: 'Name of the function for measuring the Forwardings'
+      - parameter-name: 'functionMeasuringMountPoints'
+        parameter-value: 'p1MeasureListOfMountPoints'
+        parameter-definition: 'Name of the function for measuring the MountPoints'
+
+  #
+  # Monitoring
+  #
+
+  #
+  # Implementation
+  #
+  - function-name: 'p1ReconstructManagementDomainInterface'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1ConstructForwarding'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1DestructForwarding'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1ReconstructForwarding'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1ConstructMountPoint'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1DestructMountPoint'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'
+
+  - function-name: 'p1ReconstructMountPoint'
+    function-description:
+    parameter:
+      - parameter-name: 'tmin'
+        parameter-value: '2'
+        parameter-definition: 'Minimum wait time (in s) before again attempting to fix the error.'
+      - parameter-name: 'tmax'
+        parameter-value: '43000'
+        parameter-definition: 'Maximum wait time (in s) before again attempting to fix the error.'

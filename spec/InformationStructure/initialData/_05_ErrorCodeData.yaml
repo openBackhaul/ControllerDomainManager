@@ -1,0 +1,48 @@
+error-code:
+
+#
+#  Measurement, Monitoring and Implementation are not included in the v1.0.0_spec.
+#  Please, ignore this segment during implementing v1.0.0_impl.
+#
+
+  - error-code: 630
+    description: 'ApplicationDomainManager cannot be reached'
+    _implementation-function:
+  - error-code: 631
+    description: 'Application not available'
+    _implementation-function:
+  - error-code: 632
+    description: 'ManagementDomainInterface not available'
+    _implementation-function:
+  - error-code: 633
+    description: 'ManagementDomainInterface configuration mismatch'
+    _implementation-function: 'p1ReconstructManagementDomainInterface'
+
+  - error-code: 640
+    description: 'LoadBalancer not available'
+    _implementation-function:
+  - error-code: 641
+    description: 'Forwarding not available'
+    _implementation-function: 'p1ConstructForwarding'
+  - error-code: 642
+    description: 'Unknown Forwarding found'
+    _implementation-function: 'p1DestructForwarding'
+  - error-code: 643
+    description: 'Forwarding configuration mismatch'
+    _implementation-function: 'p1ReconstructForwarding'
+
+  - error-code: 650
+    description: 'Controller not available'
+    _implementation-function:
+  - error-code: 651
+    description: 'Controller configuration mismatch'
+    _implementation-function: 'p1ReconstructController'
+  - error-code: 652
+    description: 'MountPoint not available'
+    _implementation-function: 'p1ConstructMountPoint'
+  - error-code: 653
+    description: 'Unknown MountPoint found'
+    _implementation-function: 'p1DestructMountPoint'
+  - error-code: 654
+    description: 'MountPoint configuration mismatch'
+    _implementation-function: 'p1ReconstructMountPoint'

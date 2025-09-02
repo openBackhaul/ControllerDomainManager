@@ -1,0 +1,76 @@
+logical-termination-point:
+  type: array
+  x-key: uuid
+  items:
+    type: object
+    required:
+      - uuid
+      - layer-protocol
+    properties:
+      uuid:
+        type: string
+        description: >
+          'managementDomain (Must be unique across all LoadBalancers!)
+          candidate: from [CDM://v1/establish-management-domain$request.body#management-domain]
+          running: from candidate
+          operational: from running; entire LTP to be deleted by [/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name], if managementDomain not included in proprietary response of the Element'
+      layer-protocol:
+        type: array
+        x-key: local-id
+        items:
+          oneOf:
+            - description: 'tcpServer'
+              type: object
+              required:
+                - local-id
+                - local-ip-address
+                - local-port
+              properties:
+                local-id:
+                  type: string
+                  enum:
+                    - 'tcp-server'
+                local-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the Forwarding/LoadBalancer
+                    candidate: from [../logical-termination-point=load-balancer-manager/layer-protocol=tcp-server/local-ip-address]
+                    running: from candidate
+                    operational: from running'
+                local-port:
+                  type: integer
+                  description: >
+                    'TCP port of the Forwarding inside the LoadBalancer
+                    candidate: from [CDM://v1/establish-management-domain$request.body#local-port-at-tcp-server]
+                    running: from candidate
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]'
+            - description: 'tcpClient'
+              type: object
+              required:
+                - local-id
+                - remote-ip-address
+                - remote-port
+              properties:
+                local-id:
+                  type: string
+                  description: >
+                    'controllerName
+                    candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                    running: from candidate
+                    operational: from running; entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name], if controllerName not included in proprietary response of the Element'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'IP address of the Controller that is to be added to this LogicalController
+                    candidate: from [ controllerName=[CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                                and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address]
+                    running: from candidate
+                    operational: operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]'
+                remote-port:
+                  type: integer
+                  description: >
+                    'TCP port of the Controller that is to be added to this LogicalController
+                    candidate: from [ controllerName=[CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
+                                and [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port]
+                    running: from candidate
+                    operational: operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]'
