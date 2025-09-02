@@ -1,6 +1,6 @@
 # Processing of Mediate  
 
-### Update  
+### Mediate  
 
 The following services  
 - /v1/mediate-netconf-client-update  

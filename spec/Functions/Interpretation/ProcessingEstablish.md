@@ -215,7 +215,7 @@ shall be processed as follows:
 - retrieve key attribute values of logical objects of specified type and category from RunningDS  
 - respond list of key attribute values to requestor  
 
-### Inform  
+### Provide Configuration Data  
 
 The following services  
 - /v1/provide-config-of-management-domain  
@@ -225,6 +225,8 @@ The following services
 shall be processed as follows:  
 - identify logical object by specified type, category and key attribute value  
 - respond values of logical object from _RunningDS_ to requestor  
+
+### Provide Status Data  
 
 The following services  
 - /v1/provide-status-of-management-domain  
