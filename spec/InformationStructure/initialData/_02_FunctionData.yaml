@@ -10,37 +10,55 @@ function:
     function-description: 'Provides list of identifiers of internal Functions'
     parameter:
 
-  - function-name: 'v1UpdateFunction'
-    function-description:
+  - function-name: 'getV1UpdateFunction'
+    function-description: 'Provides parameter set of the specified internal Function'
+    parameter:
+
+  - function-name: 'putV1UpdateFunction'
+    function-description: 'Updates parameter set of specified internal Function'
     parameter:
 
   - function-name: 'v1ListValidationSequences'
-    function-description:
+    function-description: 'Provides list of operationIds of InterpretationFunctions'
     parameter:
 
-  - function-name: 'v1UpdateValidationSequence'
-    function-description:
+  - function-name: 'getV1UpdateValidationSequence'
+    function-description: 'Provides sequence of ValidationFunctions triggered by specified InterpretationFunction'
+    parameter:
+
+  - function-name: 'putV1UpdateValidationSequence'
+    function-description: 'Updates sequence of ValidationFunctions triggered by specified InterpretationFunction'
     parameter:
 
   - function-name: 'v1ListPulsers'
-    function-description:
+    function-description: 'Provides list of Functions triggered by Pulser'
     parameter:
 
-  - function-name: 'v1UpdatePulser'
-    function-description:
+  - function-name: 'getV1UpdatePulser'
+    function-description: 'Provides configuration of specified Pulser'
+    parameter:
+
+  - function-name: 'putV1UpdatePulser'
+    function-description: 'Updates configuration of specified Pulser'
     parameter:
 
   - function-name: 'v1ListErrorCodes'
-    function-description:
+    function-description: 'Provides list of defined ErrorCodes'
     parameter:
 
-  - function-name: 'v1UpdateErrorCode'
-    function-description:
+  - function-name: 'getV1UpdateErrorCode'
+    function-description: 'Provides specified ErrorCode and associated ImplementationFunction'
+    parameter:
+
+  - function-name: 'putV1UpdateErrorCode'
+    function-description: 'Updates configuration of an ErrorCode'
     parameter:
 
   #
   # Interpretation
   #
+
+
 
   #
   # Validation

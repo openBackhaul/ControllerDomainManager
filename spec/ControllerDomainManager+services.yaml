@@ -45,23 +45,31 @@ servers:
 
         - operation-name: /v1/list-functions
           uuid: cdm-1-0-0-op-s-im-010
-        - operation-name: /v1/update-function
+        - operation-name: /v1/provide-config-of-function
           uuid: cdm-1-0-0-op-s-im-011
+        - operation-name: /v1/update-function
+          uuid: cdm-1-0-0-op-s-im-012
 
         - operation-name: /v1/list-validation-sequences
           uuid: cdm-1-0-0-op-s-im-020
-        - operation-name: /v1/update-validation-sequence
+        - operation-name: /v1/provide-config-of-validation-sequence
           uuid: cdm-1-0-0-op-s-im-021
+        - operation-name: /v1/update-validation-sequence
+          uuid: cdm-1-0-0-op-s-im-022
 
         - operation-name: /v1/list-pulsers
           uuid: cdm-1-0-0-op-s-im-030
-        - operation-name: /v1/update-pulser
+        - operation-name: /v1/provide-config-of-pulser
           uuid: cdm-1-0-0-op-s-im-031
+        - operation-name: /v1/update-pulser
+          uuid: cdm-1-0-0-op-s-im-032
 
         - operation-name: /v1/list-error-codes
           uuid: cdm-1-0-0-op-s-im-040
-        - operation-name: /v1/update-error-code
+        - operation-name: /v1/provide-config-of-error-code
           uuid: cdm-1-0-0-op-s-im-041
+        - operation-name: /v1/update-error-code
+          uuid: cdm-1-0-0-op-s-im-042
 
     service:
       basic:
@@ -125,11 +133,11 @@ servers:
         - operation-name: /v1/delete-mount-point-template
           uuid: cdm-1-0-0-op-s-is-141
         - operation-name: /v1/list-mount-point-templates
-          uuid: cdm-1-0-0-op-s-is-143
+          uuid: cdm-1-0-0-op-s-is-142
         - operation-name: /v1/provide-config-of-mount-point-template
-          uuid: cdm-1-0-0-op-s-is-144
+          uuid: cdm-1-0-0-op-s-is-143
         - operation-name: /v1/update-mount-point-template
-          uuid: cdm-1-0-0-op-s-is-145
+          uuid: cdm-1-0-0-op-s-is-144
 
         - operation-name: /v1/regard-application
           uuid: cdm-1-0-0-op-s-is-150
@@ -179,8 +187,6 @@ servers:
           uuid: cdm-1-0-0-op-s-is-190
         - operation-name: /v1/dismantle-controller-from-management-domain
           uuid: cdm-1-0-0-op-s-is-191
-        - operation-name: /v1/list-controllers-in-management-domain
-          uuid: cdm-1-0-0-op-s-is-192
 
         - operation-name: /v1/establish-management-domain-connection
           uuid: cdm-1-0-0-op-s-is-200
@@ -188,9 +194,9 @@ servers:
           uuid: cdm-1-0-0-op-s-is-201
         - operation-name: /v1/list-management-domain-interfaces
           uuid: cdm-1-0-0-op-s-is-202
-        - operation-name: /v1/provide-config-of-management-domain-interface
+        - operation-name: /v1/provide-config-of-management-domain-connection
           uuid: cdm-1-0-0-op-s-is-203
-        - operation-name: /v1/provide-status-of-management-domain-interface
+        - operation-name: /v1/provide-status-of-management-domain-connection
           uuid: cdm-1-0-0-op-s-is-204
 
         - operation-name: /v1/establish-management-plane-transport
@@ -218,7 +224,7 @@ servers:
     owner-email-address: thorsten.heinze@telefonica.com
     release-list:
       - release-number: 1.0.0
-        release-date: 29.08.2025
+        release-date: 02.09.2025
         changes: Initial version
   tcp-server:
     - description: Without TLS layer

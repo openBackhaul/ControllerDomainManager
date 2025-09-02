@@ -8,13 +8,13 @@ The [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomain
 
 ### MeasurementFunctions  
 
-- /p1/measure-list-of-management-domain-interfaces  
+- p1MeasureListOfManagementDomainInterfaces  
   post /v1/provide-status-of-management-domain-interface  
 
 
 ### ImplementationFunctions 
 
-- /p1/reconstruct-management-domain-interface  
+- p1ReconstructManagementDomainInterface  
   post /v1/mediate-management-domain-interface-update  
 
 

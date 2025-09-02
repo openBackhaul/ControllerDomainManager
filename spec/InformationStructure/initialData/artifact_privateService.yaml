@@ -12,19 +12,19 @@
 #
 - operation-name: /p1/measurement-orchestrator
   uuid:
-- operation-name: /p1/measure-list-of-management-domain-interfaces
+- operation-name: p1MeasureListOfManagementDomainInterfaces
   uuid:
 - operation-name: /p1/measure-list-of-forwardings
   uuid:
-- operation-name: /p1/measure-controller
+- operation-name: p1MeasureController
   uuid:
-- operation-name: /p1/measure-list-of-mount-points
+- operation-name: p1MeasureListOfMountPoints
   uuid:
-- operation-name: /p1/measure-links
+- operation-name: p1MeasureLinks
   uuid:
-- operation-name: /p1/measure-routes
+- operation-name: p1MeasureRoutes
   uuid:
-- operation-name: /p1/measure-management-plane-transport
+- operation-name: p1MeasureManagementPlaneTransport
   uuid:
 
 #
@@ -50,19 +50,19 @@
 #
 - operation-name: /p1/implementation-orchestrator
   uuid:
-- operation-name: /p1/reconstruct-management-domain-interface
+- operation-name: p1ReconstructManagementDomainInterface
   uuid:
-- operation-name: /p1/construct-forwarding
+- operation-name: p1ConstructForwarding
   uuid:
-- operation-name: /p1/destruct-forwarding
+- operation-name: p1DestructForwarding
   uuid:
-- operation-name: /p1/reconstruct-forwarding
+- operation-name: p1ReconstructForwarding
   uuid:
-- operation-name: /p1/reconstruct-controller
+- operation-name: p1ReconstructController
   uuid:
-- operation-name: /p1/construct-mount-point
+- operation-name: p1ConstructMountPoint
   uuid:
-- operation-name: /p1/destruct-mount-point
+- operation-name: p1DestructMountPoint
   uuid:
-- operation-name: /p1/reconstruct-mount-point
+- operation-name: p1ReconstructMountPoint
   uuid:

@@ -18,7 +18,7 @@ profile:
               'controllerTemplateName
               candidate: from [CDM://v1/create-controller-template$request.body#controller-template-name]
               running: from candidate
-              operational: ./. - does not exist in OperationalDS as it cannot be measured'
+              operational: from running'
           category:
             type: string
             enum:
@@ -39,6 +39,14 @@ profile:
               running: from candidate
               operational: from running'
             example: 'p1MeasureListOfMountPoints'
+          reconstruct-controller-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a Controller
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-controller-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructController'
           construct-mount-point-function-name:
             type: string
             description: >
@@ -47,14 +55,6 @@ profile:
               running: from candidate
               operational: from running'
             example: 'p1ConstructMountPoint'
-          reconstruct-mount-point-function-name:
-            type: string
-            description: >
-              'Function for updating the configuration of a MountPoint
-              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-mount-point-function-name]
-              running: from candidate
-              operational: from running'
-            example: 'p1ReconstructMountPoint'
           destruct-mount-point-function-name:
             type: string
             description: >
@@ -63,5 +63,11 @@ profile:
               running: from candidate
               operational: from running'
             example: 'p1DestructMountPoint'
-
-          # Please add, remove and change the parameters that need to be managed by template here
+          reconstruct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructMountPoint'

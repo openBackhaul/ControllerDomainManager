@@ -1883,29 +1883,6 @@
                 ]
             },
             {
-                "uuid": "cdm-1-0-0-op-s-is-192",
-                "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
-                "client-ltp": [],
-                "server-ltp": [
-                    "cdm-1-0-0-http-s-000"
-                ],
-                "layer-protocol": [
-                    {
-                        "local-id": "0",
-                        "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-                        "operation-server-interface-1-0:operation-server-interface-pac": {
-                            "operation-server-interface-capability": {
-                                "operation-name": "/v1/list-controllers-in-management-domain"
-                            },
-                            "operation-server-interface-configuration": {
-                                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED",
-                                "operation-key": "Operation key not yet provided."
-                            }
-                        }
-                    }
-                ]
-            },
-            {
                 "uuid": "cdm-1-0-0-op-s-is-200",
                 "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
                 "client-ltp": [],
@@ -1987,7 +1964,7 @@
                         "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
                         "operation-server-interface-1-0:operation-server-interface-pac": {
                             "operation-server-interface-capability": {
-                                "operation-name": "/v1/provide-config-of-management-domain-interface"
+                                "operation-name": "/v1/provide-config-of-management-domain-connection"
                             },
                             "operation-server-interface-configuration": {
                                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED",
@@ -2010,7 +1987,7 @@
                         "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
                         "operation-server-interface-1-0:operation-server-interface-pac": {
                             "operation-server-interface-capability": {
-                                "operation-name": "/v1/provide-status-of-management-domain-interface"
+                                "operation-name": "/v1/provide-status-of-management-domain-connection"
                             },
                             "operation-server-interface-configuration": {
                                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED",
@@ -2291,7 +2268,7 @@
                                     {
                                         "local-id": "0",
                                         "release-number": "1.0.0",
-                                        "release-date": "29.08.2025",
+                                        "release-date": "02.09.2025",
                                         "changes": "Initial version"
                                     }
                                 ]

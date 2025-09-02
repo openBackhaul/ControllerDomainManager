@@ -6,23 +6,23 @@ It documents the result of the configuration attempt and the next step into the 
 Managed Elements and associated ImplementationFunctions:  
 - [ManagementDomainInterface](#managementdomaininterface)  
   - Update Forwarding  
-    - /p1/reconstruct-management-domain-interface  
+    - p1ReconstructManagementDomainInterface  
 - [LoadBalancer and Forwarding](#loadbalancer-and-forwarding)  
   - Create Forwarding  
-    - /p1/construct-forwarding  
+    - p1ConstructForwarding  
   - Delete Forwarding  
-    - /p1/destruct-forwarding  
+    - p1DestructForwarding  
   - Update Forwarding  
-    - /p1/reconstruct-forwarding  
+    - p1ReconstructForwarding  
 - [Controller and MountPoint](#controller-and-mountpoint)  
   - Update Controller  
-    - /p1/reconstruct-controller  
+    - p1ReconstructController  
   - Create MountPoint  
-    - /p1/construct-mount-point  
+    - p1ConstructMountPoint  
   - Delete MountPoint  
-    - /p1/destruct-mount-point  
+    - p1DestructMountPoint  
   - Update MountPoint  
-    - /p1/reconstruct-mount-point  
+    - p1ReconstructMountPoint  
 
 **date-of-next-attempt-to-fix:**  
 After attempting to transfer the target state from the RunningDS onto the Elements, the ImplementationFunctions have to document the outcome into the CurrentAlarms.  
@@ -38,7 +38,7 @@ Applications are managed by another domain.
 The CDM's scope is limited to ensuring that the ManagementDomainInterface's configuration is aligned with address and authentication at LoadBalancer, respectively Controller.  
 So, implementation is limited to configuration of existing ManagementDomainInterfaces.  
 
-### /p1/reconstruct-management-domain-interface  
+### p1ReconstructManagementDomainInterface  
 
 Is addressing the [ApplicationDomainManager](https://github.com/openBackhaul/ApplicationDomainManager)  
 
@@ -82,7 +82,7 @@ request.body#http-password:
 The CDM encapsulates the LoadBalancer.  
 It manages the entire logical resource of the LoadBalancer, which is the Forwardings.  
 
-### /p1/construct-forwarding  
+### p1ConstructForwarding  
 
 Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
 
@@ -103,7 +103,7 @@ Is addressing the nginx server at its [management API](https://demo.nginx.com/sw
 
 Forwarding:  
 - Callback$request.body#_nginx-api-specific-version-of-forwarding-name_:  
-  - From [CDM://p1/construct-forwarding$request.body#management-domain]  
+  - From [p1ConstructForwarding$request.body#management-domain]  
 
 TcpClients:  
 - request.body#_nginx-api-specific-version-of-targets\/target-name_:  
@@ -126,7 +126,7 @@ If the Callback would return local-ip-address and local-port of the newly create
 #### Output:  
 ./.
 
-### /p1/destruct-forwarding  
+### p1DestructForwarding  
 
 Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
 
@@ -144,7 +144,7 @@ Is addressing the nginx server at its [management API](https://demo.nginx.com/sw
 
 #### Inverse Interpretations:  
 - Callback$request.body#_nginx-api-specific-version-of-forwarding-name_:  
-  - From [CDM://p1/destruct-forwarding$request.body#management-domain]  
+  - From [p1DestructForwarding$request.body#management-domain]  
 
 #### Feedback into CurrentAlarms:  
 - date-of-attempt  
@@ -154,7 +154,7 @@ Is addressing the nginx server at its [management API](https://demo.nginx.com/sw
 #### Output:  
 ./.
 
-### /p1/reconstruct-forwarding  
+### p1ReconstructForwarding  
 
 Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
 
@@ -174,7 +174,7 @@ Is addressing the nginx server at its [management API](https://demo.nginx.com/sw
 
 Forwarding:  
 - Callback$request.body#_nginx-api-specific-version-of-forwarding-name_:  
-  - From [CDM://p1/reconstruct-forwarding$request.body#management-domain]  
+  - From [p1ReconstructForwarding$request.body#management-domain]  
 
 TcpClients:  
 - request.body#_nginx-api-specific-version-of-targets\/target-name_:  
@@ -203,7 +203,7 @@ If the Callback would return local-ip-address and local-port of the newly create
 The CDM encapsulates the Controller.  
 It manages the entire logical resource of the Controller, which is the MountPoints.  
 
-### /p1/reconstruct-controller
+### p1ReconstructController
 
 Is addressing the OpenDaylight controller  
 
@@ -231,7 +231,7 @@ Is addressing the OpenDaylight controller
 #### Output:  
 ./.  
 
-### /p1/construct-mount-point  
+### p1ConstructMountPoint  
 
 Is addressing the OpenDaylight controller  
 
@@ -249,7 +249,7 @@ Is addressing the OpenDaylight controller
 
 #### Inverse Interpretations:  
 - Callback$request.body#network-topology:node/node-id:  
-  - From [CDM://p1/construct-mount-point$request.body#device-name]  
+  - From [p1ConstructMountPoint$request.body#device-name]  
 
 #### Feedback into CurrentAlarms:  
 - date-of-attempt  
@@ -259,7 +259,7 @@ Is addressing the OpenDaylight controller
 #### Output:  
 ./.  
 
-### /p1/destruct-mount-point  
+### p1DestructMountPoint  
 
 Is addressing the OpenDaylight controller  
 
@@ -277,7 +277,7 @@ Is addressing the OpenDaylight controller
 
 #### Inverse Interpretations:  
 - Callback$request.parameters#mount-name:  
-  - From [CDM://p1/destruct-mount-point$request.body#device-name]  
+  - From [p1DestructMountPoint$request.body#device-name]  
 
 #### Feedback into CurrentAlarms:  
 - date-of-attempt  
@@ -287,7 +287,7 @@ Is addressing the OpenDaylight controller
 #### Output:  
 ./.
 
-### /p1/reconstruct-mount-point  
+### p1ReconstructMountPoint  
 
 Is addressing the OpenDaylight controller  
 
@@ -305,10 +305,10 @@ Is addressing the OpenDaylight controller
 
 #### Inverse Interpretations:  
 - Callback$request.parameters#mount-name:  
-  - From [CDM://p1/destruct-mount-point$request.body#device-name]  
+  - From [p1DestructMountPoint$request.body#device-name]  
 
 - request.body#network-topology:node/node-id:  
-  - From [CDM://p1/destruct-mount-point$request.body#device-name]  
+  - From [p1DestructMountPoint$request.body#device-name]  
 
 - request.body#network-topology:node/netconf-node-topology:host:  
   - From [remote-ip-address] at LP identified by 'tcp-client' inside LTP identified by [device-name] inside ControlConstruct identified by [controller-name] in RunningDS  

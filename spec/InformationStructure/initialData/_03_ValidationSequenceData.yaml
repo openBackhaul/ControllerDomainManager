@@ -263,9 +263,6 @@ validation-sequence:
       - stepNumber: 4
         _validationFunction: 'p1EnsureReciprocalControllerRelationships'
 
-  - _triggerFunction: 'v1ListControllersInManagementDomains'
-    sequence:
-
 #
 # ManagementDomainConnection
 #

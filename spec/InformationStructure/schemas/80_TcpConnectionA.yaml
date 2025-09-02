@@ -13,12 +13,11 @@ link:
             type: string
             description: >
               'Identifier that is unique within the list of Links
-              operational: from running;
-                            entire tcpLink to be deleted, if
-                              referenced tcpClient does not exist in OperationalDS
-                              OR referenced tcpServer does not exist in OperationalDS
-                              OR [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
-                              OR [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
+              operational: from running, entire tcpLink to be deleted
+                                          IF referenced tcpClient does not exist in OperationalDS
+                                          OR IF referenced tcpServer does not exist in OperationalDS
+                                          OR IF [/tcpClient/remoteIpAddress] != [/tcpServer/localIpAddress] in OperationalDS
+                                          OR IF [/tcpClient/remotePort] != [/tcpServer/localPort] in OperationalDS'
           linktp:
             type: array
             x-key: interface-type

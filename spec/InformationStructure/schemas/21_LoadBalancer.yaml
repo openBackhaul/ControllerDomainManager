@@ -28,7 +28,7 @@ control-construct:
               'loadBalancerTemplateName
               Reference towards an entry in the list of Profiles
               Both instances of ControlConstruct and Profile must have an identical value in their category attributes
-              candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-template-name]
+              candidate: from [CDM://v1/regard-load-balancer$request.body#template]
               running: from candidate
               operational: from running'
           logical-termination-point:

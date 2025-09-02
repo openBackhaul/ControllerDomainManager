@@ -53,6 +53,8 @@ network-control-domain:
               type: object
             - description: 'Link - see 81_TcpConnectionB.yaml'
               type: object
+            - description: 'Link - see 84_HttpConnection.yaml'
+              type: object
             - description: 'Link - see 85_CopyConnection.yaml'
               type: object
       forwarding-domain:

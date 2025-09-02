@@ -34,14 +34,13 @@ control-construct:
               operational: from running'
           _controllers:
             type: array
-            minItems: 1
             items:
               type: string
               description: >
                 'controllerName
-                References towards at least one entry in the list of CC with category==controller
+                References towards instances of CC with category==controller
                 The referenced instances of CC must reference the same instance of Profile in their _template
-                candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controllerName]
+                candidate: from [CDM://v1/establish-controller-in-management-domain$request.body#controller-name]
                 running: from candidate
                 operational: from running'
           _tcp-server:

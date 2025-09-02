@@ -208,7 +208,6 @@ shall be processed as follows:
 
 The following services  
 - /v1/list-management-domains  
-- /v1/list-controllers-in-management-domain
 - /v1/list-management-domain-interfaces  
 - /v1/list-management-plane-transports  
 
@@ -220,7 +219,7 @@ shall be processed as follows:
 
 The following services  
 - /v1/provide-config-of-management-domain  
-- /v1/provide-config-of-management-domain-interface  
+- /v1/provide-config-of-management-domain-connection  
 - /v1/provide-config-of-management-plane-transport  
 
 shall be processed as follows:  
@@ -229,7 +228,7 @@ shall be processed as follows:
 
 The following services  
 - /v1/provide-status-of-management-domain  
-- /v1/provide-status-of-management-domain-interface  
+- /v1/provide-status-of-management-domain-connection  
 - /v1/provide-status-of-management-plane-transport  
 
 shall be processed as follows:  

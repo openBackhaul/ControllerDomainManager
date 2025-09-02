@@ -20,13 +20,13 @@ nginx is an open source web server that can also be used as a reverse proxy, loa
 
 ### ImplementationFunctions  
 
-- /p1/construct-forwarding  
+- p1ConstructForwarding  
   post _[path to be added here]_  
 
-- /p1/destruct-forwarding  
+- p1DestructForwarding  
 delete _[path to be added here]_  
 
-- /p1/reconstruct-forwarding  
+- p1ReconstructForwarding  
 put _[path to be added here]_  
 
 

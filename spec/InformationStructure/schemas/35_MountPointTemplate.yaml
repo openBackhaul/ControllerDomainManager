@@ -8,6 +8,15 @@ profile:
         required:
           - template-name
           - category
+          - sleep-factor
+          - max-connection-attempts
+          - default-request-timeout-millis
+          - tcp-only
+          - concurrent-rpc-limit
+          - schema-cache-directory
+          - between-attempts-timeout-millis
+          - reconnect-on-changed-schema
+          - keepalive-delay
         properties:
           template-name:
             type: string
@@ -15,63 +24,73 @@ profile:
               'mountPointTemplateName
               candidate: from [CDM://v1/create-mount-point-template$request.body#mount-point-template-name]
               running: from candidate
-              operational: ./. - does not exist in OperationalDS as it cannot be measured'
+              operational: from running'
           category:
             type: string
             enum:
-              - 'logicalController'
+              - 'mountPoint'
           sleep-factor:
             type: string
             description: >
-              'Configuration
-              Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device
-              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+              'Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/Device
+              candidate: from [CDM://v1/create-mount-point-template$request.body#sleep-factor]
+              running: from candidate
+              operational: from running'
           max-connection-attempts:
             type: integer
             description: >
-              'Configuration
-              Maximum number of attempts to connect with the MediatorProcess/device
-              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+              'Maximum number of attempts to connect with the MediatorProcess/Device
+              candidate: from [CDM://v1/create-mount-point-template$request.body#max-connection-attempts]
+              running: from candidate
+              operational: from running'
           default-request-timeout-millis:
             type: integer
             description: >
-              'Configuration
-              Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor
-              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+              'Time to waiting for the MediatorProcess/Device to respond to some request
+              Values are different by vendor
+              candidate: from [CDM://v1/create-mount-point-template$request.body#default-request-timeout-millis]
+              running: from candidate
+              operational: from running'
           tcp-only:
             type: boolean
             description: >
-              'Configuration
-              ?
-              CDM is always configuring it to false'
+              '? - So far, always configured to false
+              candidate: from [CDM://v1/create-mount-point-template$request.body#tcp-only]
+              running: from candidate
+              operational: from running'
           concurrent-rpc-limit:
             type: integer
             description: >
-              'Configuration
-              ?
-              CDM is always configuring it to 0'
+              '? - So far, always configured to 0
+              candidate: from [CDM://v1/create-mount-point-template$request.body#concurrent-rpc-limit]
+              running: from candidate
+              operational: from running'
           schema-cache-directory:
             type: string
             description: >
-              'Configuration
-              Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device
-              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint
-              (need to double think for native Netconf implementations)'
+              'Location inside the ODL to where the YANG schemas provided by the MediatorProcess/Device during advertising its Netconf capabilities are stored
+              Values are different per MediatorVM / device type
+              candidate: from [CDM://v1/create-mount-point-template$request.body#schema-cache-directory]
+              running: from candidate
+              operational: from running'
           between-attempts-timeout-millis:
             type: integer
             description: >
-              'Configuration
-              ?
-              CDM is always configuring it to 62500'
+              '? - So far, always configured to 62500
+              candidate: from [CDM://v1/create-mount-point-template$request.body#between-attempts-timeout-millis]
+              running: from candidate
+              operational: from running'
           reconnect-on-changed-schema:
             type: boolean
             description: >
-              'Configuration
-              ?
-              CDM is always configuring it to false'
+              '? - So far, always configured to false
+              candidate: from [CDM://v1/create-mount-point-template$request.body#reconnect-on-changed-schema]
+              running: from candidate
+              operational: from running'
           keepalive-delay:
             type: integer
             description: >
-              'Configuration
-              Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device
-              CDM is reading this value from a MountPointTemplate and configuring it into every new instance of MountPoint'
+              'Time to wait for the ODL to send another keep alive packet to the MediatorProcess/Device
+              candidate: from [CDM://v1/create-mount-point-template$request.body#keepalive-delay]
+              running: from candidate
+              operational: from running'

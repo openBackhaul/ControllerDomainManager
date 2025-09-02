@@ -13,13 +13,12 @@ link:
             type: string
             description: >
               'Identifier that is unique within the list of Links
-              operational: from running;
-                            entire httpLink to be deleted, if
-                              referenced httpClient does not exist in OperationalDS
-                              OR referenced httpServer does not exist in OperationalDS
-                              OR [/httpClient/httpUserName] != [/httpServer/httpUserName] in OperationalDS
-                              OR [/httpClient/httpPassword] != [/httpServer/httpPassword] in OperationalDS
-                              OR no route exists in OperationalDS'
+              operational: from running, entire httpLink to be deleted
+                                          IF referenced httpClient does not exist in OperationalDS
+                                          OR IF referenced httpServer does not exist in OperationalDS
+                                          OR IF [/httpClient/httpUserName] != [/httpServer/httpUserName] in OperationalDS
+                                          OR IF [/httpClient/httpPassword] != [/httpServer/httpPassword] in OperationalDS
+                                          OR IF no route exists in OperationalDS'
           linktp:
             type: array
             x-key: interface-type
@@ -105,10 +104,10 @@ link:
                     - 'tcp-link-chain'
                   description: >
                     'Identifier that is unique within the list of Links
-                    operational: from running;
-                                  entire route to be deleted, if
-                                    referenced tcpLinkA does not exist in OperationalDS
-                                    OR referenced tcpLinkB does not exist in OperationalDS'
+                    candidate: The route attribute is to be created while executing CDM://v1/establish-management-domain-connection
+                    operational: from running, entire Route to be deleted
+                                                IF tcpLinkA reference does not exist in OperationalDS
+                                                OR IF tcpLinkB reference does not exist in OperationalDS'
                 _links:
                   type: array
                   minItems: 1
@@ -133,4 +132,5 @@ link:
                                       and [/network-control-domain=running/link=?/linktp=tcp-client/_lp]==controllerName from this Links /linktp/_cc at httpServer
                                     elseif category==Controller no reference to a tcpLinkB to be added ]
                         running: from candidate
-                        operational: from running'
+                        operational: from running, Link reference to be deleted
+                                                    IF [/network-control-domain=operational/link=[local-id]] does not exist'

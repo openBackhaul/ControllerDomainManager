@@ -6,20 +6,20 @@ In an ideal and stable situation, they should be identical.
 
 Managed Elements and associated MeasurementFunctions (covering availability of termination point + currently effective configuration and status):  
 - [ManagementDomainInterface](#managementdomaininterface)  
-  - /p1/measure-list-of-management-domain-interfaces  
+  - p1MeasureListOfManagementDomainInterfaces  
 - [LoadBalancer and Forwarding](#loadbalancer-and-forwarding)  
-  - /p1/measure-list-of-forwardings  
+  - p1MeasureListOfForwardings  
 - [Controller and MountPoint](#controller-and-mountpoint)  
-  - /p1/measure-controller
-  - /p1/measure-list-of-mount-points  
+  - p1MeasureController
+  - p1MeasureListOfMountPoints  
 
 Managed Connections and associated MeasurementFunctions (covering availability of connection):  
 - [TcpConnectionA, TcpConnectionB, HttpConnection and CopyConnection](#tcpconnectiona-tcpconnectionb-httpconnection-and-copyconnection)  
-  - /p1/measure-links  
+  - p1MeasureLinks  
 - [Route](#route)  
-  - /p1/measure-routes
+  - p1MeasureRoutes
 - [ManagementPlaneTransport](#managementplanetransport)  
-  - /p1/measure-management-plane-transport  
+  - p1MeasureManagementPlaneTransport  
 
 
 ## ManagementDomainInterface  
@@ -28,7 +28,7 @@ Applications are managed by another domain (ADM).
 The CDM's scope is limited to ensuring that the ManagementDomainInterface's configuration is aligned with address and authentication at LoadBalancer, respectively Controller.  
 So, measurement is limited to availability, configuration and status of a specified ManagementDomainInterface.  
 
-### /p1/measure-list-of-management-domain-interfaces  
+### p1MeasureListOfManagementDomainInterfaces  
 
 Is addressing the ApplicationDomainManager  
 
@@ -80,7 +80,7 @@ response.body#http-password:
 The CDM encapsulates the LoadBalancer.  
 It manages the entire logical resource of the LoadBalancer, which is the Forwardings.  
 
-### /p1/measure-list-of-forwardings  
+### p1MeasureListOfForwardings  
 
 Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
 
@@ -140,7 +140,7 @@ LTP Configuration
 The CDM encapsulates the Controller.  
 It manages the entire logical resource of the Controller, which is the MountPoints.  
 
-### /p1/measure-controller  
+### p1MeasureController  
 
 Is addressing the OpenDaylight controller  
 
@@ -167,7 +167,7 @@ Is addressing the OpenDaylight controller
 #### Output:  
 ./.
 
-### /p1/measure-list-of-mount-points  
+### p1MeasureListOfMountPoints  
 
 Is addressing the OpenDaylight controller  
 
@@ -289,7 +289,7 @@ The CDM manages the TCP connections:
 
 CopyConnection: The CDM manages the replication of configurations to Controllers that are belonging to the same ManagementDomain.  
 
-### /p1/measure-links  
+### p1MeasureLinks  
 
 #### Input:  
 - changed LTP {elementName, ltpId}  
@@ -330,7 +330,7 @@ Link Availability (HttpConnection only) <span style="color:red ;">_(needs to be 
 
 The CDM manages the Routes from Application to LogicalController/ManagementDomain  
 
-### /p1/measure-routes
+### p1MeasureRoutes
 
 #### Input:  
 - changed Link {localId}  
@@ -357,7 +357,7 @@ Route Availability
 
 The CDM manages the ManagementPlaneTransport from Application to LogicalController/ManagementDomain  
 
-### /p1/measure-management-plane-transport
+### p1MeasureManagementPlaneTransport
 
 #### Input:  
 - affected FC {managementDomain, applicationName, deviceName}  

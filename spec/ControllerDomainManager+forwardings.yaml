@@ -102,20 +102,28 @@ forwardings:
         uuid: cdm-1-0-0-op-s-im-005
       - server-name: /v1/list-functions
         uuid: cdm-1-0-0-op-s-im-010
-      - server-name: /v1/update-function
+      - server-name: /v1/provide-config-of-function
         uuid: cdm-1-0-0-op-s-im-011
+      - server-name: /v1/update-function
+        uuid: cdm-1-0-0-op-s-im-012
       - server-name: /v1/list-validation-sequences
         uuid: cdm-1-0-0-op-s-im-020
-      - server-name: /v1/update-validation-sequence
+      - server-name: /v1/provide-config-of-validation-sequence
         uuid: cdm-1-0-0-op-s-im-021
+      - server-name: /v1/update-validation-sequence
+        uuid: cdm-1-0-0-op-s-im-022
       - server-name: /v1/list-pulsers
         uuid: cdm-1-0-0-op-s-im-030
-      - server-name: /v1/update-pulser
+      - server-name: /v1/provide-config-of-pulser
         uuid: cdm-1-0-0-op-s-im-031
+      - server-name: /v1/update-pulser
+        uuid: cdm-1-0-0-op-s-im-032
       - server-name: /v1/list-error-codes
         uuid: cdm-1-0-0-op-s-im-040
-      - server-name: /v1/update-error-code
+      - server-name: /v1/provide-config-of-error-code
         uuid: cdm-1-0-0-op-s-im-041
+      - server-name: /v1/update-error-code
+        uuid: cdm-1-0-0-op-s-im-042
       - server-name: /v1/start-application-in-generic-representation
         uuid: cdm-1-0-0-op-s-bs-000
       - server-name: /v1/inform-about-application
@@ -212,17 +220,15 @@ forwardings:
         uuid: cdm-1-0-0-op-s-is-190
       - server-name: /v1/dismantle-controller-from-management-domain
         uuid: cdm-1-0-0-op-s-is-191
-      - server-name: /v1/list-controllers-in-management-domain
-        uuid: cdm-1-0-0-op-s-is-192
       - server-name: /v1/establish-management-domain-connection
         uuid: cdm-1-0-0-op-s-is-200
       - server-name: /v1/dismantle-management-domain-connection
         uuid: cdm-1-0-0-op-s-is-201
       - server-name: /v1/list-management-domain-interfaces
         uuid: cdm-1-0-0-op-s-is-202
-      - server-name: /v1/provide-config-of-management-domain-interface
+      - server-name: /v1/provide-config-of-management-domain-connection
         uuid: cdm-1-0-0-op-s-is-203
-      - server-name: /v1/provide-status-of-management-domain-interface
+      - server-name: /v1/provide-status-of-management-domain-connection
         uuid: cdm-1-0-0-op-s-is-204
       - server-name: /v1/establish-management-plane-transport
         uuid: cdm-1-0-0-op-s-is-210

@@ -36,7 +36,7 @@ paths:
                   type: string
                   description: >
                     'Name of the application that holds the ManagementDomainInterface
-                    from [CDM://p1/measure-list-of-management-domain-interfaces$request.body#application-name]'
+                    from [p1MeasureListOfManagementDomainInterfaces$request.body#application-name]'
                 management-domain-name:
                   type: string
                   description: >
@@ -150,32 +150,32 @@ paths:
                   type: string
                   description: >
                     'Name of the application that holds the ManagementDomainInterface
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#application-name]'
+                    from [p1ReconstructManagementDomainInterface$request.body#application-name]'
                 management-domain-name:
                   type: string
                   description: >
                     'Name of the ManagementDomain towards the interface is
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#management-domain]'
+                    from [p1ReconstructManagementDomainInterface$request.body#management-domain]'
                 remote-ip-address:
                   type: string
                   description: >
                     'New value of the remote IP address at the TcpClient of the LTP identified by the managementDomain
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#remote-ip-address]'
+                    from [p1ReconstructManagementDomainInterface$request.body#remote-ip-address]'
                 remote-port:
                   type: integer
                   description: >
                     'New value of the remote TCP port at the TcpClient of the LTP identified by the managementDomain
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#remote-port]'
+                    from [p1ReconstructManagementDomainInterface$request.body#remote-port]'
                 http-user-name:
                   type: string
                   description: >
                     'New value of the username to be applied by the HttpClient of the LTP identified by the managementDomain
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#http-user-name]'
+                    from [p1ReconstructManagementDomainInterface$request.body#http-user-name]'
                 http-password:
                   type: integer
                   description: >
                     'New value of the password to be applied by the HttpClient of the LTP identified by the managementDomain
-                    from [CDM://p1/reconstruct-management-domain-interface$request.body#http-password]'
+                    from [p1ReconstructManagementDomainInterface$request.body#http-password]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
                 management-domain-name: 'live'

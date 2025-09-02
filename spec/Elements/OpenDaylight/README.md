@@ -8,7 +8,7 @@ The OpenDaylight Controller is an open source controller [project](https://www.o
 
 ### MeasurementFunctions  
 
-- /p1/measure-controller  
+- p1MeasureController  
   get ???
 
 .  
@@ -17,13 +17,13 @@ The OpenDaylight Controller is an open source controller [project](https://www.o
 
 .
 
-- /p1/measure-list-of-mount-points  
+- p1MeasureListOfMountPoints  
   get /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node  
 
 
 ### ImplementationFunctions  
 
-- /p1/reconstruct-controller  
+- p1ReconstructController  
   put ???
 
 .  
@@ -32,13 +32,13 @@ The OpenDaylight Controller is an open source controller [project](https://www.o
 
 .
 
-- /p1/construct-mount-point  
+- p1ConstructMountPoint  
   post /rests/data/network-topology:network-topology/topology=topology-netconf  
 
-- /p1/destruct-mount-point  
+- p1DestructMountPoint  
   delete /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}  
 
-- /p1/reconstruct-mount-point  
+- p1ReconstructMountPoint  
   put /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}  
 
 

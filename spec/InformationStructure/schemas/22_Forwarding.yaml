@@ -17,7 +17,6 @@ logical-termination-point:
       layer-protocol:
         type: array
         x-key: local-id
-        minItems: 1
         items:
           oneOf:
             - description: 'tcpServer'
