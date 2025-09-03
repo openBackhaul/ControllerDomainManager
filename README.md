@@ -29,7 +29,7 @@ The CDM implements the state-based design of the recently developed application 
 The ControllerDomainManager is required for connecting the application layer with the controller layer.  
 
 ### Dependencies  
-- ApplicationLayerManager  
+- ApplicationDomainManager  
 - DeviceDomainManager  
 - LinkIdIntoLtpWriter  
 - ConnectionPreparation  

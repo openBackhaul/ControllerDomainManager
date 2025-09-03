@@ -8,7 +8,7 @@ paths:
 ########################################################################################################################
 #   Measurements
 ########################################################################################################################
-  /v1/provide-status-of-management-domain-interface:
+  /v1/provide-config-of-management-domain-interface:
     parameters:
       - $ref: '#/components/parameters/user'
       - $ref: '#/components/parameters/originator'
@@ -16,120 +16,8 @@ paths:
       - $ref: '#/components/parameters/trace-indicator'
       - $ref: '#/components/parameters/customer-journey'
     post:
-      operationId: provideStatusOfManagementDomainInterface
-      summary: 'Provides information about a specified ManagementDomainInterface from OperationalDS'
-      tags:
-        - IndividualServices
-      security:
-        - apiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - application-name
-                - management-domain-name
-              properties:
-                application-name:
-                  type: string
-                  description: >
-                    'Name of the application that holds the ManagementDomainInterface
-                    from [p1MeasureListOfManagementDomainInterfaces$request.body#application-name]'
-                management-domain-name:
-                  type: string
-                  description: >
-                    'Name of the ManagementDomain
-                    from [/network-control-domain=running/control-construct=[application-name]/logical-termination-point=[*]/local-id]'
-              example:
-                application-name: 'MicroWaveDeviceInventory'
-                management-domain-name: 'live'
-      responses:
-        '200':
-          description: 'Information about ManagementDomainInterface provided from OperationalDS'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - remote-ip-address
-                  - remote-port
-                properties:
-                  remote-ip-address:
-                    type: string
-                    description: 'Remote IP address at the TcpClient of the LTP identified by the managementDomain from OperationalDS'
-                  remote-port:
-                    type: integer
-                    description: 'Remote TCP port at the TcpClient of the LTP identified by the managementDomain from OperationalDS'
-                  http-user-name:
-                    type: string
-                    description: 'Username applied by the HttpClient of the LTP identified by the managementDomain from OperationalDS'
-                  http-password:
-                    type: integer
-                    description: 'Password applied by the HttpClient of the LTP identified by the managementDomain from OperationalDS'
-                example:
-                  remote-ip-address: '127.0.0.1'
-                  remote-port: 4711
-                  http-user-name: 'MicroWaveDeviceInventory'
-                  http-password: 'geheim123'
-          headers:
-            x-correlator:
-              schema:
-                type: string
-                example: '550e8400-e29b-11d4-a716-446655440000'
-              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-            exec-time:
-              schema:
-                type: integer
-                example: 1100
-              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-            backend-time:
-              schema:
-                type: integer
-                example: 850
-              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-            life-cycle-state:
-              schema:
-                type: string
-                enum:
-                  - 'EXPERIMENTAL'
-                  - 'OPERATIONAL'
-                  - 'DEPRECATED'
-                  - 'OBSOLETE'
-                  - 'UNKNOWN'
-                  - 'NOT_YET_DEFINED'
-                example: 'EXPERIMENTAL'
-              description: >
-                'Life cycle state of the consumed service
-                from [/core-model-1-4:control-construct/logical-termination-point=mm-1-0-0-op-s-is-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
-        '400':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '401':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '403':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '404':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        '500':
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-        default:
-          $ref: '#/components/responses/responseForErroredServiceRequests'
-
-
-########################################################################################################################
-#   Implementations
-########################################################################################################################
-  /v1/mediate-management-domain-interface-update:
-    parameters:
-      - $ref: '#/components/parameters/user'
-      - $ref: '#/components/parameters/originator'
-      - $ref: '#/components/parameters/x-correlator'
-      - $ref: '#/components/parameters/trace-indicator'
-      - $ref: '#/components/parameters/customer-journey'
-    post:
-      operationId: mediateManagementDomainInterfaceUpdate
-      summary: 'Passes through an update of a specified ManagementDomainInterface'
+      operationId: v1ProvideConfigOfManagementDomainInterface
+      summary: 'Provides the configuration data of a ManagementDomainInterface'
       tags:
         - IndividualServices
       security:
@@ -143,49 +31,59 @@ paths:
               required:
                 - application-name
                 - management-domain
-                - remote-ip-address
-                - remote-port
               properties:
                 application-name:
                   type: string
                   description: >
-                    'Name of the application that holds the ManagementDomainInterface
-                    from [p1ReconstructManagementDomainInterface$request.body#application-name]'
-                management-domain-name:
+                    'ApplicationName of the Application that holds the ManagementDomainInterface
+                    from [p1MeasureApplication$request.body#application-name]'
+                management-domain:
                   type: string
                   description: >
-                    'Name of the ManagementDomain towards the interface is
-                    from [p1ReconstructManagementDomainInterface$request.body#management-domain]'
-                remote-ip-address:
-                  type: string
-                  description: >
-                    'New value of the remote IP address at the TcpClient of the LTP identified by the managementDomain
-                    from [p1ReconstructManagementDomainInterface$request.body#remote-ip-address]'
-                remote-port:
-                  type: integer
-                  description: >
-                    'New value of the remote TCP port at the TcpClient of the LTP identified by the managementDomain
-                    from [p1ReconstructManagementDomainInterface$request.body#remote-port]'
-                http-user-name:
-                  type: string
-                  description: >
-                    'New value of the username to be applied by the HttpClient of the LTP identified by the managementDomain
-                    from [p1ReconstructManagementDomainInterface$request.body#http-user-name]'
-                http-password:
-                  type: integer
-                  description: >
-                    'New value of the password to be applied by the HttpClient of the LTP identified by the managementDomain
-                    from [p1ReconstructManagementDomainInterface$request.body#http-password]'
+                    'Name of the ManagementDomain
+                    p1MeasureApplication to address ADM://v1/provide-config-of-management-domain-interface for every ManagementDomainInterface at the specified Application
+                    from [/network-control-domain=running/control-construct=[ApplicationName]/logical-termination-point=[*]/local-id]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
-                management-domain-name: 'live'
-                remote-ip-address: '127.0.0.1'
-                remote-port: 4712
-                http-user-name: 'MicroWaveDeviceInventory'
-                http-password: 'geheim123'
+                management-domain: 'live'
       responses:
-        '204':
-          description: 'ManagementDomainInterface updated'
+        '200':
+          description: 'Configuration data of ManagementDomainInterface provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - http-user-name
+                  - http-password
+                  - remote-ip-address
+                  - remote-port
+                properties:
+                  http-user-name:
+                    type: string
+                    description: >
+                      'HttpUserName applied by the HttpClient of the ManagementDomainInterface
+                      to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=http-client/http-user-name]'
+                  http-password:
+                    type: string
+                    description: >
+                      'HttpPassword applied applied by the HttpClient of the ManagementDomainInterface
+                      to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=http-client/http-password]'
+                  remote-ip-address:
+                    type: string
+                    description: >
+                      'RemoteIpAddress at the TcpClient of the ManagementDomainInterface
+                      to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=tcp-client/remote-ip-address]'
+                  remote-port:
+                    type: integer
+                    description: >
+                      'RemotePort at the TcpClient of the ManagementDomainInterface
+                      to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=tcp-client/remote-port]'
+                example:
+                  http-user-name: 'MicroWaveDeviceInventory'
+                  http-password: 'geheim123'
+                  remote-ip-address: '127.0.0.1'
+                  remote-port: 4711
           headers:
             x-correlator:
               schema:
@@ -227,6 +125,113 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
 
+########################################################################################################################
+#   Implementations
+########################################################################################################################
+  /v1/mediate-management-domain-interface-update:
+    parameters:
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/originator'
+      - $ref: '#/components/parameters/x-correlator'
+      - $ref: '#/components/parameters/trace-indicator'
+      - $ref: '#/components/parameters/customer-journey'
+    post:
+      operationId: v1MediateManagementDomainInterfaceUpdate
+      summary: 'Mediates an update of the ManagementDomainInterface configuration'
+      tags:
+        - IndividualServices
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - application-name
+                - management-domain
+              properties:
+                application-name:
+                  type: string
+                  description: >
+                    'Name of the application that holds the ManagementDomainInterface
+                    from [p1ReconstructManagementDomainInterface$request.body#application-name]'
+                management-domain:
+                  type: string
+                  description: >
+                    'Name of the ManagementDomain towards the interface is
+                    from [p1ReconstructManagementDomainInterface$request.body#management-domain]'
+                http-user-name:
+                  type: string
+                  description: >
+                    'New value of the username to be applied by the HttpClient of the LTP identified by the managementDomain
+                    from [p1ReconstructManagementDomainInterface$request.body#http-user-name], if provided'
+                http-password:
+                  type: integer
+                  description: >
+                    'New value of the password to be applied by the HttpClient of the LTP identified by the managementDomain
+                    from [p1ReconstructManagementDomainInterface$request.body#http-password], if provided'
+                remote-ip-address:
+                  type: string
+                  description: >
+                    'New value of the remote IP address at the TcpClient of the LTP identified by the managementDomain
+                    from [p1ReconstructManagementDomainInterface$request.body#remote-ip-address], if provided'
+                remote-port:
+                  type: integer
+                  description: >
+                    'New value of the remote TCP port at the TcpClient of the LTP identified by the managementDomain
+                    from [p1ReconstructManagementDomainInterface$request.body#remote-port], if provided'
+              example:
+                application-name: 'MicroWaveDeviceInventory'
+                management-domain: 'live'
+                http-user-name: 'MicroWaveDeviceInventory'
+                http-password: 'geheim123'
+                remote-ip-address: '127.0.0.1'
+                remote-port: 4712
+      responses:
+        '204':
+          description: 'Update of the ManagementDomainInterface configuration mediated'
+          headers:
+            x-correlator:
+              schema:
+                type: string
+                example: '550e8400-e29b-11d4-a716-446655440000'
+              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+            exec-time:
+              schema:
+                type: integer
+                example: 1100
+              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+            backend-time:
+              schema:
+                type: integer
+                example: 850
+              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+                example: 'EXPERIMENTAL'
+              description: 'Life cycle state of the consumed service'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredServiceRequests'
 
 ########################################################################################################################
 #   Common Components
