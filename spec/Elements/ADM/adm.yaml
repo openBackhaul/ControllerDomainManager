@@ -42,7 +42,7 @@ paths:
                   description: >
                     'Name of the ManagementDomain
                     p1MeasureApplication to address ADM://v1/provide-config-of-management-domain-interface for every ManagementDomainInterface at the specified Application
-                    from [/network-control-domain=running/control-construct=[ApplicationName]/logical-termination-point=[*]/local-id]'
+                    from [/network-control-domain=running/control-construct=[ApplicationName]/logical-termination-point=*/local-id]'
               example:
                 application-name: 'MicroWaveDeviceInventory'
                 management-domain: 'live'

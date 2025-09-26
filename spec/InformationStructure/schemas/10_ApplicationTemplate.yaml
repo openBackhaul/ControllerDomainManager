@@ -10,7 +10,7 @@ profile:
           - category
           - manager-ip-address
           - manager-port
-          - measure-list-of-management-domain-interfaces-function-name
+          - measure-management-domain-interface-function-name
           - reconstruct-management-domain-interfaces-function-name
         properties:
           template-name:
@@ -38,14 +38,14 @@ profile:
               candidate: from [CDM://v1/create-application-template$request.body#manager-port]
               running: from candidate
               operational: from running'
-          measure-list-of-management-domain-interfaces-function-name:
+          measure-management-domain-interface-function-name:
             type: string
             description: >
               'Function for providing configuration information of a management domain at an application at ADM
-              candidate: from [CDM://v1/create-application-template$request.body#measure-list-of-management-domain-interfaces-function-name]
+              candidate: from [CDM://v1/create-application-template$request.body#measure-management-domain-interface-function-name]
               running: from candidate
               operational: from running'
-            example: 'p1MeasureListOfManagementDomainInterfaces'
+            example: 'p1MeasureApplication'
           reconstruct-management-domain-interfaces-function-name:
             type: string
             description: >

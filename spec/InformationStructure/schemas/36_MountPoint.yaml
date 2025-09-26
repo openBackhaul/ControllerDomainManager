@@ -15,7 +15,7 @@ logical-termination-point:
                       or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
                                 [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=*/local-id] ]
           running: from candidate
-          operational: from running; entire LTP to be deleted by [/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name], if deviceName not included in proprietary response of the Element'
+          operational: from running; entire LTP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if deviceName not included in proprietary response of the Element'
       _template:
         type: string
         description: >
@@ -60,7 +60,7 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/netconf-user-name] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 netconf-password:
                   type: string
                   description: >
@@ -69,7 +69,7 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/netconf-password] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 notification-subscribe:
                   type: boolean
                   description: >
@@ -78,7 +78,7 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/notification-subscribe] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 notification-stream-name:
                   type: string
                   description: >
@@ -87,21 +87,21 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/notification-stream-name] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 connection-status:
                   type: string
                   description: >
                     'Status of the connection between MountPoint and Device
                     candidate: ./.
                     running: ./.
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 session-id:
                   type: integer
                   description: >
                     'Locally unique ID of the connection between MountPoint and Device as it has been assigned by the Controller
                     candidate: ./.
                     running: ./.
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
             - description: 'tcpClient'
               type: object
               required:
@@ -121,7 +121,7 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=tcp-client/remote-ip-address] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
                 remote-port:
                   type: integer
                   description: >
@@ -130,4 +130,4 @@ logical-termination-point:
                                       deviceName = ../local-id
                                       [/network-control-domain=candidate/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=tcp-client/] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-list-of-mount-points-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'

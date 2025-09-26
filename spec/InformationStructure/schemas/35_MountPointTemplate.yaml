@@ -35,14 +35,14 @@ profile:
               'Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/Device
               candidate: from [CDM://v1/create-mount-point-template$request.body#sleep-factor]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           max-connection-attempts:
             type: integer
             description: >
               'Maximum number of attempts to connect with the MediatorProcess/Device
               candidate: from [CDM://v1/create-mount-point-template$request.body#max-connection-attempts]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           default-request-timeout-millis:
             type: integer
             description: >
@@ -50,21 +50,21 @@ profile:
               Values are different by vendor
               candidate: from [CDM://v1/create-mount-point-template$request.body#default-request-timeout-millis]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           tcp-only:
             type: boolean
             description: >
               '? - So far, always configured to false
               candidate: from [CDM://v1/create-mount-point-template$request.body#tcp-only]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           concurrent-rpc-limit:
             type: integer
             description: >
               '? - So far, always configured to 0
               candidate: from [CDM://v1/create-mount-point-template$request.body#concurrent-rpc-limit]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           schema-cache-directory:
             type: string
             description: >
@@ -72,25 +72,25 @@ profile:
               Values are different per MediatorVM / device type
               candidate: from [CDM://v1/create-mount-point-template$request.body#schema-cache-directory]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           between-attempts-timeout-millis:
             type: integer
             description: >
               '? - So far, always configured to 62500
               candidate: from [CDM://v1/create-mount-point-template$request.body#between-attempts-timeout-millis]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           reconnect-on-changed-schema:
             type: boolean
             description: >
               '? - So far, always configured to false
               candidate: from [CDM://v1/create-mount-point-template$request.body#reconnect-on-changed-schema]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'
           keepalive-delay:
             type: integer
             description: >
               'Time to wait for the ODL to send another keep alive packet to the MediatorProcess/Device
               candidate: from [CDM://v1/create-mount-point-template$request.body#keepalive-delay]
               running: from candidate
-              operational: from running'
+              operational: set by [/network-control-domain=running/profile=[../_template]/measure-controller-function-name]'

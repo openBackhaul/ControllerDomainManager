@@ -38,14 +38,14 @@ logical-termination-point:
                     'applicationName used as name of the user applied for authenticating at the Controller
                     candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-management-domain-interface-function-name]'
                 http-password:
                   type: integer
                   description: >
                     'Password of the user applied for authenticating at the Controller
                     candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-management-domain-interface-function-name]'
             - description: 'tcpClient'
               type: object
               required:
@@ -67,7 +67,7 @@ logical-termination-point:
                                     and if category==loadBalancer [/network-control-domain=running/control-construct=[tcpServer]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-ip-address]
                                     or elseif category==controller [/network-control-domain=running/control-construct=[tcpServer]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-management-domain-interface-function-name]'
                 remote-port:
                   type: integer
                   description: >
@@ -78,4 +78,4 @@ logical-termination-point:
                                     and if category==loadBalancer [/network-control-domain=running/control-construct=[tcpServer]/logical-termination-point=[managementDomain]/layer-protocol=tcp-server/local-port]
                                     or elseif category==controller [/network-control-domain=running/control-construct=[tcpServer]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port] ]
                     running: from candidate
-                    operational: set by [/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]'
+                    operational: set by [/network-control-domain=running/profile=[_template]/measure-management-domain-interface-function-name]'

@@ -1,0 +1,184 @@
+profile:
+  type: array
+  x-key: template-name
+  items:
+    oneOf:
+      - description: 'controllerTemplate'
+        type: object
+        required:
+          - template-name
+          - category
+          - measure-controller-function-name
+          - reconstruct-mount-point-function-name
+          - destruct-mount-point-function-name
+          - user-list
+        properties:
+          template-name:
+            type: string
+            description: >
+              'controllerTemplateName
+              candidate: from [CDM://v1/create-controller-template$request.body#controller-template-name]
+              running: from candidate
+              operational: from running'
+          category:
+            type: string
+            enum:
+              - 'controller'
+          measure-controller-function-name:
+            type: string
+            description: >
+              'Function for reading the Controller configuration including list of user credentials
+              candidate: from [CDM://v1/create-controller-template$request.body#measure-controller-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1MeasureOdl'
+          reconstruct-controller-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a Controller
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-controller-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructController'
+          construct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for creating a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#construct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ConstructMountPoint'
+          destruct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for deleting a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#destruct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1DestructMountPoint'
+          reconstruct-mount-point-function-name:
+            type: string
+            description: >
+              'Function for updating the configuration of a MountPoint
+              candidate: from [CDM://v1/create-controller-template$request.body#reconstruct-mount-point-function-name]
+              running: from candidate
+              operational: from running'
+            example: 'p1ReconstructMountPoint'
+          role-list:
+            type: array
+            items:
+              type: object
+              properties:
+                role-name:
+                  type: string
+                  description: >
+                    'Role or group of users addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#role-list/role-name]
+                    running: from candidate
+                    operational: from running'
+                description:
+                  type: string
+                  description: >
+                    'Description of a role or group of users addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#role-list/description]
+                    running: from candidate
+                    operational: from running'
+                domainid:
+                  type: string
+                  description: >
+                    '?
+                    candidate: from [CDM://v1/create-controller-template$request.body#role-list/domainid]
+                    running: from candidate
+                    operational: from running'
+          permission-list:
+            type: array
+            items:
+              type: object
+              properties:
+                _role:
+                  type: string
+                  description: >
+                    'Reference on a role/group that has permissions on the ManagementDomain
+                    candidate: from [CDM://v1/create-controller-template$request.body#permission-list/_role]
+                    running: from candidate
+                    operational: from running'
+                action-list:
+                  type: string
+                  enum:
+                  - 'post'
+                  - 'get'
+                  - 'patch'
+                  - 'put'
+                  - 'delete'
+                  description: >
+                    'List of actions that members of the role/group are allowed to execute on the ManagementDomain
+                    candidate: from [CDM://v1/create-controller-template$request.body#permission-list/action-list]
+                    running: from candidate
+                    operational: from running'
+          user-list:
+            type: array
+            items:
+              type: object
+              properties:
+                http-user-name:
+                  type: string
+                  description: >
+                    'Name of a user addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/http-user-name]
+                    running: from candidate
+                    operational: from running'
+                http-password:
+                  type: string
+                  description: >
+                    'Password of a user addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/http-password]
+                    running: from candidate
+                    operational: from running'
+                description:
+                  type: string
+                  description: >
+                    'Description of a user addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/description]
+                    running: from candidate
+                    operational: from running'
+                enabled:
+                  type: integer
+                  description: >
+                    '?
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/enabled]
+                    running: from candidate
+                    operational: from running'
+                email:
+                  type: string
+                  format: email
+                  description: >
+                    'Email address of a user addressing requests to the Controller
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/email]
+                    running: from candidate
+                    operational: from running'
+                salt:
+                  type: string
+                  description: >
+                    '?
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/salt]
+                    running: from candidate
+                    operational: from running'
+                domainid:
+                  type: string
+                  description: >
+                    '?
+                    candidate: from [CDM://v1/create-controller-template$request.body#user-list/domainid]
+                    running: from candidate
+                    operational: from running'
+                associated-role-list:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _role:
+                        type: string
+                        description: >
+                          'Reference on a role/group the user is associated with
+                          candidate: from [CDM://v1/create-controller-template$request.body#user-list/associated-role-list/_role]
+                          running: from candidate
+                          operational: from running'

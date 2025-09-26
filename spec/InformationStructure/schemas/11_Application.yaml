@@ -17,7 +17,7 @@ control-construct:
               'applicationName
               candidate: from [CDM://v1/regard-application$request.body#application-name]
               running: from candidate
-              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-management-domain-interfaces-function-name]$response.code]!=200'
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-management-domain-interface-function-name]$response.code]!=200'
           category:
             type: string
             enum:

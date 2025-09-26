@@ -17,7 +17,7 @@ control-construct:
               'loadBalancerName
               candidate: from [CDM://v1/regard-load-balancer$request.body#load-balancer-name]
               running: from candidate
-              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-forwardings-function-name]$response.code]!=200'
+              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-load-balancer-function-name]$response.code]!=200'
           category:
             type: string
             enum:

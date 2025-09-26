@@ -84,20 +84,35 @@ control-construct:
                                   'applicationName
                                   candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: ./. (operational state to be found at individual Controller)'
                               http-user-name:
                                 type: string
                                 description: >
                                   'applicationName used as name of the user applied by the application to authenticate at the Controller
                                   candidate: from [CDM://v1/establish-management-domain-connection$request.body#application-name]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: ./. (operational state to be found at individual Controller)'
                               http-password:
                                 type: integer
                                 description: >
                                   'Password of the user applied by the application to authenticate at the Controller
                                   candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-password]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: ./. (operational state to be found at individual Controller)'
+                              http-methods:
+                                type: array
+                                description: >
+                                  'List of HTTP methods allowed to be requested by the Application on the ManagementDomain
+                                  candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-methods]
+                                  running: from candidate
+                                  operational: ./. (operational state to be found at individual Controller)'
+                                items:
+                                  type: string
+                                  enum:
+                                  - 'post'
+                                  - 'get'
+                                  - 'patch'
+                                  - 'put'
+                                  - 'delete'
                 - description: 'LogicalTerminationPoint - see 42_LogicalMountPoint.yaml'
                   type: object

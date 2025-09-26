@@ -1,0 +1,248 @@
+@startuml measurement
+skinparam responseMessageBelowArrow true
+
+title
+  Measurement Flow
+end title
+
+participant "Pulser" as pulser
+participant "p1MeasurementOrchestrator" as mo
+participant "p1MeasureApplication" as ma
+participant "p1MeasureNginx" as mlb
+participant "p1MeasureOdl" as mc
+participant "p1MeasureLowestLink" as mll
+participant "p1MeasureRoutedLink" as mrl
+participant "p1MeasureFc" as mfc
+participant "RunningDS" as running
+participant "OperationalDS" as operational
+
+
+note over mo
+  It shall be possible to start a new 
+  measurement process even if formerly
+  started ones are not yet completed
+end note
+
+pulser -> mo
+activate mo
+
+note right mo
+  read list of all Elements from RunningDS
+end note
+mo -> running: /network-control-domain=running/control-construct=*/element-name
+mo <-- running: controlConstruct[*]
+
+note over mo
+  Sort controlConstruct[*] to assure
+  an identical sequence in case of 
+  multiple parallel runs
+end note
+
+== Update Operational State of Termination Points ==
+
+note right mo
+  repeat for all Elements
+end note
+group FOR all values of controlConstruct
+
+    mo -> running: /network-control-domain=running/control-construct=[controlConstruct[i]]/category
+    mo <-- running: category
+    mo -> running: /network-control-domain=running/control-construct=[controlConstruct[i]]/_template
+    mo <-- running: template
+
+    alt category == application
+
+        mo -> running: /network-control-domain=running/profile=[template]/measure-management-domain-interface-function-name
+        mo <-- running: measureManagementDomainInterfaceFunctionName (e.g. p1MeasureApplication)
+
+        mo -> ma: controlConstruct[i]
+        activate ma
+            note right ma
+              read data from Application
+              compare new data with content of OperationDS
+              compose list of changed LPs
+              update OperationDS with data from Application
+              return list of changed LPs
+            end note
+            ma -> operational: add/delete/update LPs at Applications
+            mo <-- ma: changedLp[*]
+        deactivate ma
+
+    else category == loadBalancer
+
+        mo -> running: /network-control-domain=running/profile=[template]/measure-load-balancer-function-name
+        mo <-- running: measureLoadBalancerFunctionName (e.g. p1MeasureNginx)
+
+        mo -> mlb: controlConstruct[i]
+        activate mlb
+            note right mlb
+              read data from LoadBalancer
+              compare new data with content of OperationDS
+              compose list of changed LPs
+              update OperationDS with data from LoadBalancer
+              return list of changed LPs
+            end note
+            mlb -> operational: add/delete/update LPs at LoadBalancer
+            mo <-- mlb: changedLp[*]
+        deactivate mlb
+
+    else category == controller
+
+        mo -> running: /network-control-domain=running/profile=[template]/measure-controller-function-name
+        mo <-- running: measureControllerFunctionName (e.g. p1MeasureOdl)
+
+        mo -> mc: controlConstruct[i]
+        activate mc
+            note right mc
+              read data from Controller
+              compare new data with content of OperationDS
+              compose list of changed LPs
+              update OperationDS with data from Controller
+              return list of changed LPs
+            end note
+            mc -> operational: add/delete/update LPs at Controller
+            mo <-- mc: changedLp[*]
+        deactivate mc
+
+    end
+
+    note right mo
+      listOfAllChangedLp[*] += changedLp[*]
+    end note
+
+end
+
+== Preparation ==
+
+note over mo
+  Sort listOfAllChangedLp[*]
+  Remove duplicates from listOfAllChangedLp[*]
+end note
+
+group FOR all values of listOfAllChangedLp
+
+    note right mo
+      lpType = listOfAllChangedLp[i]/lp
+    end note
+
+    alt lpType == http-*
+
+        note right mo
+          listOfAllChangedHttpLp += listOfAllChangedLp[i]
+        end note
+
+    else else
+
+        note right mo
+          listOfAllOtherChangedLp += listOfAllChangedLp[i]
+        end note
+
+    end
+
+end
+
+== Update Operational State of TcpLinksA, TcpLinksB and CopyLinks ==
+
+group FOR all values of listOfAllOtherChangedLp
+
+    mo -> mll: listOfAllOtherChangedLp[i]
+    activate mll
+
+        group FOR all /network-control-domain=running/link=*
+
+            note right mll: Find Links that terminate at the changed LP
+            alt link/linktp=[n]/_cc==listOfAllOtherChangedLp[i]/cc\n AND link/linktp=[n]/_ltp==listOfAllOtherChangedLp[i]/ltp\n AND link/linktp=[n]/_lp==listOfAllOtherChangedLp[i]/lp
+
+                note right mll: Check whether changed LPs of these Links exist in OperationalDS
+                alt LP referenced in /network-control-domain=running/link=[n]/linktp=0 exists in OperationalDS\n AND LP referenced in /network-control-domain=running/link=[n]/linktp=1 exists in OperationalDS
+
+                    note right mll: yes => create Link in OperationalDS
+                    mll -> operational: create /network-control-domain=operational/link=[n]
+
+                else else
+
+                    note right mll: no => delete Link from OperationalDS
+                    mll -> operational: delete /network-control-domain=operational/link=[n]
+
+                end
+
+            end
+
+        end
+
+    mo <-- mll: 204
+    deactivate mll
+
+end
+
+== Update Operational State of HttpLinks ==
+
+group FOR all values of listOfAllChangedHttpLp
+
+    mo -> mrl: listOfAllChangedHttpLp[i]
+    activate mrl
+
+        group FOR all /network-control-domain=running/link=*
+
+            note right mrl: Find HttpLinks that terminate at the changed HttpLP
+            alt link/linktp=[n]/_cc==listOfAllChangedHttpLp[i]/cc\n AND link/linktp=[n]/_ltp==listOfAllChangedHttpLp[i]/ltp\n AND link/linktp=[n]/_lp==listOfAllChangedHttpLp[i]/lp
+
+                note right mrl: Check whether changed LPs AND Links in Route of these Links exist in OperationalDS
+                alt LP referenced in /network-control-domain=running/link=[n]/linktp=0 exists in OperationalDS\n AND LP referenced in /network-control-domain=running/link=[n]/linktp=1 exists in OperationalDS\n AND Link referenced in /network-control-domain=running/link=[n]/route=tcp-link-chain/_links=0 exists in OperationalDS\n AND Link referenced in /network-control-domain=running/link=[n]/route=tcp-link-chain/_links=1 exists in OperationalDS
+
+                    note right mrl: yes => create HttpLink in OperationalDS
+                    mrl -> operational: create /network-control-domain=operational/link=[n]
+
+                else else
+
+                    note right mrl: no => delete HttpLink from OperationalDS
+                    mrl -> operational: delete /network-control-domain=operational/link=[n]
+
+                end
+
+            end
+
+        end
+
+    mo <-- mrl: 204
+    deactivate mrl
+
+end
+
+== Update Operational State of ManagementPlaneTransportFcs ==
+
+mo -> mfc
+activate mfc
+
+    group FOR all /network-control-domain=running/forwarding-domain=*/lower-level-forwarding-domain=*/forwarding-construct=*
+
+        note right mfc: Check whether documented LTPs of these FCs exist in OperationalDS
+        alt LTP referenced in /network-control-domain=running/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]/fctp=management-plane-transport-client/_ltp exists in OperationalDS\n AND LTP referenced in /network-control-domain=running/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]/fctp=management-plane-transport-server/_ltp exists in OperationalDS
+
+            note right mfc: yes => check, whether at least one Route is completed
+            group FOR all /network-control-domain=running/forwarding-domain=m/lower-level-forwarding-domain=n/forwarding-construct=l/route=*
+
+                alt Link referenced in /network-control-domain=running/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]/route[i]/_links[0] exists in OperationalDS\n AND Link referenced in /network-control-domain=running/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]/route[i]/_links[1] exists in OperationalDS
+
+                    note right mfc: yes => create FC in OperationalDS
+                    mfc -> operational: create /network-control-domain=operational/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]
+
+                else else
+
+                    note right mfc: no => delete FC from OperationalDS
+                    mfc -> operational: delete /network-control-domain=operational/forwarding-domain=[m]/lower-level-forwarding-domain=[n]/forwarding-construct=[l]
+
+                end
+
+            end
+
+        end
+
+    end
+
+mo <-- mfc: 204
+deactivate mfc
+
+deactivate mo
+
+@enduml

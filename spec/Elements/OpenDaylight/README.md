@@ -8,17 +8,14 @@ The OpenDaylight Controller is an open source controller [project](https://www.o
 
 ### MeasurementFunctions  
 
-- p1MeasureController  
+- p1MeasureOdl  
   get ???
 
 .  
 
-    Request for reading user credentials from OpenDaylight to be added here and in the excerpt of its proprietary API
+    Reading user credentials from OpenDaylight to be cover here and in the excerpt of its proprietary API
 
 .
-
-- p1MeasureListOfMountPoints  
-  get /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node  
 
 
 ### ImplementationFunctions  

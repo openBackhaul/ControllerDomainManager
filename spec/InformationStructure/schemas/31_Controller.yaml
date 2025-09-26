@@ -18,7 +18,11 @@ control-construct:
               'controllerName
               candidate: from [CDM://v1/regard-controller$request.body#controller-name]
               running: from candidate
-              operational: from running; entire CC to be deleted, if [ADM:/[/network-control-domain=running/profile=[_template]/measure-list-of-mount-points-function-name]$response.code]!=200'
+              operational:
+                managementIp = [./logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address]
+                managementPort = [./logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port]
+                measurementFunction = [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]
+                from running; entire CC to be deleted, if [[managementIp]:[managementPort][measurementFunction]$response.code]!=200'
           category:
             type: string
             enum:
@@ -71,7 +75,7 @@ control-construct:
                                 type: string
                                 enum:
                                   - 'http-server'
-                                description: 'entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if [http-user-name] not included in proprietary response of the Element'
+                                description: 'entire LP to be deleted by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name], if [http-user-name] not included in proprietary response of the Element'
                               http-user-name:
                                 type: string
                                 description: >
@@ -97,35 +101,38 @@ control-construct:
                                 type: string
                                 description: >
                                   'applicationName
-                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
-                                                    logicalController = ./_logical-controller
-                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/local-id] ]
-                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
-                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
-                                  running: from candidate
-                                  operational: from running; entire LP to be deleted by [/network-control-domain=running/profile=[_template]/measure-controller-function-name], if applicationName not included in proprietary response of the Element'
+                                  candidate: ./. (target state to be found at LogicalController)
+                                  running: ./. (target state to be found at LogicalController)
+                                  operational: created by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
                               http-user-name:
                                 type: string
                                 description: >
                                   'applicationName used as name of the user applied by the application to authenticate at the Controller
-                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
-                                                    logicalController = ./_logical-controller
-                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/http-user-name] ]
-                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
-                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
-                                  running: from candidate
-                                  operational: from running'
+                                  candidate: ./. (target state to be found at LogicalController)
+                                  running: ./. (target state to be found at LogicalController)
+                                  operational: set by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
                               http-password:
                                 type: string
                                 description: >
                                   'Password of the user applied by the application to authenticate at the Controller
-                                  candidate: from [ applicationName = [CDM://v1/establish-management-domain-connection$request.body#application-name]
-                                                    logicalController = ./_logical-controller
-                                                    [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/http-password] ]
-                                              or from [ logicalController = [CDM://v1/establish-controller-in-management-domain$request.body#management-domain]
-                                                        [/network-control-domain=running/control-construct=[logicalController]/logical-termination-point=controller-manager/layer-protocol=[*]/local-id] ]
-                                  running: from candidate
-                                  operational: from running'
+                                  candidate: ./. (target state to be found at LogicalController)
+                                  running: ./. (target state to be found at LogicalController)
+                                  operational: empty string, because cannot be read from the Element'
+                              http-methods:
+                                type: array
+                                description: >
+                                  'List of HTTP methods allowed to be requested by the Application on the ManagementDomain
+                                  candidate: ./. (target state to be found at LogicalController)
+                                  running: ./. (target state to be found at LogicalController)
+                                  operational: set by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
+                                items:
+                                  type: string
+                                  enum:
+                                  - 'post'
+                                  - 'get'
+                                  - 'patch'
+                                  - 'put'
+                                  - 'delete'
                           - description: 'tcpServer'
                             type: object
                             required:
@@ -140,16 +147,16 @@ control-construct:
                               local-ip-address:
                                 type: string
                                 description: >
-                                  'IP address of the Controller
+                                  'managementIp, IP address of the Controller
                                   candidate: from [CDM://v1/regard-controller$request.body#local-ip-address]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: set by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
                               local-port:
                                 type: integer
                                 description: >
-                                  'TCP port of the Controller
+                                  'managementPort, TCP port of the Controller
                                   candidate: from [CDM://v1/regard-controller$request.body#local-port]
                                   running: from candidate
-                                  operational: from running'
+                                  operational: set by [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
                 - description: 'LogicalTerminationPoint - see 36_MountPoint.yaml'
                   type: object

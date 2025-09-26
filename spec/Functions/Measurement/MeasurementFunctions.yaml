@@ -1,0 +1,1427 @@
+﻿openapi: 3.0.0
+info:
+  title: ControllerDomainManager
+  version: 1.0.0
+
+paths:
+########################################################################################################################
+#   Service Layer - Individual Part
+########################################################################################################################
+  /p1/measure-application:
+    post:
+      operationId: p1MeasureApplication
+      summary: 'Measures the configuration data of an Application'
+      tags:
+        - PrivateServices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - application-name
+              properties:
+                application-name:
+                  type: string
+                  description: >
+                    'applicationName
+                    applicationTemplateName = [/network-control-domain=running/control-construct=[applicationName]/_template]
+                    remoteIpAddress = [/network-control-domain=running/profile=[applicationTemplateName]/manager-ip-address]
+                    remotePort = [/network-control-domain=running/profile=[applicationTemplateName]/manager-port]
+                    managementDomain[] = [/network-control-domain=running/control-construct=[applicationName]/logical-termination-point=*/local-id]
+                    existingManagementDomainInterface[] = [/network-control-domain=operational/control-construct=[applicationName]/logical-termination-point]'
+              example:
+                application-name: 'mwdi-201-production'
+      responses:
+        '200':
+          description: 'Configuration data of Application measured'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - changed-lp-list
+                properties:
+                  changed-lp-list:
+                    type: array
+                    description: >
+                      'FOR every entry in managementDomain[]
+                          execute callback:PromptForMeasuringAnApplicationCausesRequestForProvidingConfigOfManagementDomainInterface (potentially alters OperationalDS)
+                      updatedManagementDomainInterface[] = [/network-control-domain=operational/control-construct=[applicationName]/logical-termination-point]
+                      calculate changedLpList[] from comparing updatedManagementDomainInterface[] with existingManagementDomainInterface[]'
+                    items:
+                      type: object
+                      required:
+                        - cc
+                        - ltp
+                        - lp
+                      properties:
+                        cc:
+                          type: string
+                          description: >
+                            'Identifier of the ControlConstruct
+                            from [changedLpList[n]/cc]'
+                        ltp:
+                          type: string
+                          description: >
+                            'Identifier of the LogicalTerminationPoint
+                            from [changedLpList[n]/ltp]'
+                        lp:
+                          type: string
+                          description: >
+                            'Identifier of the LayerProtocol
+                            from [changedLpList[n]/lp]'
+                example:
+                  changed-lp-list:
+                    - cc: 'mwdi-201-production'
+                      ltp: 'live'
+                      lp: 'http-client'
+                    - cc: 'mwdi-201-production'
+                      ltp: 'live'
+                      lp: 'tcp-client'
+      callbacks:
+        PromptForMeasuringAnApplicationCausesRequestForProvidingConfigOfManagementDomainInterface:
+          url: #[remoteIpAddress]:[remotePort][/v1/provide-config-of-management-domain-interface]
+            parameters:
+              - $ref: '#/components/parameters/user'
+              - $ref: '#/components/parameters/originator'
+              - $ref: '#/components/parameters/x-correlator'
+              - $ref: '#/components/parameters/trace-indicator'
+              - $ref: '#/components/parameters/customer-journey'
+            post:
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      required:
+                        - application-name
+                        - management-domain
+                      properties:
+                        application-name:
+                          type: string
+                          description: >
+                            'ApplicationName
+                            from [request.body#application-name]'
+                        management-domain:
+                          type: string
+                          description: >
+                            'ManagementDomain
+                            from [managementDomain[n]]'
+                      example:
+                        application-name: 'MicroWaveDeviceInventory'
+                        management-domain: 'live'
+              responses:
+                '200':
+                  description: 'Configuration data of ManagementDomainInterface provided'
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        required:
+                          - http-user-name
+                          - http-password
+                          - remote-ip-address
+                          - remote-port
+                        properties:
+                          http-user-name:
+                            type: string
+                            description: >
+                              'HttpUserName applied by the HttpClient of the ManagementDomainInterface
+                              to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=http-client/http-user-name]'
+                          http-password:
+                            type: string
+                            description: >
+                              'HttpPassword applied applied by the HttpClient of the ManagementDomainInterface
+                              to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=http-client/http-password]'
+                          remote-ip-address:
+                            type: string
+                            description: >
+                              'RemoteIpAddress at the TcpClient of the ManagementDomainInterface
+                              to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=tcp-client/remote-ip-address]'
+                          remote-port:
+                            type: integer
+                            description: >
+                              'RemotePort at the TcpClient of the ManagementDomainInterface
+                              to [/network-control-domain=operational/control-construct=[ApplicationName]/logical-termination-point=[ManagementDomain]/layer-protocol=tcp-client/remote-port]'
+                        example:
+                          http-user-name: 'MicroWaveDeviceInventory'
+                          http-password: 'geheim123'
+                          remote-ip-address: '127.0.0.1'
+                          remote-port: 4711
+                  headers:
+                    x-correlator:
+                      schema:
+                        type: string
+                        example: '550e8400-e29b-11d4-a716-446655440000'
+                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+                    exec-time:
+                      schema:
+                        type: integer
+                        example: 1100
+                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+                    backend-time:
+                      schema:
+                        type: integer
+                        example: 850
+                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+                    life-cycle-state:
+                      schema:
+                        type: string
+                        enum:
+                          - 'EXPERIMENTAL'
+                          - 'OPERATIONAL'
+                          - 'DEPRECATED'
+                          - 'OBSOLETE'
+                          - 'UNKNOWN'
+                          - 'NOT_YET_DEFINED'
+                        example: 'EXPERIMENTAL'
+                      description: 'Life cycle state of the consumed service'
+
+  /p1/measure-odl:
+    post:
+      operationId: p1MeasureOdl
+      summary: 'Measures the configuration data of a Controller'
+      tags:
+        - PrivateServices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - controller-name
+              properties:
+                controller-name:
+                  type: string
+                  description: >
+                    'controllerName
+
+                    controllerTemplateName = [/network-control-domain=running/control-construct=[controllerName]/_template]
+                    remoteIpAddress = [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-ip-address]
+                    remotePort = [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=tcp-server/local-port]
+                    adminUser = [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=http-server/http-user-name]
+                    adminPassword = [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=http-server/http-password]
+
+                    execute callback:PromptForMeasuringOdlCausesReadingListOfMountPoints
+                      it calculates changedLpList[], which is required in responseBody 200
+                    execute callback:PromptForMeasuringOdlCausesReadingListOfUsers
+                    execute callback:PromptForMeasuringOdlCausesReadingListOfPermissionsOnManagementDomain'
+              example:
+                controller-name: 'mwdi-201-production'
+      responses:
+        '200':
+          description: 'Configuration data of Controller measured'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - changed-lp-list
+                properties:
+                  changed-lp-list:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - cc
+                        - ltp
+                        - lp
+                      properties:
+                        cc:
+                          type: string
+                          description: >
+                            'Identifier of the ControlConstruct
+                            from [changedLpList[n]/cc]'
+                        ltp:
+                          type: string
+                          description: >
+                            'Identifier of the LogicalTerminationPoint
+                            from [changedLpList[n]/ltp]'
+                        lp:
+                          type: string
+                          description: >
+                            'Identifier of the LayerProtocol
+                            from [changedLpList[n]/lp]'
+                example:
+                  changed-lp-list:
+                    - cc: 'odl-1-production'
+                      ltp: 'live'
+                      lp: 'http-client'
+                    - cc: 'odl-1-production'
+                      ltp: 'live'
+                      lp: 'tcp-client'
+      callbacks:
+        PromptForMeasuringOdlCausesReadingListOfMountPoints:
+          url: #[remoteIpAddress]:[remotePort][/rests/data/network-topology:network-topology/topology=topology-netconf]
+            get:
+              security:
+                - basicAuth: []
+              responses:
+                '200':
+                  description: 'List of configured MountPoints provided'
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          network-topology:topology:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                node:
+                                  type: array
+                                  x-key: node-id
+                                  items:
+                                    type: object
+                                    properties:
+                                      node-id:
+                                        type: string
+                                        description: >
+                                          'deviceName defined by Telefonica planing department
+                                          Store existing [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]]
+                                          Compare after update and add changed LayerProtocols to the changedLpList[]
+                                          entire MountPoint [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]] to be deleted, if no corresponding value in node-id
+                                          add MountPoint [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]], if not already existing
+                                          logicalController = [/network-control-domain=running/control-construct=[controllerName]/_logical-controller]'
+                                      netconf-node-topology:available-capabilities:
+                                        type: object
+                                        description: >
+                                          'capabilityList
+                                          Netconf capabilities as they are advertised by the Netconf server in the mediator/device
+                                          to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/available-capability]'
+                                        properties:
+                                          available-capability:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                capability:
+                                                  type: string
+                                                  description: >
+                                                    'capability
+                                                    to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/available-capability=[capability]/capability]'
+                                                capability-origin:
+                                                  type: string
+                                                  description: >
+                                                    'capabilityOrigin
+                                                    to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/available-capability=[capability]/capability-origin]'
+                                      netconf-node-topology:unavailable-capabilities:
+                                        type: object
+                                        description: >
+                                          'InCapabilityList
+                                          Netconf capabilities as they are advertised by the Netconf server in the mediator/device
+                                          to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/unavailable-capability]'
+                                        properties:
+                                          unavailable-capability:
+                                            type: array
+                                            items:
+                                              type: object
+                                              properties:
+                                                capability:
+                                                  type: string
+                                                  description: >
+                                                    'capability
+                                                    to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/unavailable-capability=[capability]/capability]'
+                                                failure-reason:
+                                                  type: string
+                                                  description: >
+                                                    'capabilityOrigin
+                                                    to [/network-control-domain=operational/control-construct=[logicalController]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/unavailable-capability=[capability]/capability-origin]'
+                                      netconf-node-topology:host:
+                                        type: string
+                                        description: >
+                                          'Remote IP address, which is to be used by the NetconfClient to address the MediatorProcess
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=tcp-client/remote-ip-address]'
+                                      netconf-node-topology:port:
+                                        type: integer
+                                        description: >
+                                          'Remote TCP port, which is to be used by the NetconfClient to address the MediatorProcess
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=tcp-client/remote-port]'
+                                      netconf-node-optional:notification:
+                                        type: object
+                                        properties:
+                                          subscribe:
+                                            type: boolean
+                                            description: >
+                                              'if true, the automated subscribing for notifications while mounting is activated
+                                              to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/notification-subscribe]'
+                                          stream-name:
+                                            type: string
+                                            description: >
+                                              'Name of the stream for clients of ODL to identify it while subscribing
+                                              to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/notification-stream-name]'
+                                      netconf-node-topology:username:
+                                        type: string
+                                        description: >
+                                          'Name of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/netconf-user-name]'
+                                      netconf-node-topology:password:
+                                        type: string
+                                        description: >
+                                          'Password of the user applied for authenticating at the MediatorProcess/device while initiating the Netconf connection
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/netconf-password]'
+                                      netconf-node-topology:sleep-factor:
+                                        type: string
+                                        description: >
+                                          'Factor for multiplying the time to wait with every new attempt to connect with the MediatorProcess/device
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/sleep-factor] (from RunningDS!)
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/sleep-factor] (to OperationalDS!)'
+                                      netconf-node-topology:max-connection-attempts:
+                                        type: integer
+                                        description: >
+                                          'Maximum number of attempts to connect with the MediatorProcess/device'
+                                          IF [netconf-node-topology:max-connection-attempts] != [/network-control-domain=running/profile=[controllerTemplateName]/max-connection-attempts]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/max-connection-attempts]'
+                                      netconf-node-topology:default-request-timeout-millis:
+                                        type: integer
+                                        description: >
+                                          'Configuration
+                                          Time to waiting for the MediatorProcess/device to respond to some request, values are different by vendor
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/default-request-timeout-millis]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/default-request-timeout-millis]'
+                                      netconf-node-topology:tcp-only:
+                                        type: boolean
+                                        description: >
+                                          'Configuration
+                                          ? ; always configured to false
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/tcp-only]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/tcp-only]'
+                                      netconf-node-topology:concurrent-rpc-limit:
+                                        type: integer
+                                        description: >
+                                          'Configuration
+                                          ? ; always configured to 0
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/concurrent-rpc-limit]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/concurrent-rpc-limit]'
+                                      netconf-node-topology:schema-cache-directory:
+                                        type: string
+                                        description: >
+                                          'Configuration
+                                          Location inside the ODL to where the YANG schemas provided by the MediatorProcess/device during advertising its Netconf capabilities are stored; values are different per MediatorVM/device
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/schema-cache-directory]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/schema-cache-directory]'
+                                      netconf-node-topology:between-attempts-timeout-millis:
+                                        type: integer
+                                        description: >
+                                          'Configuration
+                                          ? ; always configured to 62500
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/between-attempts-timeout-millis]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/between-attempts-timeout-millis]'
+                                      netconf-node-topology:reconnect-on-changed-schema:
+                                        type: boolean
+                                        description: >
+                                          'Configuration
+                                          ? ; always configured to false
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/reconnect-on-changed-schema]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/reconnect-on-changed-schema]'
+                                      netconf-node-topology:keepalive-delay:
+                                        type: integer
+                                        description: >
+                                          'Configuration
+                                          Time to wait for the ODL to send another keep alive packet to the MediatorProcess/device
+                                          IF [netconf-node-topology:sleep-factor] != [/network-control-domain=running/profile=[controllerTemplateName]/keepalive-delay]
+                                            to [/network-control-domain=operational/profile=[controllerTemplateName]/keepalive-delay]'
+                                      netconf-node-topology:connection-status:
+                                        type: string
+                                        description: >
+                                          'Changes from connected to connecting whenever some keep alive packet has not been answered by the MediatorProcess/device
+                                          Changes from connecting to unable-to-connect whenever the number unanswered keep alive packets is exceeding the max-connection-attempts
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/connection-status]'
+                                      netconf-node-topology:session-id:
+                                        type: integer
+                                        description: >
+                                          'Whenever a new Netconf session could be established a new session-id is created
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=[deviceName]/layer-protocol=netconf-client/session-id]'
+                        example:
+                          network-topology:topology:
+                            - node:
+                                - node-id: 'CO02060'
+                                  netconf-node-topology:sleep-factor: '2.5'
+                                  netconf-node-topology:default-request-timeout-millis: 1800000
+                                  netconf-node-topology:port: 17833
+                                  netconf-node-topology:tcp-only: false
+                                  netconf-node-topology:concurrent-rpc-limit: 0
+                                  netconf-node-topology:host: '172.28.127.9'
+                                  netconf-node-topology:connection-status: 'connected'
+                                  netconf-node-topology:session-id: 82
+                                  netconf-node-topology:max-connection-attempts: 8
+                                  netconf-node-topology:username: 'admin'
+                                  netconf-node-topology:password: 'admin'
+                                  netconf-node-topology:schema-cache-directory: 'hua'
+                                  netconf-node-topology:between-attempts-timeout-millis: 5000
+                                  netconf-node-topology:reconnect-on-changed-schema: false
+                                  netconf-node-topology:keepalive-delay: 120
+                                  netconf-node-topology:available-capabilities:
+                                    available-capability:
+                                      - capability: 'urn:ietf:params:xml:ns:yang:ietf-yang-types'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:base:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:base:1.1'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                        capability-origin: 'device-advertised'
+                                  netconf-node-optional:notification:
+                                    subscribe: true
+                                    stream-name: 'NETCONF'
+                                - node-id: '513559991A'
+                                  netconf-node-topology:sleep-factor: '2.5'
+                                  netconf-node-topology:default-request-timeout-millis: 900000
+                                  netconf-node-topology:port: 8303
+                                  netconf-node-topology:tcp-only: false
+                                  netconf-node-topology:concurrent-rpc-limit: 0
+                                  netconf-node-topology:host: '172.28.127.7'
+                                  netconf-node-topology:connection-status: 'connected'
+                                  netconf-node-topology:session-id: 83
+                                  netconf-node-topology:max-connection-attempts: 8
+                                  netconf-node-topology:username: 'admin'
+                                  netconf-node-topology:password: 'admin'
+                                  netconf-node-topology:schema-cache-directory: 'eric'
+                                  netconf-node-topology:between-attempts-timeout-millis: 5000
+                                  netconf-node-topology:reconnect-on-changed-schema: false
+                                  netconf-node-topology:keepalive-delay: 120
+                                  netconf-node-topology:unavailable-capabilities:
+                                    unavailable-capability:
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/aaa/1.1?revision=2015-06-16)tailf-aaa'
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: >-
+                                          (http://tail-f.com/yang/netconf-monitoring?revision=2016-11-24)tailf-netconf-monitoring
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/kicker?revision=2017-03-16)tailf-kicker'
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/webui?revision=2013-03-07)tailf-webui'
+                                  netconf-node-topology:available-capabilities:
+                                    available-capability:
+                                      - capability: 'urn:ietf:params:netconf:base:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:base:1.1'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:xpath:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                        capability-origin: 'device-advertised'
+                                  netconf-node-optional:notification:
+                                    subscribe: true
+                                    stream-name: 'NETCONF'
+                                - node-id: '513559991B'
+                                  netconf-node-topology:sleep-factor: '2.5'
+                                  netconf-node-topology:default-request-timeout-millis: 900000
+                                  netconf-node-topology:port: 8304
+                                  netconf-node-topology:tcp-only: false
+                                  netconf-node-topology:concurrent-rpc-limit: 0
+                                  netconf-node-topology:host: '172.28.127.7'
+                                  netconf-node-topology:connection-status: 'connected'
+                                  netconf-node-topology:session-id: 133
+                                  netconf-node-topology:max-connection-attempts: 8
+                                  netconf-node-topology:username: 'admin'
+                                  netconf-node-topology:password: 'admin'
+                                  netconf-node-topology:schema-cache-directory: 'eric'
+                                  netconf-node-topology:between-attempts-timeout-millis: 5000
+                                  netconf-node-topology:reconnect-on-changed-schema: false
+                                  netconf-node-topology:keepalive-delay: 120
+                                  netconf-node-topology:unavailable-capabilities:
+                                    unavailable-capability:
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/aaa/1.1?revision=2015-06-16)tailf-aaa'
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: >-
+                                          (http://tail-f.com/yang/netconf-monitoring?revision=2016-11-24)tailf-netconf-monitoring
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/kicker?revision=2017-03-16)tailf-kicker'
+                                      - failure-reason: 'unable-to-resolve'
+                                        capability: '(http://tail-f.com/ns/webui?revision=2013-03-07)tailf-webui'
+                                  netconf-node-topology:available-capabilities:
+                                    available-capability:
+                                      - capability: 'urn:ietf:params:netconf:base:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:base:1.1'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:xpath:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:candidate:1.0'
+                                        capability-origin: 'device-advertised'
+                                      - capability: 'urn:ietf:params:netconf:capability:validate:1.1'
+                                        capability-origin: 'device-advertised'
+                                  netconf-node-optional:notification:
+                                    subscribe: true
+                                    stream-name: 'NETCONF'
+        PromptForMeasuringOdlCausesReadingListOfUsers:
+          url: #[remoteIpAddress]:[remotePort][/auth/v1/users]
+            get:
+              security:
+                - basicAuth: []
+              responses:
+                '200':
+                  description: 'List of configured users provided'
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          users:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: >
+                                    'userName = chosen to equal applicationName; every entry shall create an instance of ManagementDomainInterface at the Controller in OperationalDS
+                                    create [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=[userName]/local-id]
+                                    and to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=[userName]/http-user-name]
+                                    Additional comments on neglected attributes from the user definition of OpenDaylight
+                                    - description: is not set at all, OpenDaylight is setting it to empty string by default
+                                    - enabled: is not set at all, OpenDaylight is setting it to 1 by default
+                                    - email: is not set at all, OpenDaylight is setting it to empty string by default
+                                    - password: cannot be read
+                                    - salt: is not set at all, OpenDaylight is setting it to an unknown value
+                                    - domainid: always set to sdn'
+        PromptForMeasuringOdlCausesReadingListOfPermissionsOnManagementDomain:
+          url: #[remoteIpAddress]:[remotePort][/rests/data/aaa:http-authorization/policies/policies=%2Frests%2Fdata%2Fnetwork-topology:network-topology%2Ftopology%3Dtopology-netconf%2F**]
+            get:
+              security:
+                - basicAuth: []
+              responses:
+                '200':
+                  description: 'List of permissions provided'
+                  content:
+                    application/json:
+                      schema:
+                        type: object
+                        properties:
+                          aaa:policies:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                resource:
+                                  type: string
+                                permissions:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      role:
+                                        type: string
+                                        description: 'roleName = chosen to equal applicationName'
+                                      actions:
+                                        type: array
+                                        description: >
+                                          'List of HTTP methods allowed to be requested by the role (=Application) on the Controller (=ManagementDomain)
+                                          to [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=[userName]/http-methods]
+                                          Additional comments on definitions of OpenDaylight:
+                                            - path of role assignment: it is assumed that permissions are always addressing the entire ManagementDomain = policies=%2Frests%2Fdata%2Fnetwork-topology:network-topology%2Ftopology%3Dtopology-netconf%2F**
+                                            - role: it is assumed that there is a 1:1 relationship between user and role, means there is a role of the same name for every user'
+                                        items:
+                                          type: string
+                                          enum:
+                                          - 'post'
+                                          - 'get'
+                                          - 'patch'
+                                          - 'put'
+                                          - 'delete'
+
+
+########################################################################################################################
+#   Common Components
+########################################################################################################################
+components:
+  parameters:
+    user:
+      name: user
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 'User Name'
+      description: 'User identifier from the system starting the service call'
+    originator:
+      name: originator
+      in: header
+      required: true
+      schema:
+        type: string
+        minLength: 3
+        example: 'Resolver'
+      description: >
+        'Identification for the system consuming the API, as defined in
+         [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+    x-correlator:
+      name: x-correlator
+      in: header
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+        example: '550e8400-e29b-11d4-a716-446655440000'
+      description: 'UUID for the service execution flow that allows to correlate requests and responses'
+    trace-indicator:
+      name: trace-indicator
+      in: header
+      required: true
+      schema:
+        type: string
+        pattern: '^([0-9]+)(\.([0-9]+))*$'
+        example: '1.3.1'
+      description: 'Sequence of request numbers along the flow'
+    customer-journey:
+      name: customer-journey
+      in: header
+      required: true
+      schema:
+        type: string
+        example: 'Unknown value'
+      description: 'Holds information supporting customer’s journey to which the execution applies'
+  responses:
+    responseForErroredServiceRequests:
+      description: 'Response in case of errored service requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+      headers:
+        x-correlator:
+          schema:
+            type: string
+            pattern: '^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$'
+            example: '550e8400-e29b-11d4-a716-446655440000'
+          description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+        exec-time:
+          schema:
+            type: integer
+            example: 1100
+          description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+    responseForErroredOamRequests:
+      description: 'Response in case of errored OaM requests'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorDescription'
+    '429':
+      description: 'Response in case too many requests need to be executed in parallel or too many requests have been received within a time period. The maximum number of parallel requests is defined in an IntegerProfile with the service name as a prefix and MaxNumberOfParallelRequests as a suffix. Some time period to elapse for throttling incoming requests is defined in an IntegerProfile with the service name as a prefix and ThrottlingPeriod as a suffix'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 429
+                maximum: 429
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Too many requests'
+    '460':
+      description: 'Response in case the mountName provided in the request is not found in the list of connected devices'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 460
+                maximum: 460
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Not connected. Requested device is currently not in connected state at the controller'
+    '461':
+      description: 'Response in case the (parent) topology object provided in the request (body or path) is not found in the cache.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 461
+                maximum: 461
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Not available. The topology (parent) object is currently not found in the cache.'
+    '470':
+      description: 'Response in case the resource specified in the request does not exist within the connected device'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 470
+                maximum: 470
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Resource not existing. Device informs about addressed resource unknown'
+    '471':
+      description: 'Response in case the (child) topology object specified in the request (body or path) does not exist within the cache.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 471
+                maximum: 471
+                format: int32
+              message:
+                type: string
+                enum:
+                  - '(Child) topology object not existing. Cache informs about addressed resource unknown.'
+    '502':
+      description: 'Response in case the server is acting as a gateway or proxy and received an invalid response from the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 502
+                maximum: 502
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway'
+    '530':
+      description: 'Response in case the referenced resource exists (e.g. device connected and resource exists in internal data tree), but response data is either not available, lost during transmission, incomplete or corrupted'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 530
+                maximum: 530
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Data invalid. Response data not available, incomplete or corrupted'
+    '531':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to authenticate at the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 531
+                maximum: 531
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Authentication at upstream server failed.'
+    '532':
+      description: 'Response in case the server is acting as a gateway or proxy and was unable to connect to the upstream server (device or application providing a consumed service)'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 532
+                maximum: 532
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Bad Gateway. Upstream server not responding.'
+    '533':
+      description: 'Response in case the referenced resource for an connected device does not exist at the controller.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 533
+                maximum: 533
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Resource unknown. The resource for the connected device does not exist at the Controller'
+    '550':
+      description: 'Response in case that the application wants to call a service specified by the requestor (e.g., to return data after a long taking  data retrieval) during a service call to the application and the service information cannot be found.'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                type: integer
+                minimum: 550
+                maximum: 550
+                format: int32
+              message:
+                type: string
+                enum:
+                  - 'Requestor information for callback execution not found.'
+  schemas:
+    errorDescription:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    genericRepresentation:
+      type: object
+      required:
+        - response-value-list
+        - consequent-action-list
+      properties:
+        response-value-list:
+          type: array
+          items:
+            type: object
+            required:
+              - field-name
+              - value
+              - datatype
+            properties:
+              field-name:
+                type: string
+                description: >
+                  'Field name
+                  from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/field-name]'
+              value:
+                type: string
+                description: >
+                  'Field value
+                  from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-configuration/value]'
+              datatype:
+                type: string
+                description: >
+                  'Field datatype
+                  from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-response-p-*/response-profile-1-0:response-profile-pac/response-profile-capability/datatype]'
+        consequent-action-list:
+          type: array
+          items:
+            type: object
+            required:
+              - label
+              - request
+              - display-in-new-browser-window
+            properties:
+              label:
+                type: string
+                description: >
+                  'Label that shall be presented on the button
+                  from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/label]'
+              request:
+                type: string
+                description: >
+                  'Request that shall be called, when button gets pressed
+                  from
+                  [{/core-model-1-4:control-construct/logical-termination-point=cdm-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-protocol}]
+                  ://
+                  [{/core-model-1-4:control-construct/logical-termination-point=cdm-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address}
+                  or
+                  {/core-model-1-4:control-construct/logical-termination-point=cdm-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/domain-name}]
+                  :
+                  [{/core-model-1-4:control-construct/logical-termination-point=cdm-1-0-0-tcp-s-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port}]
+                  [{/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-configuration/consequent-operation-reference}]'
+              input-value-list:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - field-name
+                  properties:
+                    field-name:
+                      type: string
+                      description: >
+                        'Name of an input value required for executing the Request
+                        from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/name]'
+                    unit:
+                      type: string
+                      description: >
+                        'Unit of an input value required for executing the Request
+                        from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/input-value-list=*/unit]'
+              display-in-new-browser-window:
+                type: boolean
+                description: >
+                  'True in case Request shall be represented in a new browser window
+                  from [/core-model-1-4:control-construct/profile-collection/profile=cdm-1-0-0-action-p-*/action-profile-1-0:action-profile-pac/action-profile-capability/display-in-new-browser-window]'
+    logicalTerminationPoint:
+      type: object
+      required:
+        - uuid
+        - ltp-direction
+        - client-ltp
+        - server-ltp
+        - layer-protocol
+      properties:
+        uuid:
+          type: string
+        ltp-direction:
+          type: string
+        client-ltp:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        server-ltp:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        layer-protocol:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            oneOf:
+              - description: 'operation server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - operation-server-interface-1-0:operation-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  operation-server-interface-1-0:operation-server-interface-pac:
+                    type: object
+                    required:
+                      - operation-server-interface-capability
+                      - operation-server-interface-configuration
+                    properties:
+                      operation-server-interface-capability:
+                        type: object
+                        required:
+                          - operation-name
+                        properties:
+                          operation-name:
+                            type: string
+                      operation-server-interface-configuration:
+                        type: object
+                        required:
+                          - life-cycle-state
+                        properties:
+                          life-cycle-state:
+                            type: string
+              - description: 'http server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - http-server-interface-1-0:http-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  http-server-interface-1-0:http-server-interface-pac:
+                    type: object
+                    required:
+                      - http-server-interface-capability
+                    properties:
+                      http-server-interface-capability:
+                        type: object
+                        required:
+                          - application-name
+                          - release-number
+                          - data-update-period
+                        properties:
+                          application-name:
+                            type: string
+                          release-number:
+                            type: string
+                          data-update-period:
+                            type: string
+              - description: 'tcp server'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - tcp-server-interface-1-0:tcp-server-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  tcp-server-interface-1-0:tcp-server-interface-pac:
+                    type: object
+                    required:
+                      - tcp-server-interface-configuration
+                    properties:
+                      tcp-server-interface-configuration:
+                        type: object
+                        required:
+                          - description
+                          - local-protocol
+                          - local-address
+                          - local-port
+                        properties:
+                          description:
+                            type: string
+                          local-protocol:
+                            type: string
+                          local-address:
+                            type: object
+                            properties:
+                              ipv-4-address:
+                                type: string
+                              domain-name:
+                                type: string
+                          local-port:
+                            type: integer
+              - description: 'operation client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - operation-client-interface-1-0:operation-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  operation-client-interface-1-0:operation-client-interface-pac:
+                    type: object
+                    required:
+                      - operation-client-interface-configuration
+                      - operation-client-interface-status
+                    properties:
+                      operation-client-interface-configuration:
+                        type: object
+                        required:
+                          - operation-name
+                        properties:
+                          operation-name:
+                            type: string
+                      operation-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'elasticsearch client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  elasticsearch-client-interface-1-0:elasticsearch-client-interface-pac:
+                    type: object
+                    required:
+                      - elasticsearch-client-interface-configuration
+                      - elasticsearch-client-interface-status
+                    properties:
+                      elasticsearch-client-interface-configuration:
+                        type: object
+                        required:
+                          - index-alias
+                        properties:
+                          index-alias:
+                            type: string
+                      elasticsearch-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'mongodb client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - mongodb-client-interface-1-0:mongodb-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  mongodb-client-interface-1-0:mongodb-client-interface-pac:
+                    type: object
+                    required:
+                      - mongodb-client-interface-configuration
+                      - mongodb-client-interface-status
+                    properties:
+                      mongodb-client-interface-configuration:
+                        type: object
+                        required:
+                          - database-name
+                          - collection-name
+                        properties:
+                          database-name:
+                            type: string
+                          collection-name:
+                            type: string
+                      mongodb-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'kafka client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - kafka-client-interface-1-0:kafka-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  kafka-client-interface-1-0:kafka-client-interface-pac:
+                    type: object
+                    required:
+                      - kafka-client-interface-configuration
+                      - kafka-client-interface-status
+                    properties:
+                      kafka-client-interface-configuration:
+                        type: object
+                        required:
+                          - topic-name
+                        properties:
+                          topic-name:
+                            type: string
+                      kafka-client-interface-status:
+                        type: object
+                        required:
+                          - operational-state
+                          - life-cycle-state
+                        properties:
+                          operational-state:
+                            type: string
+                          life-cycle-state:
+                            type: string
+              - description: 'http client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - http-client-interface-1-0:http-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  http-client-interface-1-0:http-client-interface-pac:
+                    type: object
+                    required:
+                      - http-client-interface-configuration
+                    properties:
+                      http-client-interface-configuration:
+                        type: object
+                        required:
+                          - application-name
+                          - release-number
+                        properties:
+                          application-name:
+                            type: string
+                          release-number:
+                            type: string
+              - description: 'tcp client'
+                type: object
+                required:
+                  - local-id
+                  - layer-protocol-name
+                  - tcp-client-interface-1-0:tcp-client-interface-pac
+                properties:
+                  local-id:
+                    type: string
+                  layer-protocol-name:
+                    type: string
+                  tcp-client-interface-1-0:tcp-client-interface-pac:
+                    type: object
+                    required:
+                      - tcp-client-interface-configuration
+                    properties:
+                      tcp-client-interface-configuration:
+                        type: object
+                        required:
+                          - remote-protocol
+                          - remote-address
+                          - remote-port
+                        properties:
+                          remote-protocol:
+                            type: string
+                          remote-address:
+                            type: object
+                            properties:
+                              ip-address:
+                                type: object
+                                properties:
+                                  ipv-4-address:
+                                    type: string
+                              domain-name:
+                                type: string
+                          remote-port:
+                            type: integer
+    forwardingDomain:
+      type: object
+      required:
+        - uuid
+        - forwarding-construct
+      properties:
+        uuid:
+          type: string
+        forwarding-construct:
+          type: array
+          items:
+            type: object
+            required:
+              - uuid
+              - name
+              - fc-port
+            properties:
+              uuid:
+                type: string
+              name:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - value-name
+                    - value
+                  properties:
+                    value-name:
+                      type: string
+                    value:
+                      type: string
+              fc-port:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - local-id
+                    - port-direction
+                    - logical-termination-point
+                  properties:
+                    local-id:
+                      type: string
+                    port-direction:
+                      type: string
+                    logical-termination-point:
+                      type: string
+    errorObject:
+      type: object
+      required:
+        - _error-code
+        - date-of-creation
+        - past-attempts-to-fix
+        - date-of-next-attempt-to-fix
+      properties:
+        _error-code:
+          type: integer
+          description: 'Reference towards a definition of an error-code (value must be unique and invariant)'
+        date-of-creation:
+          type: string
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+          description: 'Date and time when this problem has been detected'
+        past-attempts-to-fix:
+          type: array
+          x-key: date-of-attempt
+          description: 'List of past attempts to fix the problem'
+          items:
+            type: object
+            required:
+              - date-of-attempt
+              - response-code
+            properties:
+              date-of-attempt:
+                type: string
+                pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+                description: 'Date and time when it was attempted to fix the problem'
+              response-code:
+                type: integer
+                description: 'Code that resulted from the attempt to fix the problem'
+        date-of-next-attempt-to-fix:
+          type: string
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})$'
+          description: 'Next attempt to fix this problem shall not be made before this date'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: operation-key
+    basicAuth:
+      type: http
+      scheme: basic

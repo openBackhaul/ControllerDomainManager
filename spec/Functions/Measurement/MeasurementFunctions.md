@@ -1,31 +1,20 @@
 # MeasurementFunctions  
 
+.  
+
+  Dies ist wahrscheinlich ein Artefakt das nicht mehr benötigt wird.  
+
+.  
+
+
 The MeasurementFunctions collect data and translate it into concrete logical objects that build the internal data structure inside the OperationalDS.  
-
-Managed Elements and associated MeasurementFunctions (covering availability of termination point + currently effective configuration and status):  
-- [ManagementDomainInterface](#managementdomaininterface)  
-  - p1MeasureListOfManagementDomainInterfaces  
-- [LoadBalancer and Forwarding](#loadbalancer-and-forwarding)  
-  - p1MeasureListOfForwardings  
-- [Controller and MountPoint](#controller-and-mountpoint)  
-  - p1MeasureController
-  - p1MeasureListOfMountPoints  
-
-Managed Connections and associated MeasurementFunctions (covering availability of connection):  
-- [TcpConnectionA, TcpConnectionB, HttpConnection and CopyConnection](#tcpconnectiona-tcpconnectionb-httpconnection-and-copyconnection)  
-  - p1MeasureLinks  
-- [Route](#route)  
-  - p1MeasureRoutes
-- [ManagementPlaneTransport](#managementplanetransport)  
-  - p1MeasureManagementPlaneTransport  
-
 
 ## ManagementDomainInterface  
 
 Applications are managed by another domain (ADM).  
 The CDM's scope is limited to ensuring that the ManagementDomainInterface's configuration is aligned with address and authentication at LoadBalancer, respectively Controller.  
 
-### p1MeasureListOfManagementDomainInterfaces  
+### p1MeasureApplication  
 
 Is addressing the ApplicationDomainManager  
 
@@ -36,7 +25,7 @@ Is addressing the ApplicationDomainManager
 #### Additional Data from Running:
 - management-domain [*]  
   List of names of ManagementDomainInterfaces  
-  from [/network-control-domain=running/control-construct=[application-name]/logical-termination-point=[*]/local-id]
+  from [/network-control-domain=running/control-construct=[application-name]/logical-termination-point=*/local-id]
 
 #### Callback:  
 - to be addressed for every found value of management-domain
@@ -77,7 +66,7 @@ response.body#http-password:
 The CDM encapsulates the LoadBalancer.  
 It manages the entire logical resource of the LoadBalancer, which is the Forwardings.  
 
-### p1MeasureListOfForwardings  
+### p1MeasureNginx  
 
 Is addressing the nginx server at its [management API](https://demo.nginx.com/swagger-ui/)  
 
@@ -137,7 +126,7 @@ LTP Configuration
 The CDM encapsulates the Controller.  
 It manages the entire logical resource of the Controller, which is the MountPoints.  
 
-### p1MeasureController  
+### p1MeasureOdl  
 
 Is addressing the OpenDaylight controller  
 
@@ -163,23 +152,6 @@ Is addressing the OpenDaylight controller
 
 #### Output:  
 ./.
-
-### p1MeasureListOfMountPoints  
-
-Is addressing the OpenDaylight controller  
-
-#### Input:  
-- controller-name  
-  Name of a Controller  
-
-#### Callback:  
-- [ODL://rests/data/network-topology:network-topology/topology=topology-netconf?fields=node](../../Elements/OpenDaylight/OpenDaylight.yaml)  
-
-#### Made Measurements:  
-- response.code!=200 => Controller (incl. all MountPoints) is unavailable  
-- response.body  
-  => List of currently configured MountPoints; MountPoints that are not included are unavailable  
-  => Current configuration and status of all MountPoints  
 
 #### Interpretations:  
 

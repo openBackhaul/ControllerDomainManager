@@ -8,7 +8,7 @@ profile:
         required:
           - template-name
           - category
-          - measure-list-of-forwardings-function-name
+          - measure-load-balancer-function-name
           - construct-forwarding-function-name
           - destruct-forwarding-function-name
           - reconstruct-forwarding-function-name
@@ -24,14 +24,14 @@ profile:
             type: string
             enum:
               - 'loadBalancer'
-          measure-list-of-forwardings-function-name:
+          measure-load-balancer-function-name:
             type: string
             description: >
               'Function for listing the Forwardings that exist inside the LoadBalancer
-              candidate: from [CDM://v1/create-load-balancer-template$request.body#measure-list-of-forwardings-function-name]
+              candidate: from [CDM://v1/create-load-balancer-template$request.body#measure-load-balancer-function-name]
               running: from candidate
               operational: from running'
-            example: 'p1MeasureListOfForwardings'
+            example: 'p1MeasureNginx'
           construct-forwarding-function-name:
             type: string
             description: >

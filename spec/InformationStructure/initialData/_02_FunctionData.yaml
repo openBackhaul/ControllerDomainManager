@@ -285,18 +285,6 @@ function:
   #
   # Measurement
   #
-  - function-name: 'p1MeasurementOrchestrator'
-    function-description: 'Invokes the MeasurementFunctions to retrieve data from the Elements'
-    parameter:
-      - parameter-name: 'functionMeasuringManagementDomainInterface'
-        parameter-value: 'p1MeasureManagementDomainInterface'
-        parameter-definition: 'Name of the function for measuring a ManagementDomainInterface'
-      - parameter-name: 'functionMeasuringForwardings'
-        parameter-value: 'p1MeasureListOfForwardings'
-        parameter-definition: 'Name of the function for measuring the Forwardings'
-      - parameter-name: 'functionMeasuringMountPoints'
-        parameter-value: 'p1MeasureListOfMountPoints'
-        parameter-definition: 'Name of the function for measuring the MountPoints'
 
   #
   # Monitoring

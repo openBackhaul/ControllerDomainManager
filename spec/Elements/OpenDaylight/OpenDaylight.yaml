@@ -6,12 +6,14 @@ info:
 
 paths:
 ########################################################################################################################
-#   Measurement and Implementation
+#   Measurements and Implementations
 ########################################################################################################################
 
-  /rests/data/network-topology:network-topology/topology=topology-netconf?fields=node:
+  # Read MountPoints
+  # Create MountPoint
+  /rests/data/network-topology:network-topology/topology=topology-netconf:
     get:
-      operationId: getMeasureListOfMountPoints
+      operationId: getListOfMountPoints
       summary: 'Provides a list of the configured MountPoints'
       security:
         - basicAuth: []
@@ -276,8 +278,6 @@ paths:
                           netconf-node-optional:notification:
                             subscribe: true
                             stream-name: 'NETCONF'
-
-  /rests/data/network-topology:network-topology/topology=topology-netconf:
     post:
       operationId: postConstructMountPoint
       summary: 'Establishes a new MountPoint'
@@ -313,6 +313,8 @@ paths:
         '201':
           description: 'MountPoint established'
 
+  # Delete MountPoint
+  # Modify MountPoint
   /rests/data/network-topology:network-topology/topology=topology-netconf/node={mount-name}:
     delete:
       operationId: deleteDestructMountPoint
@@ -496,6 +498,530 @@ paths:
       responses:
         '204':
           description: 'MountPoint updated'
+
+  # Read User Definitions
+  # Create User Definition
+  /auth/v1/users:
+    get:
+      operationId: getListOfUsers
+      summary: 'Provides a list of the configured users'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'List of configured users provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userid:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        enabled:
+                          type: integer
+                        email:
+                          type: string
+                          format: email
+                        password:
+                          type: string
+                        salt:
+                          type: string
+                        domainid:
+                          type: string
+                example:
+                  users:
+                    - userid: 'mwdi@sdn'
+                      name: 'mwdi'
+                      description: ''
+                      enabled: 1
+                      email: ''
+                      password: '**********'
+                      salt: '**********'
+                      domainid: 'sdn'
+                    - userid: 'mwdg@sdn'
+                      name: 'mwdg'
+                      description: ''
+                      enabled: 1
+                      email: ''
+                      password: '**********'
+                      salt: '**********'
+                      domainid: 'sdn'
+                    - userid: 'matr@sdn'
+                      name: 'matr'
+                      description: ''
+                      enabled: 1
+                      email: ''
+                      password: '**********'
+                      salt: '**********'
+                      domainid: 'sdn'
+    post:
+      operationId: postConstructUser
+      summary: 'Establishes a new user'
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - password
+                - domainid
+              properties:
+                name:
+                  type: string
+                password:
+                  type: string
+                domainid:
+                  type: string
+              example:
+                name: 'user.name'
+                password: 'geheim'
+                domainid: 'sdn'
+      responses:
+        '201':
+          description: 'User established'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userid:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  enabled:
+                    type: integer
+                  email:
+                    type: string
+                    format: email
+                  password:
+                    type: string
+                  salt:
+                    type: string
+                  domainid:
+                    type: string
+                example:
+                  userid: 'user.name@sdn'
+                  name: 'user.name'
+                  description: ''
+                  enabled: 1
+                  email: ''
+                  password: '**********'
+                  salt: '**********'
+                  domainid: 'sdn'
+
+  # Read Role Definitions
+  # Create Role Definition
+  /auth/v1/roles:
+    get:
+      operationId: getListOfRoles
+      summary: 'Provides a list of the configured roles'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'List of configured roles provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        roleid:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        domainid:
+                          type: string
+                example:
+                  roles:
+                    - roleid: 'user@sdn'
+                      name: 'user'
+                      description: ''
+                      domainid: 'sdn'
+                    - roleid: 'monitor@sdn'
+                      name: 'monitor'
+                      description: ''
+                      domainid: 'sdn'
+                    - roleid: 'planner@sdn'
+                      name: 'planner'
+                      description: ''
+                      domainid: 'sdn'
+                    - roleid: 'siae@sdn'
+                      name: 'siae'
+                      description: ''
+                      domainid: 'sdn'
+    post:
+      operationId: postConstructRole
+      summary: 'Establishes a new role'
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - domainid
+              properties:
+                name:
+                  type: string
+                domainid:
+                  type: string
+              example:
+                name: 'role.name'
+                domainid: 'sdn'
+      responses:
+        '201':
+          description: 'Role established'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roleid:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  domainid:
+                    type: string
+                example:
+                  roleid: 'role.name@sdn'
+                  name: 'role.name'
+                  description: ''
+                  domainid: 'sdn'
+
+  # Read Roles/Groups a User is associated with
+  # Create User Role association (Grant)
+  /auth/v1/domains/sdn/users/{userid}/roles:
+    parameters:
+      - in: path
+        name: userid
+        schema:
+          type: string
+        required: true
+        description: 'user for which associated roles shall be provided'
+    get:
+      operationId: getListOfRolesOfaUser
+      summary: 'Provides the list of roles that are associated with a user'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'List of roles provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        roleid:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        domainid:
+                          type: string
+                example:
+                  roles:
+                    - roleid: 'power-user@sdn'
+                      name: 'power-user'
+                      description: ''
+                      domainid: 'sdn'
+                    - roleid: 'planner@sdn'
+                      name: 'planner'
+                      description: ''
+                      domainid: 'sdn'
+    post:
+      operationId: postConstructRoleAssociation
+      summary: 'Establishes a new role association'
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - roleid
+                - domainid
+              properties:
+                roleid:
+                  type: string
+                domainid:
+                  type: string
+              example:
+                roleid: 'siae@sdn'
+                domainid: 'sdn'
+      responses:
+        '201':
+          description: 'Role association established'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grantid:
+                    type: string
+                  domainid:
+                    type: string
+                  userid:
+                    type: string
+                  roleid:
+                    type: string
+                example:
+                  grantid: 'user.name@sdn@siae@sdn@sdn'
+                  domainid: 'sdn'
+                  userid: 'user.name'
+                  roleid: 'siae@sdn'
+
+  # Read Resources with associated Role/Group Permissions
+  /rests/data/aaa:http-authorization:
+    get:
+      operationId: getListOfResourcesWithRolePermissions
+      summary: 'Provides a list of resources with associated role permissions'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'List of resources with permissions provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aaa:http-authorization:
+                    type: object
+                    properties:
+                      policies:
+                        type: object
+                        properties:
+                          policies:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                resource:
+                                  type: string
+                                  example: '/restconf/**'
+                                permissions:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      role:
+                                        type: string
+                                        example: 'admin'
+                                      actions:
+                                        type: array
+                                        items:
+                                          type: string
+                                          example: 'get'
+                                index:
+                                  type: integer
+                                  example: 0
+                example:
+                  aaa:http-authorization:
+                    policies:
+                      policies:
+                        - resource: '/rests/data/network-topology:network-topology/topology=topology-netconf/node=513250006/**'
+                          permissions:
+                            - role: 'power-user@sdn'
+                              actions:
+                                - 'post'
+                                - 'get'
+                                - 'patch'
+                                - 'put'
+                                - 'delete'
+                            - role: 'siae'
+                              actions:
+                                - 'get'
+
+                          index: 0
+                        - resource: '/rests/data/network-topology:network-topology/topology=topology-netconf/**'
+                          permissions:
+                            - role: 'power-user@sdn'
+                              actions:
+                                - 'post'
+                                - 'get'
+                                - 'patch'
+                                - 'put'
+                                - 'delete'
+                          index: 1
+
+  # Read Permissions on ManagementDomain
+  # Modify Permissions on ManagementDomain
+  /rests/data/aaa:http-authorization/policies/policies=%2Frests%2Fdata%2Fnetwork-topology:network-topology%2Ftopology%3Dtopology-netconf%2F**:
+    get:
+      operationId: getPermissionsOnManagementDomain
+      summary: 'Provides the list permissions on the ManagementDomain'
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: 'List of permissions provided'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aaa:policies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        resource:
+                          type: string
+                        permissions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              role:
+                                type: string
+                              actions:
+                                type: array
+                                items:
+                                  type: string
+                                  enum:
+                                  - 'post'
+                                  - 'get'
+                                  - 'patch'
+                                  - 'put'
+                                  - 'delete'
+                        index:
+                          type: integer
+                example:
+                  aaa:policies:
+                    - resource: '/rests/data/network-topology:network-topology/topology=topology-netconf/**'
+                      permissions:
+                        - role: 'admin'
+                          actions:
+                            - 'post'
+                            - 'get'
+                            - 'patch'
+                            - 'put'
+                            - 'delete'
+                        - role: 'provisioner'
+                          actions:
+                            - 'post'
+                            - 'get'
+                            - 'patch'
+                            - 'put'
+                            - 'delete'
+                        - role: 'planner'
+                          actions:
+                            - 'get'
+                        - role: 'monitor'
+                          actions:
+                            - 'get'
+                      index: 16
+    put:
+      operationId: putPermission
+      summary: 'Establishes a new permission on the ManagementDomain'
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - aaa:policies
+              properties:
+                aaa:policies:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - resource
+                      - permissions
+                      - index
+                    properties:
+                      resource:
+                        type: string
+                      permissions:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - role
+                            - actions
+                          properties:
+                            role:
+                              type: string
+                            actions:
+                              type: array
+                              items:
+                                type: string
+                                enum:
+                                - 'post'
+                                - 'get'
+                                - 'patch'
+                                - 'put'
+                                - 'delete'
+                      index:
+                        type: integer
+              example:
+                aaa:policies:
+                  - resource: '/rests/data/network-topology:network-topology/topology=topology-netconf/**'
+                    permissions:
+                      - role: 'admin'
+                        actions:
+                          - 'post'
+                          - 'get'
+                          - 'patch'
+                          - 'put'
+                          - 'delete'
+                      - role: 'provisioner'
+                        actions:
+                          - 'post'
+                          - 'get'
+                          - 'patch'
+                          - 'put'
+                          - 'delete'
+                      - role: 'planner'
+                        actions:
+                          - 'get'
+                      - role: 'monitor'
+                        actions:
+                          - 'get'
+                    index: 16
+      responses:
+        '204':
+          description: 'Permissions established'
+
 
 ########################################################################################################################
 #   Common Components

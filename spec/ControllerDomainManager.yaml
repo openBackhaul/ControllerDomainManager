@@ -461,7 +461,7 @@ paths:
                 - application-template-name
                 - manager-ip-address
                 - manager-port
-                - measure-list-of-management-domain-interfaces-function-name
+                - measure-management-domain-interface-function-name
                 - reconstruct-management-domain-interfaces-function-name
               properties:
                 application-template-name:
@@ -479,11 +479,11 @@ paths:
                   description: >
                     'TCP port of the ADM
                     to [/network-control-domain=candidate/profile=[applicationTemplateName]/manager-port]'
-                measure-list-of-management-domain-interfaces-function-name:
+                measure-management-domain-interface-function-name:
                   type: string
                   description: >
                     'Function for providing configuration information of a management domain at an application at ADM
-                    to [/network-control-domain=candidate/profile=[applicationTemplateName]/measure-list-of-management-domain-interfaces-function-name]'
+                    to [/network-control-domain=candidate/profile=[applicationTemplateName]/measure-management-domain-interface-function-name]'
                 reconstruct-management-domain-interfaces-function-name:
                   type: string
                   description: >
@@ -493,7 +493,7 @@ paths:
                 application-template-name: 'mw-sdn-application-production'
                 manager-ip-address: '127.0.0.1'
                 manager-port: 4026
-                measure-list-of-management-domain-interfaces-function-name: 'p1MeasureListOfManagementDomainInterfaces'
+                measure-management-domain-interface-function-name: 'p1MeasureListOfManagementDomainInterfaces'
                 reconstruct-management-domain-interfaces-function-name: 'p1ReconstructManagementDomainInterface'
       responses:
         '204':
@@ -745,11 +745,11 @@ paths:
                     description: >
                       'TCP port of the ADM
                       from [/network-control-domain=running/profile=[applicationTemplateName]/manager-port]'
-                  measure-list-of-management-domain-interfaces-function-name:
+                  measure-management-domain-interface-function-name:
                     type: string
                     description: >
                       'Function for providing configuration information of a management domain at an application at ADM
-                      from [/network-control-domain=running/profile=[applicationTemplateName]/measure-list-of-management-domain-interfaces-function-name]'
+                      from [/network-control-domain=running/profile=[applicationTemplateName]/measure-management-domain-interface-function-name]'
                   reconstruct-management-domain-interfaces-function-name:
                     type: string
                     description: >
@@ -759,7 +759,7 @@ paths:
                 application-template-name: 'mw-sdn-application-production'
                 manager-ip-address: '127.0.0.1'
                 manager-port: 4026
-                measure-list-of-management-domain-interfaces-function-name: 'p1MeasureListOfManagementDomainInterfaces'
+                measure-management-domain-interface-function-name: 'p1MeasureListOfManagementDomainInterfaces'
                 reconstruct-management-domain-interfaces-function-name: 'p1ReconstructManagementDomainInterface'
           headers:
             x-correlator:
@@ -841,11 +841,11 @@ paths:
                   description: >
                     'TCP port of the ADM
                     if provided, update [/network-control-domain=candidate/profile=[applicationTemplateName]/manager-port]'
-                measure-list-of-management-domain-interfaces-function-name:
+                measure-management-domain-interface-function-name:
                   type: string
                   description: >
                     'Function for providing configuration information of a management domain at an application at ADM
-                    if provided, update [/network-control-domain=candidate/profile=[applicationTemplateName]/measure-list-of-management-domain-interfaces-function-name]'
+                    if provided, update [/network-control-domain=candidate/profile=[applicationTemplateName]/measure-management-domain-interface-function-name]'
                 reconstruct-management-domain-interfaces-function-name:
                   type: string
                   description: >
@@ -853,7 +853,7 @@ paths:
                     if provided, update [/network-control-domain=candidate/profile=[applicationTemplateName]/reconstruct-management-domain-interfaces-function-name]'
               example:
                 application-template-name: 'mw-sdn-application-production'
-                measure-list-of-management-domain-interfaces-function-name: 'p33MeasureListOfManagementDomainInterfaces'
+                measure-management-domain-interface-function-name: 'p33MeasureListOfManagementDomainInterfaces'
       responses:
         '204':
           description: 'ApplicationTemplate updated'
@@ -922,7 +922,7 @@ paths:
               type: object
               required:
                 - load-balancer-template-name
-                - measure-list-of-forwardings-function-name
+                - measure-load-balancer-function-name
                 - construct-forwarding-function-name
                 - destruct-forwarding-function-name
                 - reconstruct-forwarding-function-name
@@ -932,11 +932,11 @@ paths:
                   description: >
                     'loadBalancerTemplateName
                     to [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/template-name]'
-                measure-list-of-forwardings-function-name:
+                measure-load-balancer-function-name:
                   type: string
                   description: >
                     'Function for listing the Forwardings that exist inside the LoadBalancer
-                    to [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/measure-list-of-forwardings-function-name]'
+                    to [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/measure-load-balancer-function-name]'
                 construct-forwarding-function-name:
                   type: string
                   description: >
@@ -954,7 +954,7 @@ paths:
                     to [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/reconstruct-forwarding-function-name]'
               example:
                 load-balancer-template-name: 'nginx-load-balancer-production'
-                measure-list-of-forwardings-function-name: 'p1MeasureListOfForwardings'
+                measure-load-balancer-function-name: 'p1MeasureNginx'
                 construct-forwarding-function-name: 'p1ConstructForwarding'
                 destruct-forwarding-function-name: 'p1DestructForwarding'
                 reconstruct-forwarding-function-name: 'p1ReconstructForwarding'
@@ -1198,11 +1198,11 @@ paths:
                     description: >
                       'loadBalancerTemplateName
                       from [/network-control-domain=running/profile=[loadBalancerTemplateName]/template-name]'
-                  measure-list-of-forwardings-function-name:
+                  measure-load-balancer-function-name:
                     type: string
                     description: >
                       'Function for listing the Forwardings that exist inside the LoadBalancer
-                      from [/network-control-domain=running/profile=[loadBalancerTemplateName]/measure-list-of-forwardings-function-name]'
+                      from [/network-control-domain=running/profile=[loadBalancerTemplateName]/measure-load-balancer-function-name]'
                   construct-forwarding-function-name:
                     type: string
                     description: >
@@ -1220,7 +1220,7 @@ paths:
                       from [/network-control-domain=running/profile=[loadBalancerTemplateName]/reconstruct-forwarding-function-name]'
                 example:
                   load-balancer-template-name: 'nginx-load-balancer-production'
-                  measure-list-of-forwardings-function-name: 'p1MeasureListOfForwardings'
+                  measure-load-balancer-function-name: 'p1MeasureNginx'
                   construct-forwarding-function-name: 'p1ConstructForwarding'
                   destruct-forwarding-function-name: 'p1DestructForwarding'
                   reconstruct-forwarding-function-name: 'p1ReconstructForwarding'
@@ -1294,11 +1294,11 @@ paths:
                   description: >
                     'loadBalancerTemplateName
                     find in [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/template-name]'
-                measure-list-of-forwardings-function-name:
+                measure-load-balancer-function-name:
                   type: string
                   description: >
                     'Function for listing the Forwardings that exist inside the LoadBalancer
-                    if provided, update [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/measure-list-of-forwardings-function-name]'
+                    if provided, update [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/measure-load-balancer-function-name]'
                 construct-forwarding-function-name:
                   type: string
                   description: >
@@ -1316,7 +1316,7 @@ paths:
                     if provided, update [/network-control-domain=candidate/profile=[loadBalancerTemplateName]/reconstruct-forwarding-function-name]'
               example:
                 load-balancer-template-name: 'nginx-load-balancer-production'
-                measure-list-of-forwardings-function-name: 'p22MeasureListOfForwardings'
+                measure-load-balancer-function-name: 'p22MeasureListOfForwardings'
       responses:
         '204':
           description: 'LoadBalancerTemplate updated'
@@ -1386,7 +1386,6 @@ paths:
               required:
                 - controller-template-name
                 - measure-controller-function-name
-                - measure-list-of-mount-points-function-name
                 - reconstruct-controller-function-name
                 - construct-mount-point-function-name
                 - destruct-mount-point-function-name
@@ -1402,11 +1401,6 @@ paths:
                   description: >
                     'Function for reading the Controller configuration including list of user credentials
                     to [/network-control-domain=candidate/profile=[controllerTemplateName]/measure-controller-function-name]'
-                measure-list-of-mount-points-function-name:
-                  type: string
-                  description: >
-                    'Function for listing the MountPoints that exist inside a Controller
-                    to [/network-control-domain=candidate/profile=[controllerTemplateName]/measure-list-of-mount-points-function-name]'
                 reconstruct-controller-function-name:
                   type: string
                   description: >
@@ -1429,8 +1423,7 @@ paths:
                     to [/network-control-domain=candidate/profile=[controllerTemplateName]/reconstruct-mount-point-function-name]'
               example:
                 controller-template-name: 'odl-controller-production'
-                measure-controller-function-name: 'p1MeasureController'
-                measure-list-of-mount-points-function-name: 'p1MeasureListOfMountPoints'
+                measure-controller-function-name: 'p1MeasureOdl'
                 reconstruct-controller-function-name: 'p1ReconstructController'
                 construct-mount-point-function-name: 'p1ConstructMountPoint'
                 destruct-mount-point-function-name: 'p1DestructMountPoint'
@@ -1680,11 +1673,6 @@ paths:
                     description: >
                       'Function for reading the Controller configuration including list of user credentials
                       from [/network-control-domain=running/profile=[controllerTemplateName]/measure-controller-function-name]'
-                  measure-list-of-mount-points-function-name:
-                    type: string
-                    description: >
-                      'Function for listing the MountPoints that exist inside a Controller
-                      from [/network-control-domain=running/profile=[controllerTemplateName]/measure-list-of-mount-points-function-name]'
                   reconstruct-controller-function-name:
                     type: string
                     description: >
@@ -1707,8 +1695,7 @@ paths:
                       from [/network-control-domain=running/profile=[controllerTemplateName]/reconstruct-mount-point-function-name]'
                 example:
                   controller-template-name: 'odl-controller-production'
-                  measure-controller-function-name: 'p1MeasureController'
-                  measure-list-of-mount-points-function-name: 'p1MeasureListOfMountPoints'
+                  measure-controller-function-name: 'p1MeasureOdl'
                   reconstruct-controller-function-name: 'p1ReconstructController'
                   construct-mount-point-function-name: 'p1ConstructMountPoint'
                   destruct-mount-point-function-name: 'p1DestructMountPoint'
@@ -1788,11 +1775,6 @@ paths:
                   description: >
                     'Function for reading the Controller configuration including list of user credentials
                     if provided, update [/network-control-domain=candidate/profile=[controllerTemplateName]/measure-controller-function-name]'
-                measure-list-of-mount-points-function-name:
-                  type: string
-                  description: >
-                    'Function for listing the MountPoints that exist inside a Controller
-                    if provided, update [/network-control-domain=candidate/profile=[controllerTemplateName]/measure-list-of-mount-points-function-name]'
                 reconstruct-controller-function-name:
                   type: string
                   description: >
@@ -4059,17 +4041,24 @@ paths:
                                         type: string
                                         description: >
                                           'applicationName
-                                          from [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=*/local-id]'
+                                          from [/network-control-domain=running/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=*/local-id]'
                                       http-user-name:
                                         type: string
                                         description: >
                                           'applicationName used as name of the user applied by the application to authenticate at the Controller
-                                          from [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=*/http-user-name]'
+                                          from [/network-control-domain=running/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=*/http-user-name]'
                                       http-password:
                                         type: string
                                         description: >
                                           'Password of the user applied by the application to authenticate at the Controller
-                                          from [/network-control-domain=running/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=*/http-password]'
+                                          from [/network-control-domain=running/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=*/http-password]'
+                                      http-methods:
+                                        type: array
+                                        description: >
+                                          'List of HTTP methods allowed to be requested by the user on the Controller
+                                          from [/network-control-domain=running/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=*/http-methods]'
+                                        items:
+                                          type: string
                                   - description: 'tcpServer'
                                     type: object
                                     required:
@@ -4184,10 +4173,12 @@ paths:
                       layer-protocol:
                         - interface-type: 'http-server'
                           http-user-name: 'admin'
-                          http-password: 'admin'
+                          http-password: 'geheim1'
                         - interface-type: 'mwdi-201-production'
                           http-user-name: 'mwdi-201-production'
-                          http-password: 'admin'
+                          http-password: 'geheim1'
+                          http-methods:
+                            - 'get'
                         - interface-type: tcp-server
                           local-ip-address: '127.0.0.1'
                           local-port: 1001
@@ -4371,6 +4362,11 @@ paths:
                                         description: >
                                           'Password of the user applied by the application to authenticate at the Controller
                                           from [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=*/http-password]'
+                                      http-methods:
+                                        type: array
+                                        description: >
+                                          'List of HTTP methods allowed to be requested by the user on the Controller
+                                          from [/network-control-domain=operational/control-construct=[controllerName]/logical-termination-point=controller-manager/layer-protocol=*/http-methods]'
                                   - description: 'tcpServer'
                                     type: object
                                     required:
@@ -4499,6 +4495,8 @@ paths:
                         - local-id: 'mwdi-201-production'
                           http-user-name: 'mwdi-201-production'
                           http-password: 'admin'
+                          http-methods:
+                            - 'get'
                         - local-id: tcp-server
                           local-ip-address: '127.0.0.1'
                           local-port: 1001
@@ -4886,7 +4884,7 @@ paths:
                       type: string
                       description: >
                         'applicationName
-                        from [/network-control-domain=running/control-construct=[controllers[0]]/logical-termination-point=controller-manager/layer-protocol=*/local-id] but *!={http-server, tcp-server}'
+                        from [/network-control-domain=running/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=*/local-id]'
                 example:
                   controllers:
                     - 'odl-1-production'
@@ -5252,6 +5250,7 @@ paths:
                 - application-name
                 - management-domain
                 - http-password
+                - http-methods
               properties:
                 application-name:
                   type: string
@@ -5271,10 +5270,27 @@ paths:
                     and to [/network-control-domain=candidate/control-construct=[managementDomain]/logical-termination-point=controller-manager/layer-protocol=[applicationName]/http-password]
                     TcpConnection between Application and Forwarding/Controller to be established
                     HttpConnection between Application and Controller to be established'
+                http-methods:
+                  type: array
+                  description: >
+                    'List of HTTP methods allowed to be requested by the user on the Controller
+                    candidate: from [CDM://v1/establish-management-domain-connection$request.body#http-methods]
+                    running: from candidate
+                    operational:
+                  items:
+                    type: string
+                    enum:
+                    - 'post'
+                    - 'get'
+                    - 'patch'
+                    - 'put'
+                    - 'delete'
               example:
                 application-name: 'mwdi-201-production'
                 management-domain: 'live'
                 http-password: 'admin'
+                http-methods:
+                  - 'get'
       responses:
         '204':
           description: 'Application to ManagementDomain connected'
@@ -12348,19 +12364,6 @@ paths:
                           description: >
                             'Invariant description of the parameter
                             from [/domain-controller/function=functionName/parameter=parameterName/parameter-definition]'
-                example:
-                  function-name: 'p1MeasurementOrchestrator'
-                  function-description: 'Invokes the MeasurementFunctions to retrieve data from the Elements'
-                  parameter:
-                    - parameter-name: 'functionMeasuringManagementDomainInterface'
-                      parameter-value: 'p1MeasureManagementDomainInterface'
-                      parameter-definition: 'Name of the function for measuring a ManagementDomainInterface'
-                    - parameter-name: 'functionMeasuringForwardings'
-                      parameter-value: 'p1MeasureListOfForwardings'
-                      parameter-definition: 'Name of the function for measuring the Forwardings'
-                    - parameter-name: 'functionMeasuringMountPoints'
-                      parameter-value: 'p1MeasureListOfMountPoints'
-                      parameter-definition: 'Name of the function for measuring the MountPoints'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':

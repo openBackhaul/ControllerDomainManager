@@ -8,9 +8,10 @@ profile:
         required:
           - template-name
           - category
-          - measure-list-of-mount-points-function-name
+          - measure-controller-function-name
           - reconstruct-mount-point-function-name
           - destruct-mount-point-function-name
+          - user-list
         properties:
           template-name:
             type: string
@@ -30,15 +31,7 @@ profile:
               candidate: from [CDM://v1/create-controller-template$request.body#measure-controller-function-name]
               running: from candidate
               operational: from running'
-            example: 'p1MeasureController'
-          measure-list-of-mount-points-function-name:
-            type: string
-            description: >
-              'Function for listing the MountPoints that exist inside a Controller
-              candidate: from [CDM://v1/create-controller-template$request.body#measure-list-of-mount-points-function-name]
-              running: from candidate
-              operational: from running'
-            example: 'p1MeasureListOfMountPoints'
+            example: 'p1MeasureOdl'
           reconstruct-controller-function-name:
             type: string
             description: >

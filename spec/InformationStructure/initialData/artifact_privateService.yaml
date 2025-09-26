@@ -10,15 +10,13 @@
 #
 # Measurement
 #
-- operation-name: /p1/measurement-orchestrator
+- operation-name: p1MeasurementOrchestrator
   uuid:
 - operation-name: p1MeasureListOfManagementDomainInterfaces
   uuid:
 - operation-name: /p1/measure-list-of-forwardings
   uuid:
-- operation-name: p1MeasureController
-  uuid:
-- operation-name: p1MeasureListOfMountPoints
+- operation-name: p1MeasureOdl
   uuid:
 - operation-name: p1MeasureLinks
   uuid:
